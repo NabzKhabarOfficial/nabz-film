@@ -81,8 +81,6 @@ jobs:
                   out[-1]["watch"]=regions
               except Exception as e:
                   print(f"providers skip {typ}/{tid}: {e}")
-              except Exception as e:
-                  print(f"skip {typ}/{tid}: {e}")
               time.sleep(0.08)
 
           out.sort(key=lambda x:x.get("rating",0),reverse=True)
