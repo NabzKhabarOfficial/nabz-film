@@ -1,14 +1,14 @@
 const FALLBACK=window.NABZ_DATA||[];
 const GENRES={28:"اکشن",12:"ماجراجویی",16:"انیمیشن",35:"کمدی",80:"جنایی",99:"مستند",18:"درام",10751:"خانوادگی",14:"فانتزی",36:"تاریخی",27:"ترسناک",10402:"موسیقی",9648:"معمایی",10749:"عاشقانه",878:"علمی‌تخیلی",10770:"فیلم تلویزیونی",53:"هیجان‌انگیز",10752:"جنگی",37:"وسترن",10759:"اکشن و ماجراجویی",10765:"علمی‌تخیلی و فانتزی",10768:"جنگ و سیاست"};
 const $=s=>document.querySelector(s);
-const grid=$("#catalog"),search=$("#search"),type=$("#type"),genre=$("#genre"),sort=$("#sort"),count=$("#count"),modal=$("#modal"),detail=$("#detail"),hero=$("#hero");
+const grid=$("#catalogGrid"),search=$("#search"),type=$("#type"),genre=$("#genre"),sort=$("#sort"),count=$("#count"),modal=$("#modal"),detail=$("#detail"),hero=$("#hero");
 let data=[], activeGenre="";
 
 const esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const img=v=>v||"";
 function normalize(x){
   const ids=Array.isArray(x.genre_ids)?x.genre_ids:[];
-  const genres=Array.isArray(x.genres)?x.genres:(Array.isArray(x.genre)?x.genre:ids.map(id=>GENRES[id]||"سایر"));
+  const genres0=Array.isArray(x.genres)?x.genres:(Array.isArray(x.genre)?x.genre:ids.map(id=>GENRES[id]||"سایر")); const GNAME={"Action":"اکشن","Adventure":"ماجراجویی","Animation":"انیمیشن","Comedy":"کمدی","Crime":"جنایی","Documentary":"مستند","Drama":"درام","Family":"خانوادگی","Fantasy":"فانتزی","History":"تاریخی","Horror":"ترسناک","Music":"موسیقی","Mystery":"معمایی","Romance":"عاشقانه","Science Fiction":"علمی‌تخیلی","Thriller":"هیجان‌انگیز","War":"جنگی","Western":"وسترن","Action & Adventure":"اکشن و ماجراجویی","Sci-Fi & Fantasy":"علمی‌تخیلی و فانتزی","War & Politics":"جنگ و سیاست","TV Movie":"فیلم تلویزیونی"}; const genres=genres0.map(g=>GNAME[g]||g);
   return {...x,fa:x.fa||x.title||"بدون عنوان",genres};
 }
 function setupGenres(){
