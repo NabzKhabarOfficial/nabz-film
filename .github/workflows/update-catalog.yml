@@ -1,0 +1,46 @@
+name: Build movie database
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch TMDB catalog
+        env:
+          TMDB_TOKEN: ${{ secrets.TMDB_TOKEN }}
+        run: |
+          test -n "$TMDB_TOKEN" || (echo "TMDB_TOKEN secret is missing" && exit 1)
+          curl -sS --fail --request GET             --url "https://api.themoviedb.org/3/trending/all/day?language=fa-IR"             --header "Authorization: Bearer $TMDB_TOKEN"             --header "accept: application/json"             -o /tmp/trending.json
+          python - <<'PY'
+          import json
+          src=json.load(open('/tmp/trending.json',encoding='utf-8'))
+          out=[]
+          for x in src.get('results',[])[:40]:
+              typ='movie' if x.get('media_type')=='movie' else 'series'
+              title=x.get('title') or x.get('name') or ''
+              original=x.get('original_title') or x.get('original_name') or ''
+              date=x.get('release_date') or x.get('first_air_date') or ''
+              out.append({
+                'id':x.get('id'),'type':typ,'title':original,'fa':title,
+                'year':int(date[:4]) if date[:4].isdigit() else None,
+                'genre_ids':x.get('genre_ids',[]),'rating':round(float(x.get('vote_average') or 0),1),
+                'poster':('https://image.tmdb.org/t/p/w500'+x['poster_path']) if x.get('poster_path') else '',
+                'overview':x.get('overview') or ''
+              })
+          json.dump(out,open('catalog.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
+          PY
+      - name: Commit catalog
+        run: |
+          git config user.name "nabz-film-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add catalog.json
+          git diff --cached --quiet || git commit -m "Update TMDB catalog"
+          git push
