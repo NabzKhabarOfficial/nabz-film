@@ -33,9 +33,9 @@ jobs:
 
           items=[]
           seen=set()
-          for endpoint,typ in [("/trending/movie/day","movie"),("/trending/tv/day","series")]:
+          for endpoint,typ in [("/trending/movie/day","movie"),("/trending/tv/day","series"),("/movie/popular","movie"),("/tv/popular","series")]:
               page=get(endpoint,{"language":"fa-IR"}) 
-              for x in page.get("results",[])[:20]:
+              for x in page.get("results",[])[:18]:
                   if x.get("id") in seen: continue
                   seen.add(x["id"])
                   items.append((x["id"],typ))
@@ -73,7 +73,7 @@ jobs:
                   })
               except Exception as e:
                   print(f"skip {typ}/{tid}: {e}")
-              time.sleep(0.15)
+              time.sleep(0.08)
 
           out.sort(key=lambda x:x.get("rating",0),reverse=True)
           json.dump(out,open("catalog.json","w",encoding="utf-8"),ensure_ascii=False,indent=2)
