@@ -34,10 +34,10 @@ function card(x){
  return '<article class="card" data-id="'+esc(x.id)+'"><div class="poster"><img loading="lazy" src="'+esc(x.poster||"")+'" alt="'+esc(x.fa)+'"><span class="badge rate">★ '+esc(x.rating||"—")+'</span><span class="badge kind">'+(x.type==="movie"?"فیلم":"سریال")+'</span><button class="fav '+(fav?"on":"")+'" data-fav="'+esc(x.id)+'" aria-label="علاقه‌مندی">'+(fav?"♥":"♡")+'</button></div><div class="info"><h3>'+esc(x.fa)+'</h3><p>'+esc(x.year||"—")+' • '+esc((x.genres||[]).slice(0,2).join("، "))+'</p></div></article>';
 }
 function filtered(){
- const q=(search.value+" "+catalogSearch.value).trim().toLocaleLowerCase("fa"),fq=search.value.trim().toLocaleLowerCase("fa");
+ const q1=search.value.trim().toLocaleLowerCase("fa"),q2=catalogSearch.value.trim().toLocaleLowerCase("fa");
  let list=data.filter(x=>{
   const text=(x.fa+" "+x.title).toLocaleLowerCase("fa");
-  return (type.value==="all"||type.value==="favorite"||x.type===type.value)&&(!genre.value||(x.genres||[]).includes(genre.value))&&(!q||text.includes(q)||!fq&&text.includes(catalogSearch.value.trim().toLocaleLowerCase("fa")))&&(type.value!=="favorite"||getFav().includes(String(x.id)));
+  return (type.value==="all"||type.value==="favorite"||x.type===type.value)&&(!genre.value||(x.genres||[]).includes(genre.value))&&(!q1||text.includes(q1))&&(!q2||text.includes(q2))&&(type.value!=="favorite"||getFav().includes(String(x.id)));
  });
  if(sort.value==="rating")list.sort((a,b)=>(b.rating||0)-(a.rating||0));
  if(sort.value==="year")list.sort((a,b)=>(b.year||0)-(a.year||0));
