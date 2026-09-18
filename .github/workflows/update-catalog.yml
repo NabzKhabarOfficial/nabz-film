@@ -35,7 +35,7 @@ jobs:
           seen=set()
           for endpoint,typ in [("/trending/movie/day","movie"),("/trending/tv/day","series"),("/movie/popular","movie"),("/tv/popular","series")]:
               page=get(endpoint,{"language":"fa-IR"}) 
-              for x in page.get("results",[])[:18]:
+              for x in page.get("results",[])[:30]:
                   if x.get("id") in seen: continue
                   seen.add(x["id"])
                   items.append((x["id"],typ))
@@ -69,8 +69,18 @@ jobs:
                     "seasons":d.get("number_of_seasons"),
                     "status":d.get("status") or "",
                     "cast":cast,"trailer":trailer,
-                    "tmdb_url":"https://www.themoviedb.org/"+("movie/" if typ=="movie" else "tv/")+str(tid)
+                    "tmdb_url":"https://www.themoviedb.org/"+("movie/" if typ=="movie" else "tv/")+str(tid),
+                    "watch":{}
                   })
+              try:
+                  wp=get(f"/movie/{tid}/watch/providers" if typ=="movie" else f"/tv/{tid}/watch/providers",{})
+                  regions={}
+                  for rc in ("AZ","US"):
+                      rr=wp.get("results",{}).get(rc,{})
+                      if rr: regions[rc]={"link":rr.get("link",""),"flatrate":rr.get("flatrate",[]),"free":rr.get("free",[]),"ads":rr.get("ads",[]),"rent":rr.get("rent",[]),"buy":rr.get("buy",[])}
+                  out[-1]["watch"]=regions
+              except Exception as e:
+                  print(f"providers skip {typ}/{tid}: {e}")
               except Exception as e:
                   print(f"skip {typ}/{tid}: {e}")
               time.sleep(0.08)
