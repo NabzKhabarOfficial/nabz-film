@@ -1,0 +1,12 @@
+window.NABZ_DATA=[
+{id:1,type:"movie",title:"The Shawshank Redemption",fa:"رستگاری در شاوشنک",year:1994,genre:["درام"],rating:9.3,poster:"https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",overview:"داستان امید و دوستی در دل یک زندان سخت."},
+{id:2,type:"movie",title:"Inception",fa:"تلقین",year:2010,genre:["علمی‌تخیلی","اکشن","درام"],rating:8.8,poster:"https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",overview:"یک دزد حرفه‌ای وارد دنیای پیچیده رویاها می‌شود."},
+{id:3,type:"movie",title:"Interstellar",fa:"میان‌ستاره‌ای",year:2014,genre:["علمی‌تخیلی","درام"],rating:8.7,poster:"https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",overview:"سفری فراتر از زمین برای یافتن آینده‌ای برای بشر."},
+{id:4,type:"movie",title:"The Dark Knight",fa:"شوالیه تاریکی",year:2008,genre:["اکشن","درام"],rating:9.0,poster:"https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",overview:"بتمن با تهدیدی تازه و غیرقابل پیش‌بینی روبه‌رو می‌شود."},
+{id:5,type:"movie",title:"The Matrix",fa:"ماتریکس",year:1999,genre:["اکشن","علمی‌تخیلی"],rating:8.7,poster:"https://image.tmdb.org/t/p/w500/p96dm7sCMn4VYAStA6siNz30G1r.jpg",overview:"مرز میان واقعیت و یک شبیه‌سازی عظیم زیر سؤال می‌رود."},
+{id:6,type:"movie",title:"Forrest Gump",fa:"فارست گامپ",year:1994,genre:["درام","کمدی"],rating:8.8,poster:"https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",overview:"زندگی یک مرد ساده در میان رویدادهای مهم چند دهه آمریکا."},
+{id:7,type:"series",title:"Breaking Bad",fa:"بریکینگ بد",year:2008,genre:["درام","جنایی"],rating:9.5,poster:"https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",overview:"معلم شیمی‌ای که پس از یک تشخیص سخت وارد دنیای جرم می‌شود."},
+{id:8,type:"series",title:"Stranger Things",fa:"چیزهای عجیب",year:2016,genre:["علمی‌تخیلی","درام"],rating:8.6,poster:"https://image.tmdb.org/t/p/w500/uOOtwVbSr4QDjAGIifLDwpb2Pdl.jpg",overview:"ناپدید شدن یک پسر، گروهی از دوستان را وارد رازهای عجیب می‌کند."},
+{id:9,type:"series",title:"Dark",fa:"دارک",year:2017,genre:["علمی‌تخیلی","درام"],rating:8.7,poster:"https://image.tmdb.org/t/p/w500/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg",overview:"ناپدید شدن کودکی، رازهای چند نسل و پیچیدگی زمان را آشکار می‌کند."},
+{id:10,type:"series",title:"Sherlock",fa:"شرلوک",year:2010,genre:["جنایی","درام"],rating:9.1,poster:"https://image.tmdb.org/t/p/w500/7WTsnHkbA0FaG6R9twfFde0I9hl.jpg",overview:"کارآگاهی مدرن با ذهنی خارق‌العاده پرونده‌های پیچیده را حل می‌کند."}
+];
