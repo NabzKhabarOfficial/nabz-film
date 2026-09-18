@@ -1,234 +1,46 @@
 [
   {
-    "id": 299939,
+    "id": 287620,
     "type": "series",
-    "title": "Monster: The Lizzie Borden Story",
-    "fa": "Monster: The Lizzie Borden Story",
+    "title": "Stuart Fails to Save the Universe",
+    "fa": "استوارت در نجات جهان شکست خورد",
     "year": 2026,
-    "genre_ids": [
-      18,
-      80
+    "genres": [
+      "Comedy",
+      "Sci-Fi & Fantasy"
     ],
-    "rating": 7.7,
-    "poster": "https://image.tmdb.org/t/p/w500/57XScX1aYtKi1LvHYFQLPUxVhTG.jpg",
-    "overview": ""
-  },
-  {
-    "id": 1423191,
-    "type": "movie",
-    "title": "Resident Evil",
-    "fa": "رزیدنت ایول",
-    "year": 2026,
-    "genre_ids": [
-      27,
-      878,
-      12
+    "rating": 8.8,
+    "poster": "https://image.tmdb.org/t/p/w500/txj8ujTZwGUjpCdhCsQBnTlh4aS.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/nW7oUFiJrIWwll4mZ8tYays7XRm.jpg",
+    "overview": "استوارت بلوم، صاحب فروشگاه کتاب‌های مصور، پس از اینکه به‌طور تصادفی یک چندجهانی جدید ایجاد می‌کند، باید یک دستگاه تداخل کوانتومی پیدا کند تا واقعیت را بازیابی کند.",
+    "runtime": null,
+    "episodes": 10,
+    "seasons": 2,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "کوین سوسمن",
+        "character": "Stuart Bloom / Alternate Stuart Bloom",
+        "photo": "https://image.tmdb.org/t/p/w185/tLqrE9uz6GKoeoDC7LU7cE6oF2Q.jpg"
+      },
+      {
+        "name": "لورن لپکس",
+        "character": "Denise / Alternate Denise",
+        "photo": "https://image.tmdb.org/t/p/w185/zevTufkY38eRvWPslh5c1azdhQN.jpg"
+      },
+      {
+        "name": "برایان پوسن",
+        "character": "Bert Kibbler",
+        "photo": "https://image.tmdb.org/t/p/w185/kg93LNpDQaRoosR4gVt7SsA3oL1.jpg"
+      },
+      {
+        "name": "John Ross Bowie",
+        "character": "Barry Kripke",
+        "photo": "https://image.tmdb.org/t/p/w185/XAv1RilHZu7qiGGIOgikrLgHeD.jpg"
+      }
     ],
-    "rating": 7.7,
-    "poster": "https://image.tmdb.org/t/p/w500/i7UyjfPio0VFHB9rBUZSFyhOoM8.jpg",
-    "overview": ""
-  },
-  {
-    "id": 247718,
-    "type": "series",
-    "title": "MobLand",
-    "fa": "سرزمین اوباش",
-    "year": 2025,
-    "genre_ids": [
-      80,
-      18
-    ],
-    "rating": 8.4,
-    "poster": "https://image.tmdb.org/t/p/w500/uwUKwVPjVaOmnXd3aylvpWNodXo.jpg",
-    "overview": "دو خانواده خلافکار در نبردی سرنوشت ساز با هم درگیر شده اند و در این میان، هری دسوزا، یک کار چاق کن باسابقه، بین دو خاندان گرفتار شده است و باید تصمیمی سرنوشت ساز بگیرد..."
-  },
-  {
-    "id": 275102,
-    "type": "series",
-    "title": "스캔들",
-    "fa": "스캔들",
-    "year": 2026,
-    "genre_ids": [
-      18
-    ],
-    "rating": 6.0,
-    "poster": "https://image.tmdb.org/t/p/w500/8ra17h8Z3NX14qdWaOKn0scURJR.jpg",
-    "overview": ""
-  },
-  {
-    "id": 1641629,
-    "type": "movie",
-    "title": "Toi+Moi - Seuls contre tous",
-    "fa": "Toi+Moi - Seuls contre tous",
-    "year": 2026,
-    "genre_ids": [
-      10749,
-      18
-    ],
-    "rating": 5.2,
-    "poster": "https://image.tmdb.org/t/p/w500/xwzLNsGMh1yDRGOGH58ftPWmfzq.jpg",
-    "overview": ""
-  },
-  {
-    "id": 1101383,
-    "type": "movie",
-    "title": "The End of Oak Street",
-    "fa": "انتهای خیابان اوک",
-    "year": 2026,
-    "genre_ids": [
-      878,
-      9648,
-      53
-    ],
-    "rating": 6.9,
-    "poster": "https://image.tmdb.org/t/p/w500/vp0HL1AadTFIuJ0gePaMqoeVxOy.jpg",
-    "overview": ""
-  },
-  {
-    "id": 273207,
-    "type": "series",
-    "title": "Neagley",
-    "fa": "نیگلی",
-    "year": 2026,
-    "genre_ids": [
-      18,
-      9648,
-      80
-    ],
-    "rating": 7.8,
-    "poster": "https://image.tmdb.org/t/p/w500/hOwt9Y4G66AtWQ3E6paiols5nIc.jpg",
-    "overview": "نیگلی، با تکیه بر تجربه‌اش با جک ریچر و تیم ۱۱۰ بازرس ویژه، مأموریتی خطرناک را برای افشای یک تهدید شوم آغاز می‌کند و جان خود را برای کشف این راز به خطر می‌اندازد."
-  },
-  {
-    "id": 1240889,
-    "type": "movie",
-    "title": "Teenage Sex and Death at Camp Miasma",
-    "fa": "Teenage Sex and Death at Camp Miasma",
-    "year": 2026,
-    "genre_ids": [
-      35,
-      27,
-      10749,
-      53
-    ],
-    "rating": 6.7,
-    "poster": "https://image.tmdb.org/t/p/w500/nLsFnXifieSTqSeWxjXSS8RvaUZ.jpg",
-    "overview": ""
-  },
-  {
-    "id": 108978,
-    "type": "series",
-    "title": "Reacher",
-    "fa": "ریچر",
-    "year": 2022,
-    "genre_ids": [
-      10759,
-      80
-    ],
-    "rating": 8.1,
-    "poster": "https://image.tmdb.org/t/p/w500/n0Cuyzq5W47WRWyvtS3Zsn8trJI.jpg",
-    "overview": "ریچر؛ سریالی در ژانر جنایی مهیج محصول سرویس ویدئویی آمازون است. سریال بر اساس رُمان قتلگاه نوشتهٔ لی چایلد و با بازی آلن ریچسون در نقش اصلی است. تام کروز سابقا در دو فیلم نقش جک ریچر را ایفا کرده بود. یک کهنه سرباز پرافتخار به نام جک ریچر با ادعای شاهدان صحنه‌ جنایت، به جرم قتل در یک شهر کوچک متهم و دستگیر می‌شود. به همین دلیل جک ریچر تلاش می‌کند تا بی‌گناهی خود را با یافتن قاتل حقیقی ثابت کند و از این جرم بی‌پایه و اساس تبرئه شود اما…"
-  },
-  {
-    "id": 1451944,
-    "type": "movie",
-    "title": "Lust Stories 3",
-    "fa": "Lust Stories 3",
-    "year": 2026,
-    "genre_ids": [
-      10749,
-      18
-    ],
-    "rating": 7.0,
-    "poster": "https://image.tmdb.org/t/p/w500/qbsuF8RazV42POTJLxItQ6Udd3n.jpg",
-    "overview": ""
-  },
-  {
-    "id": 224263,
-    "type": "series",
-    "title": "Stranger Things: Tales from '85",
-    "fa": "Stranger Things: Tales from '85",
-    "year": 2026,
-    "genre_ids": [
-      16,
-      10765,
-      9648,
-      10759
-    ],
-    "rating": 7.6,
-    "poster": "https://image.tmdb.org/t/p/w500/A3XPMauRPUDbqvjMK4ITKrLHgoU.jpg",
-    "overview": ""
-  },
-  {
-    "id": 196322,
-    "type": "series",
-    "title": "Dark Matter",
-    "fa": "Dark Matter",
-    "year": 2024,
-    "genre_ids": [
-      10765,
-      18
-    ],
-    "rating": 7.8,
-    "poster": "https://image.tmdb.org/t/p/w500/sqhzrahwEQ9rJQNRMaWqTBys19d.jpg",
-    "overview": "جیسون دسن به نسخه‌ای دیگر از زندگی‌اش ربوده می‌شود. برای بازگشت به خانواده‌ی واقعی‌اش، او سفری پرمخاطره را آغاز می‌کند تا آن‌ها را از وحشتناک‌ترین دشمنی که می‌توان تصور کرد نجات دهد: از خودش."
-  },
-  {
-    "id": 232018,
-    "type": "series",
-    "title": "Has Fallen",
-    "fa": "سقوط پاریس",
-    "year": 2024,
-    "genre_ids": [
-      10759,
-      10768
-    ],
-    "rating": 7.0,
-    "poster": "https://image.tmdb.org/t/p/w500/aFIGvsWknUfDIdjrkJNknyNuZZL.jpg",
-    "overview": "پس از یک حمله تروریستی، یک افسر حفاظت و یک مأمور عملیاتی MI6 با هم متحد می‌شوند. آن‌ها در حالی که برای خنثی کردن توطئه‌ای بزرگ‌تر که پاریس را تهدید می‌کند، تلاش می‌کنند، به یک جاسوس نفوذی مشکوک می‌شوند."
-  },
-  {
-    "id": 2190,
-    "type": "series",
-    "title": "South Park",
-    "fa": "ساوت پارک",
-    "year": 1997,
-    "genre_ids": [
-      16,
-      35
-    ],
-    "rating": 8.3,
-    "poster": "https://image.tmdb.org/t/p/w500/k7n2EVge7G77eMr3brztRGG1fFU.jpg",
-    "overview": "ماجراهای ناگوار چهار دانش‌آموز ابتدایی بی‌ادب را در شهر آرام و درب و داغون ساوت پارک، کلرادو دنبال می‌کند."
-  },
-  {
-    "id": 969681,
-    "type": "movie",
-    "title": "Spider-Man: Brand New Day",
-    "fa": "مرد عنکبوتی: روز کاملاً جدید",
-    "year": 2026,
-    "genre_ids": [
-      878,
-      28,
-      12
-    ],
-    "rating": 7.8,
-    "poster": "https://image.tmdb.org/t/p/w500/1L3cdPDp1ic3JYnYAEp8AKxZMPc.jpg",
-    "overview": ""
-  },
-  {
-    "id": 1656489,
-    "type": "movie",
-    "title": "Sultana",
-    "fa": "Sultana",
-    "year": 2026,
-    "genre_ids": [
-      18,
-      10402
-    ],
-    "rating": 5.5,
-    "poster": "https://image.tmdb.org/t/p/w500/wDebpR4NplIM8EteAGfd51Zdisu.jpg",
-    "overview": ""
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/287620"
   },
   {
     "id": 332401,
@@ -236,25 +48,232 @@
     "title": "City of Blood",
     "fa": "City of Blood",
     "year": 2026,
-    "genre_ids": [
-      9648
+    "genres": [
+      "Mystery"
     ],
     "rating": 8.6,
     "poster": "https://image.tmdb.org/t/p/w500/uDrW8sRRkh8P7N0l19BNrCrG6CW.jpg",
-    "overview": ""
+    "backdrop": "https://image.tmdb.org/t/p/w1280/icPBB9V5IX1hggtNs1fvskP2lsi.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 8,
+    "seasons": 1,
+    "status": "Ended",
+    "cast": [
+      {
+        "name": "Lea Drinda",
+        "character": "Bea Hoffmann",
+        "photo": "https://image.tmdb.org/t/p/w185/1HYkiGcfdo9Gc5klqbRHpn1jJ4P.jpg"
+      },
+      {
+        "name": "Soma Pysall",
+        "character": "Phoebe Kaya",
+        "photo": "https://image.tmdb.org/t/p/w185/n6FI3M8AeMQnm1MjActLjo4rrfC.jpg"
+      },
+      {
+        "name": "Franz Hartwig",
+        "character": "Johan Moderson",
+        "photo": "https://image.tmdb.org/t/p/w185/x1sAXpEBTRVFq0yc6xkWuX166Lc.jpg"
+      },
+      {
+        "name": "David Schütter",
+        "character": "Oliver Lawal",
+        "photo": "https://image.tmdb.org/t/p/w185/eCyL55l0fb9tccOQfdCGCd7XKAf.jpg"
+      },
+      {
+        "name": "Mouataz Alshaltouh",
+        "character": "Yassin",
+        "photo": "https://image.tmdb.org/t/p/w185/24189XQS0pUOZjHSMXuGJyT73cI.jpg"
+      },
+      {
+        "name": "Jördis Triebel",
+        "character": "Laura Hoffmann",
+        "photo": "https://image.tmdb.org/t/p/w185/ccKpVED4GwvqpbDpSDvZ5a7Be2Z.jpg"
+      },
+      {
+        "name": "Jenny Schily",
+        "character": "Szen",
+        "photo": "https://image.tmdb.org/t/p/w185/uLSzbVgZCL2v80G5eP2KIbExnVo.jpg"
+      },
+      {
+        "name": "لارس آیدینگر",
+        "character": "Zeno Gennardi",
+        "photo": "https://image.tmdb.org/t/p/w185/l42T2eq3UTlQWsGlpIJUTyyp7sp.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/332401"
   },
   {
-    "id": 298008,
-    "type": "series",
-    "title": "ダウンタイム",
-    "fa": "ダウンタイム",
+    "id": 1084244,
+    "type": "movie",
+    "title": "Toy Story 5",
+    "fa": "داستان اسباب‌بازی ۵",
     "year": 2026,
-    "genre_ids": [
-      18
+    "genres": [
+      "Animation",
+      "Family",
+      "Comedy",
+      "Adventure"
     ],
-    "rating": 7.0,
-    "poster": "https://image.tmdb.org/t/p/w500/zUp3F7qtpJIUMsf31DDLNx1xOdS.jpg",
-    "overview": ""
+    "rating": 8.4,
+    "poster": "https://image.tmdb.org/t/p/w500/1bj6ff8Arm8qOMrU2luM8vSlDMt.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/qjTqY5coNiz6sVtPng40IzltsoN.jpg",
+    "overview": "",
+    "runtime": 102,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "Joan Cusack",
+        "character": "Jessie (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/59UIeHZFYrKyP20lXqijtfTXglO.jpg"
+      },
+      {
+        "name": "تام هنکس",
+        "character": "Woody (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/oFvZoKI6lvU03n4YoNGAll9rkas.jpg"
+      },
+      {
+        "name": "تیم آلن",
+        "character": "Buzz Lightyear (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/woWhZzFILVhYMAvsPL171HjMY0y.jpg"
+      },
+      {
+        "name": "کونن اوبراین",
+        "character": "Smarty Pants (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/deRbViPut0t80miscBpP2DhBJU5.jpg"
+      },
+      {
+        "name": "Scarlett Spears",
+        "character": "Bonnie (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/h0loJ4v3wbUfUA6dxUYv7B6fET1.jpg"
+      },
+      {
+        "name": "گرتا لی",
+        "character": "Lilypad (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/6SydTis4XUcovlwIGskT59JowLX.jpg"
+      },
+      {
+        "name": "شلبی رابارا",
+        "character": "Snappy (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/ouMiEKlhCj2LFKEQtI6fGRMDemF.jpg"
+      },
+      {
+        "name": "Mykal-Michelle Harris",
+        "character": "Blaze (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/4TvVJYo8gEks8cegfNoZogXJgp2.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1084244"
+  },
+  {
+    "id": 247718,
+    "type": "series",
+    "title": "MobLand",
+    "fa": "سرزمین اوباش",
+    "year": 2025,
+    "genres": [
+      "Crime",
+      "Drama"
+    ],
+    "rating": 8.4,
+    "poster": "https://image.tmdb.org/t/p/w500/uwUKwVPjVaOmnXd3aylvpWNodXo.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/tQqbbxBAdW2ql8vbOqMOJbtSQ7O.jpg",
+    "overview": "دو خانواده خلافکار در نبردی سرنوشت ساز با هم درگیر شده اند و در این میان، هری دسوزا، یک کار چاق کن باسابقه، بین دو خاندان گرفتار شده است و باید تصمیمی سرنوشت ساز بگیرد...",
+    "runtime": null,
+    "episodes": 20,
+    "seasons": 2,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "تام هاردی",
+        "character": "Harry Da Souza",
+        "photo": "https://image.tmdb.org/t/p/w185/d81K0RH8UX7tZj49tZaQhZ9ewH.jpg"
+      },
+      {
+        "name": "پیرس برازنان",
+        "character": "Conrad Harrigan",
+        "photo": "https://image.tmdb.org/t/p/w185/dzXVwwJLPwiZeXOnf7YxorqVEEM.jpg"
+      },
+      {
+        "name": "پدی کانسیداین",
+        "character": "Kevin Harrigan",
+        "photo": "https://image.tmdb.org/t/p/w185/uIKOm4w2wtUegxratSHj2KPFF7i.jpg"
+      },
+      {
+        "name": "Joanne Froggatt",
+        "character": "Jan Da Souza",
+        "photo": "https://image.tmdb.org/t/p/w185/eL6B9OTjeRALm5uUfMmy74Wu9Sr.jpg"
+      },
+      {
+        "name": "Lara Pulver",
+        "character": "Bella Harrigan",
+        "photo": "https://image.tmdb.org/t/p/w185/uacMDTL4YnuJD6frGF35CHLFh43.jpg"
+      },
+      {
+        "name": "Anson Boon",
+        "character": "Eddie Harrigan",
+        "photo": "https://image.tmdb.org/t/p/w185/e1Fffuy99j5TSi0Qbyt1N6adlOI.jpg"
+      },
+      {
+        "name": "Mandeep Dhillon",
+        "character": "Seraphina Harrigan",
+        "photo": "https://image.tmdb.org/t/p/w185/rVlSWINjaCMFWqkHpkjYy3zECka.jpg"
+      },
+      {
+        "name": "Jasmine Jobson",
+        "character": "Zosia",
+        "photo": "https://image.tmdb.org/t/p/w185/3nPjCQdAUofg6qlfWomTVPaFLEu.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/247718"
+  },
+  {
+    "id": 2190,
+    "type": "series",
+    "title": "South Park",
+    "fa": "ساوت پارک",
+    "year": 1997,
+    "genres": [
+      "Animation",
+      "Comedy"
+    ],
+    "rating": 8.3,
+    "poster": "https://image.tmdb.org/t/p/w500/k7n2EVge7G77eMr3brztRGG1fFU.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/3UviYOlhn8EgXMBuiT6MnUuo1w9.jpg",
+    "overview": "ماجراهای ناگوار چهار دانش‌آموز ابتدایی بی‌ادب را در شهر آرام و درب و داغون ساوت پارک، کلرادو دنبال می‌کند.",
+    "runtime": null,
+    "episodes": 337,
+    "seasons": 29,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "تری پارکر",
+        "character": "Eric Cartman / Stan Marsh (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/3tJe8t90lrcQzXj9cRcpW9wmj2c.jpg"
+      },
+      {
+        "name": "مت استون",
+        "character": "Kyle Broflovski / Kenny McCormick (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/nS3BOaF0EHd7vyATV7WBnFEvTLr.jpg"
+      },
+      {
+        "name": "Mona Marshall",
+        "character": "Sheila Broflovski (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/A2RCAt0Xmm3jLBKZogQAJX6eD9n.jpg"
+      },
+      {
+        "name": "Jennifer Howell",
+        "character": "Bebe Stevens (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/tYgRyRGtDRyo5LBVv7McaRNY7LX.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/2190"
   },
   {
     "id": 1228834,
@@ -262,13 +281,125 @@
     "title": "The Fix",
     "fa": "راه‌حل",
     "year": 2026,
-    "genre_ids": [
-      28,
-      53
+    "genres": [
+      "Action",
+      "Thriller"
     ],
     "rating": 8.2,
     "poster": "https://image.tmdb.org/t/p/w500/7j9T2d4kROngsBRNgwlvUWKUPq5.jpg",
-    "overview": "گروهی از اپراتورهای جنگ زده سابق سیا که از پایان جنگ در افغانستان سرخورده شده بودند، به تهران رفتند تا امتیازی را که در حال تغییر زندگی‌شان بود، متوقف کنند."
+    "backdrop": "https://image.tmdb.org/t/p/w1280/dJTWIecL2vxsCRl5G0lRhPsfrhc.jpg",
+    "overview": "گروهی از اپراتورهای جنگ زده سابق سیا که از پایان جنگ در افغانستان سرخورده شده بودند، به تهران رفتند تا امتیازی را که در حال تغییر زندگی‌شان بود، متوقف کنند.",
+    "runtime": 142,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "زکری لی‌وای",
+        "character": "Tucker",
+        "photo": "https://image.tmdb.org/t/p/w185/1W8L3kEMMPF9umT3ZGaNIiCYKfZ.jpg"
+      },
+      {
+        "name": "لیام نیسون",
+        "character": "Larry",
+        "photo": "https://image.tmdb.org/t/p/w185/sRLev3wJioBgun3ZoeAUFpkLy0D.jpg"
+      },
+      {
+        "name": "Wes Chatham",
+        "character": "Alex",
+        "photo": "https://image.tmdb.org/t/p/w185/lFoUyX8FZs3XvUWWItCm2ezvAEs.jpg"
+      },
+      {
+        "name": "Titus Welliver",
+        "character": "James",
+        "photo": "https://image.tmdb.org/t/p/w185/3hTwn7Maktr6ONq1VvfqyRacjiv.jpg"
+      },
+      {
+        "name": "نوید نگهبان",
+        "character": "Qasim",
+        "photo": "https://image.tmdb.org/t/p/w185/pWi5tINf4mDvTYbNKZDJPODYKra.jpg"
+      },
+      {
+        "name": "Annet Mahendru",
+        "character": "Sophie",
+        "photo": "https://image.tmdb.org/t/p/w185/kEeokLN5vJsOdKSEFaN36qlzCRa.jpg"
+      },
+      {
+        "name": "Grant Harvey",
+        "character": "Matt",
+        "photo": "https://image.tmdb.org/t/p/w185/sThJJbhgjQOZNvCkHVO0g3qy78j.jpg"
+      },
+      {
+        "name": "Augusto Aguilera",
+        "character": "Bruce",
+        "photo": "https://image.tmdb.org/t/p/w185/vxW6iEHbuCcC7eFoQWoBAS7SYjM.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1228834"
+  },
+  {
+    "id": 1339713,
+    "type": "movie",
+    "title": "Obsession",
+    "fa": "وسوسه",
+    "year": 2026,
+    "genres": [
+      "Horror",
+      "Thriller"
+    ],
+    "rating": 8.2,
+    "poster": "https://image.tmdb.org/t/p/w500/1u1nsgGb4Hy819ZqnciJ80nfeWp.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/rZfmzpixLKLR3Hg2u0WgC7XLFl8.jpg",
+    "overview": "",
+    "runtime": 109,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "مایکل جانستون",
+        "character": "Bear",
+        "photo": "https://image.tmdb.org/t/p/w185/fbpcCkBzu43kMdlXxEAMuLhseL8.jpg"
+      },
+      {
+        "name": "ایندی ناوارتی",
+        "character": "Nikki",
+        "photo": "https://image.tmdb.org/t/p/w185/qlNBUGON8FebgzcqVhhRSVFYSa5.jpg"
+      },
+      {
+        "name": "Cooper Tomlinson",
+        "character": "Ian",
+        "photo": "https://image.tmdb.org/t/p/w185/vBMQbYT1DyWPCUp11dIiqZR9zhd.jpg"
+      },
+      {
+        "name": "Megan Lawless",
+        "character": "Sarah",
+        "photo": "https://image.tmdb.org/t/p/w185/6qW63YEgB1qro01sM7T2HvhtFkh.jpg"
+      },
+      {
+        "name": "Andy Richter",
+        "character": "Carter",
+        "photo": "https://image.tmdb.org/t/p/w185/5Qr7N6TzC8cI0ULxDm6EC5GpZ4C.jpg"
+      },
+      {
+        "name": "Haley Fitzgerald",
+        "character": "Viola",
+        "photo": "https://image.tmdb.org/t/p/w185/xbKqZ5Epz0IaSCPLXDnByDACw2X.jpg"
+      },
+      {
+        "name": "Darin Toonder",
+        "character": "Harry",
+        "photo": "https://image.tmdb.org/t/p/w185/bD7Y9T7Y6XwDXjGJ8Suabyt1ZGo.jpg"
+      },
+      {
+        "name": "Anthony Pavone",
+        "character": "Reggie",
+        "photo": "https://image.tmdb.org/t/p/w185/hxiqY9gHgwXGYnXSD11Wacm5Nmi.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1339713"
   },
   {
     "id": 95350,
@@ -276,13 +407,1991 @@
     "title": "Lanterns",
     "fa": "لنترن‌ها",
     "year": 2026,
-    "genre_ids": [
-      18,
-      9648,
-      10765
+    "genres": [
+      "Drama",
+      "Mystery",
+      "Sci-Fi & Fantasy"
     ],
     "rating": 8.2,
     "poster": "https://image.tmdb.org/t/p/w500/atVKfUKAvbNVBj3QNAVcLNEJ5Fh.jpg",
-    "overview": "دو پلیس بین کهکشانی، جان استوارت، نیروی تازه استخدام شده و هال جردن، اسطوره فانوس‌ها، در حین بررسی یک قتل در قلب آمریکا، درگیر یک معمای تاریک و زمینی می‌شوند."
+    "backdrop": "https://image.tmdb.org/t/p/w1280/wJjnJbVUwPz0GADAgpFt9nWtzUu.jpg",
+    "overview": "دو پلیس بین کهکشانی، جان استوارت، نیروی تازه استخدام شده و هال جردن، اسطوره فانوس‌ها، در حین بررسی یک قتل در قلب آمریکا، درگیر یک معمای تاریک و زمینی می‌شوند.",
+    "runtime": null,
+    "episodes": 8,
+    "seasons": 1,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "کایل چندلر",
+        "character": "Hal Jordan",
+        "photo": "https://image.tmdb.org/t/p/w185/66n7XNj1dyYkzCBWR3Lq8Vz4PJ1.jpg"
+      },
+      {
+        "name": "آرون پیر",
+        "character": "John Stewart",
+        "photo": "https://image.tmdb.org/t/p/w185/hNwZWdT2KxKj1YLbipvtUhNjfAp.jpg"
+      },
+      {
+        "name": "کلی مکدونالد",
+        "character": "Sheriff Kerry Kane",
+        "photo": "https://image.tmdb.org/t/p/w185/k0yVocTnTMWlNdaeOO7YRViCdhO.jpg"
+      },
+      {
+        "name": "گرت دیلاهانت",
+        "character": "William 'Will' Macon",
+        "photo": "https://image.tmdb.org/t/p/w185/7wHWTkIhre0j9L9CY2t5VVwg630.jpg"
+      },
+      {
+        "name": "پورنا جاگاناتان",
+        "character": "Zoe Macon",
+        "photo": "https://image.tmdb.org/t/p/w185/o2BQX1tAgo47GGvpBy1k4LQLRs6.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/95350"
+  },
+  {
+    "id": 113962,
+    "type": "series",
+    "title": "Lioness",
+    "fa": "شیرزن",
+    "year": 2023,
+    "genres": [
+      "Drama",
+      "War & Politics"
+    ],
+    "rating": 8.2,
+    "poster": "https://image.tmdb.org/t/p/w500/7hlbzuzYZt97QqDsALZB97eSpxn.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/4NBYDOnEjAzyuP7CMkD5s7fs44K.jpg",
+    "overview": "کروز مانوئلوس، یک تفنگدار جوان دریایی با ظاهری خشن اما پرشور، جهت پیوستن به گروه درگیری شیرزنِ سازمان سیا استخدام می‌شود تا به سرنگونی یک سازمان تروریستی از درون کمک کند. جو، رئیس مرکز برنامه شیرزن، وظیفه آموزش، مدیریت و رهبری زنان مأمور مخفی خود را بر عهده دارد.",
+    "runtime": null,
+    "episodes": 24,
+    "seasons": 3,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "زوئی سالدانا",
+        "character": "Joe McNamara",
+        "photo": "https://image.tmdb.org/t/p/w185/vQBwmsSOAd0JDaEcZ5p43J9xzsY.jpg"
+      },
+      {
+        "name": "Laysla De Oliveira",
+        "character": "Cruz Manuelos",
+        "photo": "https://image.tmdb.org/t/p/w185/3hWOSY5ZXoyzp94OzGaooURK9hn.jpg"
+      },
+      {
+        "name": "Dave Annable",
+        "character": "Neal McNamara",
+        "photo": "https://image.tmdb.org/t/p/w185/5DXu9ZiB4dfqNmHIOGnhXMBouPP.jpg"
+      },
+      {
+        "name": "جیل واگنر",
+        "character": "Bobby",
+        "photo": "https://image.tmdb.org/t/p/w185/gFtPDkS14CoDqNGnHsxNmaXZcGj.jpg"
+      },
+      {
+        "name": "LaMonica Garrett",
+        "character": "Tucker",
+        "photo": "https://image.tmdb.org/t/p/w185/yE5TBZ2qC5LAPDduBQAERo7EF3r.jpg"
+      },
+      {
+        "name": "James Jordan",
+        "character": "Two Cups",
+        "photo": "https://image.tmdb.org/t/p/w185/8flzkBpcrl0QqjDnXhbg52rsNOY.jpg"
+      },
+      {
+        "name": "Genesis Rodriguez",
+        "character": "Captain Josephina 'Josie' Carrillo",
+        "photo": "https://image.tmdb.org/t/p/w185/gUI9KADVjfHiI8nMc87hkeaWEF3.jpg"
+      },
+      {
+        "name": "مایکل کلی",
+        "character": "Byron Westfield",
+        "photo": "https://image.tmdb.org/t/p/w185/6MI8HhX1GWbcrWG8DiHffzmqaVm.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/113962"
+  },
+  {
+    "id": 125988,
+    "type": "series",
+    "title": "Silo",
+    "fa": "سیلو",
+    "year": 2023,
+    "genres": [
+      "Sci-Fi & Fantasy",
+      "Drama"
+    ],
+    "rating": 8.2,
+    "poster": "https://image.tmdb.org/t/p/w500/3vMDa6G57ngNkoKGpOfJtixQuaB.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/fQGrzO0Iwo7CO4b2zVdJLkcnhwK.jpg",
+    "overview": "در آینده‌ای ویران‌شده و سمی، جامعه‌ای در یک سیلو زیرزمینی غول‌پیکر وجود دارد که صدها طبقه را در اعماق فرو می‌برد. در آنجا، مردان و زنان در جامعه ای پر از مقررات زندگی می کنند که معتقدند برای محافظت از آنها طراحی شده است.",
+    "runtime": null,
+    "episodes": 31,
+    "seasons": 4,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "ربکا فرگوسن",
+        "character": "Juliette Nichols",
+        "photo": "https://image.tmdb.org/t/p/w185/ra53cM1aNmdH0aFhj8yBqPOj2fb.jpg"
+      },
+      {
+        "name": "کامن",
+        "character": "Robert Sims",
+        "photo": "https://image.tmdb.org/t/p/w185/7Gk5L3rg6uZAGp7SWWTJRP32IJ3.jpg"
+      },
+      {
+        "name": "چینازا اوچه",
+        "character": "Paul Billings",
+        "photo": "https://image.tmdb.org/t/p/w185/5fbbLI9BPiByyIIRYu9pbRQwyUN.jpg"
+      },
+      {
+        "name": "اشلی زوکرمن",
+        "character": "Daniel Keene",
+        "photo": "https://image.tmdb.org/t/p/w185/tKT5ybCjMOV4whEQ6jy8ZQnrP7C.jpg"
+      },
+      {
+        "name": "Shane McRae",
+        "character": "Knox",
+        "photo": "https://image.tmdb.org/t/p/w185/ixNSdZDJ6fZzZc2Pdx4Dwr8wHir.jpg"
+      },
+      {
+        "name": "Remmie Milner",
+        "character": "Shirley Campbell",
+        "photo": "https://image.tmdb.org/t/p/w185/4LDy6vhBZ11kOevBdAGBRM34d3L.jpg"
+      },
+      {
+        "name": "Alexandria Riley",
+        "character": "Camille Sims",
+        "photo": "https://image.tmdb.org/t/p/w185/7rEJ2m0ur4uFPG0YzBQpYQB8Crt.jpg"
+      },
+      {
+        "name": "Reed Birney",
+        "character": "Henry",
+        "photo": "https://image.tmdb.org/t/p/w185/dfLgNLUt6Xs2MJJTi6B1iWdXjU6.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/125988"
+  },
+  {
+    "id": 108978,
+    "type": "series",
+    "title": "Reacher",
+    "fa": "ریچر",
+    "year": 2022,
+    "genres": [
+      "Action & Adventure",
+      "Crime"
+    ],
+    "rating": 8.1,
+    "poster": "https://image.tmdb.org/t/p/w500/n0Cuyzq5W47WRWyvtS3Zsn8trJI.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/pF0qkRsrHkdYadPWY9AMeFZfcwk.jpg",
+    "overview": "ریچر؛ سریالی در ژانر جنایی مهیج محصول سرویس ویدئویی آمازون است. سریال بر اساس رُمان قتلگاه نوشتهٔ لی چایلد و با بازی آلن ریچسون در نقش اصلی است. تام کروز سابقا در دو فیلم نقش جک ریچر را ایفا کرده بود. یک کهنه سرباز پرافتخار به نام جک ریچر با ادعای شاهدان صحنه‌ جنایت، به جرم قتل در یک شهر کوچک متهم و دستگیر می‌شود. به همین دلیل جک ریچر تلاش می‌کند تا بی‌گناهی خود را با یافتن قاتل حقیقی ثابت کند و از این جرم بی‌پایه و اساس تبرئه شود اما…",
+    "runtime": null,
+    "episodes": 32,
+    "seasons": 4,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "آلن ریچسون",
+        "character": "Jack Reacher",
+        "photo": "https://image.tmdb.org/t/p/w185/92YNEEpCyugkTzPprJwZpvVtvuK.jpg"
+      },
+      {
+        "name": "Agnez Mo",
+        "character": "Lila Hoth",
+        "photo": "https://image.tmdb.org/t/p/w185/7GuBJxf5szQRCKLk3iG2ztfCo39.jpg"
+      },
+      {
+        "name": "Sydelle Noel",
+        "character": "Tamara Green",
+        "photo": "https://image.tmdb.org/t/p/w185/fCOlRtkZVMOMDRPYhdRLeKqymVa.jpg"
+      },
+      {
+        "name": "Anggun",
+        "character": "Amisha Hoth",
+        "photo": "https://image.tmdb.org/t/p/w185/4WxHGTehDvZudrunxTZmnR66CBi.jpg"
+      },
+      {
+        "name": "Christopher Rodriguez Marquette",
+        "character": "Jacob Merrick",
+        "photo": "https://image.tmdb.org/t/p/w185/8AL7UPXM4sVkOMgTHIxNdRi2SXP.jpg"
+      },
+      {
+        "name": "Kevin Corrigan",
+        "character": "Shaun Docherty",
+        "photo": "https://image.tmdb.org/t/p/w185/obSUGc68mQDvFONalMg25Xw5GZM.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/108978"
+  },
+  {
+    "id": 1368337,
+    "type": "movie",
+    "title": "The Odyssey",
+    "fa": "اودیسه",
+    "year": 2026,
+    "genres": [
+      "Adventure",
+      "Action",
+      "Fantasy"
+    ],
+    "rating": 8.0,
+    "poster": "https://image.tmdb.org/t/p/w500/jyqWMbd34E7MbSbBi6qOkzxjvCG.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/RMXG8myu1aGlNUsRjtxzmpdMK0.jpg",
+    "overview": "این فیلم یک اقتباس حماسی و اکشن از شعر حماسی معروف هومر (Odyssey) به حساب می‌آید که داستان سفر طولانی و پرماجرای اودیسئوس (پادشاه ایتاکا) رو بعد از جنگ تروآ روایت می‌کند. او با موجودات اساطیری مثل سایکلوپس (پولیفموس)، سیرن‌ها و سیرسه روبرو شده و سعی می‌کند به خانه و همسرش پنه‌لوپه برگردد.",
+    "runtime": 173,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "مت دیمون",
+        "character": "Odysseus",
+        "photo": "https://image.tmdb.org/t/p/w185/aCvBXTAR9B1qRjIRzMBYhhbm1fR.jpg"
+      },
+      {
+        "name": "تام هالند",
+        "character": "Telemachus",
+        "photo": "https://image.tmdb.org/t/p/w185/5OK84Wn1bIEIThFKcVoaN087mLj.jpg"
+      },
+      {
+        "name": "ان هتوی",
+        "character": "Penelope",
+        "photo": "https://image.tmdb.org/t/p/w185/nbccV2pMoyLTCeg5DQip24Eq0Jp.jpg"
+      },
+      {
+        "name": "رابرت پتینسون",
+        "character": "Antinous",
+        "photo": "https://image.tmdb.org/t/p/w185/3qZ09UE7lN6AtorfXFRYpEtSY93.jpg"
+      },
+      {
+        "name": "هیمش پاتل",
+        "character": "Eurylochus",
+        "photo": "https://image.tmdb.org/t/p/w185/icqsXLmU0FxBGTv63kkA0GcrecO.jpg"
+      },
+      {
+        "name": "شارلیز ترون",
+        "character": "Calypso",
+        "photo": "https://image.tmdb.org/t/p/w185/gd7ShD0yt4bsR2STeQ19KQ6hvXL.jpg"
+      },
+      {
+        "name": "جان لگویزمائو",
+        "character": "Eumaeus",
+        "photo": "https://image.tmdb.org/t/p/w185/kwYCdxTlDh9zauUCg4mp2XTCQTw.jpg"
+      },
+      {
+        "name": "تراویس اسکات",
+        "character": "Bard",
+        "photo": "https://image.tmdb.org/t/p/w185/eBdm7HQS6lLGg4BocgfoJ5qB9yp.jpg"
+      }
+    ],
+    "trailer": "iklicVKcoI8",
+    "tmdb_url": "https://www.themoviedb.org/movie/1368337"
+  },
+  {
+    "id": 95480,
+    "type": "series",
+    "title": "Slow Horses",
+    "fa": "اسب‌های آرام",
+    "year": 2022,
+    "genres": [
+      "Crime",
+      "Drama",
+      "Mystery"
+    ],
+    "rating": 8.0,
+    "poster": "https://image.tmdb.org/t/p/w500/A64zXamcdfnA04gNZUmtvC4hBwS.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/bDfboQUb45Cv9MYyVBDZw8M8xSM.jpg",
+    "overview": "تیمی از ماموران اطلاعاتی بریتانیا را دنبال می کند که به دلیل اشتباهات پایان کار خود به عنوان بخش تخلیه MI5 خدمت می کنند.",
+    "runtime": null,
+    "episodes": 36,
+    "seasons": 6,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "گری اولدمن",
+        "character": "Jackson Lamb",
+        "photo": "https://image.tmdb.org/t/p/w185/yhaSM5habNNI1Tf4ALRwRk3VvSZ.jpg"
+      },
+      {
+        "name": "جک لودن",
+        "character": "River Cartwright",
+        "photo": "https://image.tmdb.org/t/p/w185/3wSE6uHLkslE9xvRiMbnphuI0VK.jpg"
+      },
+      {
+        "name": "کریستین اسکات توماس",
+        "character": "Diana Taverner",
+        "photo": "https://image.tmdb.org/t/p/w185/axksw0vAjBPSW02ZqpcC0V8rPD7.jpg"
+      },
+      {
+        "name": "هوگو ویوینگ",
+        "character": "Frank Harkness",
+        "photo": "https://image.tmdb.org/t/p/w185/lSC8Et0PYi5zeQb3IpPkFje7hgR.jpg"
+      },
+      {
+        "name": "ساسکیا ریوز",
+        "character": "Catherine Standish",
+        "photo": "https://image.tmdb.org/t/p/w185/1NM6rp95ec83tPa2Tnq66RV6Frc.jpg"
+      },
+      {
+        "name": "Christopher Chung",
+        "character": "Roddy Ho",
+        "photo": "https://image.tmdb.org/t/p/w185/wV4r6tVjP9Prk2acj7bYTmdtaMF.jpg"
+      },
+      {
+        "name": "Rosalind Eleazar",
+        "character": "Louisa Guy",
+        "photo": "https://image.tmdb.org/t/p/w185/9Tb1rLSnyCfnZXYixfjWJuQJig9.jpg"
+      },
+      {
+        "name": "Aimee-Ffion Edwards",
+        "character": "Shirley Dander",
+        "photo": "https://image.tmdb.org/t/p/w185/mpsq3UnNiFgmd3MY2Q6a3ZBMGQ8.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/95480"
+  },
+  {
+    "id": 312663,
+    "type": "series",
+    "title": "黑白清道夫",
+    "fa": "黑白清道夫",
+    "year": 2026,
+    "genres": [
+      "Action & Adventure",
+      "Comedy",
+      "Crime"
+    ],
+    "rating": 8.0,
+    "poster": "https://image.tmdb.org/t/p/w500/mZ0rPTMe9XfrWRUAeoJzr62cyIa.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/iyHgIyMJ6Vd5w79dLeGOTOkqDS5.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 10,
+    "seasons": 1,
+    "status": "Ended",
+    "cast": [
+      {
+        "name": "李銘順",
+        "character": "Felix Chiang / Fixer Lucky",
+        "photo": "https://image.tmdb.org/t/p/w185/8QvDvbUxkwhbrWHr3Po6liw1jAX.jpg"
+      },
+      {
+        "name": "婁峻碩",
+        "character": "Louis Hsueh / Fixer Gold",
+        "photo": "https://image.tmdb.org/t/p/w185/7IAgKBtCJw9ubH4TdLLtIuldoLX.jpg"
+      },
+      {
+        "name": "庹宗華",
+        "character": "Thackery Huang / Fixer Celestial",
+        "photo": "https://image.tmdb.org/t/p/w185/pLbLftVzy5A1BkYlET2gb563WeV.jpg"
+      },
+      {
+        "name": "雷嘉汭",
+        "character": "Mina Shen",
+        "photo": "https://image.tmdb.org/t/p/w185/gnd2t2Ya9AfAKAlOovqXZbMVXp2.jpg"
+      },
+      {
+        "name": "傅孟柏",
+        "character": "Tristan Hsueh",
+        "photo": "https://image.tmdb.org/t/p/w185/efznd3HAadw6hF9Ir9Xz1xEyFif.jpg"
+      },
+      {
+        "name": "張永正",
+        "character": "Sir Hong",
+        "photo": "https://image.tmdb.org/t/p/w185/mI3yeAyFHFikNqglp92tlICMHQQ.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/312663"
+  },
+  {
+    "id": 103516,
+    "type": "series",
+    "title": "Star Trek: Strange New Worlds",
+    "fa": "پیشتازان فضا: دنیاهای جدید عجیب",
+    "year": 2022,
+    "genres": [
+      "Sci-Fi & Fantasy",
+      "Drama"
+    ],
+    "rating": 7.9,
+    "poster": "https://image.tmdb.org/t/p/w500/97TTJuqiSMfU0DuXx1B4NG5QNP7.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/fZJs6xgU9dqIg9phIXjZAZOInzy.jpg",
+    "overview": "کاپیتان کریستوفر پایک، افسر علمی اسپاک و شماره یک را در سال‌های قبل از سوار شدن کاپیتان کرک به ناو یو اس اس انترپرایز دنبال کنید، چرا که آنها در حال کشف دنیاهای جدید در سراسر کهکشان هستند.",
+    "runtime": null,
+    "episodes": 40,
+    "seasons": 4,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "Anson Mount",
+        "character": "Captain Christopher Pike",
+        "photo": "https://image.tmdb.org/t/p/w185/A4YBdwnzJKRcZXfodjT4UalHOK9.jpg"
+      },
+      {
+        "name": "Ethan Peck",
+        "character": "Spock",
+        "photo": "https://image.tmdb.org/t/p/w185/9KaxSgpbx9Zj827xXLML3bWknNV.jpg"
+      },
+      {
+        "name": "Jess Bush",
+        "character": "Christine Chapel",
+        "photo": "https://image.tmdb.org/t/p/w185/qAsdLipL5Gd54IHd813lN5HQFwn.jpg"
+      },
+      {
+        "name": "Christina Chong",
+        "character": "La'An Noonien-Singh",
+        "photo": "https://image.tmdb.org/t/p/w185/h2uyfyfLVShJpW7rUCtethhZcT1.jpg"
+      },
+      {
+        "name": "Celia Rose Gooding",
+        "character": "Nyota Uhura",
+        "photo": "https://image.tmdb.org/t/p/w185/vIk0g2FnDGmBGEAX7veFCOg0hM1.jpg"
+      },
+      {
+        "name": "Melissa Navia",
+        "character": "Erica Ortegas",
+        "photo": "https://image.tmdb.org/t/p/w185/b8qF20FtJby02fGAeWSp9XJDHbw.jpg"
+      },
+      {
+        "name": "Babs Olusanmokun",
+        "character": "Dr. Joseph M'Benga",
+        "photo": "https://image.tmdb.org/t/p/w185/bqycmpUrpISeLzQniiYwAZ5X1RN.jpg"
+      },
+      {
+        "name": "ربکا رومین",
+        "character": "Una Chin-Riley",
+        "photo": "https://image.tmdb.org/t/p/w185/doqFBHNbNhoLF9RX9SYPqwu1mvd.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/103516"
+  },
+  {
+    "id": 969681,
+    "type": "movie",
+    "title": "Spider-Man: Brand New Day",
+    "fa": "مرد عنکبوتی: روز کاملاً جدید",
+    "year": 2026,
+    "genres": [
+      "Science Fiction",
+      "Action",
+      "Adventure"
+    ],
+    "rating": 7.8,
+    "poster": "https://image.tmdb.org/t/p/w500/1L3cdPDp1ic3JYnYAEp8AKxZMPc.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
+    "overview": "",
+    "runtime": 145,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "تام هالند",
+        "character": "Peter Parker / Spider-Man",
+        "photo": "https://image.tmdb.org/t/p/w185/5OK84Wn1bIEIThFKcVoaN087mLj.jpg"
+      },
+      {
+        "name": "زندایا",
+        "character": "MJ",
+        "photo": "https://image.tmdb.org/t/p/w185/3WdOloHpjtjL96uVOhFRRCcYSwq.jpg"
+      },
+      {
+        "name": "مارک رافلو",
+        "character": "Bruce Banner / Hulk",
+        "photo": "https://image.tmdb.org/t/p/w185/5GilHMOt5PAQh6rlUKZzGmaKEI7.jpg"
+      },
+      {
+        "name": "جان برنثال",
+        "character": "Frank Castle / Punisher",
+        "photo": "https://image.tmdb.org/t/p/w185/aSH27tGD4PJoCO54RQnARSSSIQy.jpg"
+      },
+      {
+        "name": "جیکوب باتالون",
+        "character": "Ned Leeds",
+        "photo": "https://image.tmdb.org/t/p/w185/53YhaL4xw4Sb1ssoHkeSSBaO29c.jpg"
+      },
+      {
+        "name": "سیدی سینک",
+        "character": "Jean Grey",
+        "photo": "https://image.tmdb.org/t/p/w185/92FddzBfK50XOUbtwjqHPraoGHy.jpg"
+      },
+      {
+        "name": "فلورنس پیو",
+        "character": "Yelena Belova / Black Widow",
+        "photo": "https://image.tmdb.org/t/p/w185/ejgQXt1fAvPueAvacDsGwG00aA.jpg"
+      },
+      {
+        "name": "Liza Colón-Zayas",
+        "character": "Detective Jean DeWolff",
+        "photo": "https://image.tmdb.org/t/p/w185/q2gHcef0wckji0AS8ZEO6cYx065.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/969681"
+  },
+  {
+    "id": 273207,
+    "type": "series",
+    "title": "Neagley",
+    "fa": "نیگلی",
+    "year": 2026,
+    "genres": [
+      "Drama",
+      "Mystery",
+      "Crime"
+    ],
+    "rating": 7.8,
+    "poster": "https://image.tmdb.org/t/p/w500/hOwt9Y4G66AtWQ3E6paiols5nIc.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/uYOYLFQ4q7asuhdiKXCqGaeAQUH.jpg",
+    "overview": "نیگلی، با تکیه بر تجربه‌اش با جک ریچر و تیم ۱۱۰ بازرس ویژه، مأموریتی خطرناک را برای افشای یک تهدید شوم آغاز می‌کند و جان خود را برای کشف این راز به خطر می‌اندازد.",
+    "runtime": null,
+    "episodes": 8,
+    "seasons": 1,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "ماریا استن",
+        "character": "Frances Neagley",
+        "photo": "https://image.tmdb.org/t/p/w185/7QlPWbZRH2ORMmAHKAj0rq54t4A.jpg"
+      },
+      {
+        "name": "گریستون هولت",
+        "character": "Detective Hudson Riley",
+        "photo": "https://image.tmdb.org/t/p/w185/OefIUfHekZLHwGVjyZmFauUI5W.jpg"
+      },
+      {
+        "name": "Adeline Rudolph",
+        "character": "Renee",
+        "photo": "https://image.tmdb.org/t/p/w185/sWjjm53MeVrpQH2dxtFD3gfEt3v.jpg"
+      },
+      {
+        "name": "ماتیو دل نگرو",
+        "character": "Pierce Woodrow",
+        "photo": "https://image.tmdb.org/t/p/w185/h3wcgMRunRmeFhFo16BJpKsqQQC.jpg"
+      },
+      {
+        "name": "دیمون هریمن",
+        "character": "Lawrence Cole",
+        "photo": "https://image.tmdb.org/t/p/w185/hzh9i0BlAEQDAhJxEgkEcBxMlJv.jpg"
+      },
+      {
+        "name": "Jasper Jones",
+        "character": "Keno",
+        "photo": "https://image.tmdb.org/t/p/w185/wf8SZh1ylique9RJidepV1u1C9p.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/273207"
+  },
+  {
+    "id": 196322,
+    "type": "series",
+    "title": "Dark Matter",
+    "fa": "Dark Matter",
+    "year": 2024,
+    "genres": [
+      "Sci-Fi & Fantasy",
+      "Drama"
+    ],
+    "rating": 7.8,
+    "poster": "https://image.tmdb.org/t/p/w500/sqhzrahwEQ9rJQNRMaWqTBys19d.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/iBc82qaA05ntzSnrVndw8scv4Bn.jpg",
+    "overview": "جیسون دسن به نسخه‌ای دیگر از زندگی‌اش ربوده می‌شود. برای بازگشت به خانواده‌ی واقعی‌اش، او سفری پرمخاطره را آغاز می‌کند تا آن‌ها را از وحشتناک‌ترین دشمنی که می‌توان تصور کرد نجات دهد: از خودش.",
+    "runtime": null,
+    "episodes": 19,
+    "seasons": 2,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "جوئل ادگورتون",
+        "character": "Jason Dessen / Jason2",
+        "photo": "https://image.tmdb.org/t/p/w185/r2TTDZ8cG5wrZqx7Drz1M95S9z3.jpg"
+      },
+      {
+        "name": "جنیفر کانلی",
+        "character": "Daniela Dessen",
+        "photo": "https://image.tmdb.org/t/p/w185/wdmcJagSRJ65AuJ4IUCzuHAdvgy.jpg"
+      },
+      {
+        "name": "آلیس براگا",
+        "character": "Dr. Amanda Lucas",
+        "photo": "https://image.tmdb.org/t/p/w185/d9JdgvUiqyWuGQLmozNfGZOpIBz.jpg"
+      },
+      {
+        "name": "جیمی سیمپسون",
+        "character": "Ryan Holder",
+        "photo": "https://image.tmdb.org/t/p/w185/gerE8VqXfFyAs3QhbUlwEuZllKq.jpg"
+      },
+      {
+        "name": "Dayo Okeniyi",
+        "character": "Oluko / Leighton Vance",
+        "photo": "https://image.tmdb.org/t/p/w185/8m4ZIuzVBDjFbJFLXebc4iwv27o.jpg"
+      },
+      {
+        "name": "اوکس فگلی",
+        "character": "Charlie Dessen",
+        "photo": "https://image.tmdb.org/t/p/w185/jDiuzOh12xmrkwtnZWBPEEjpNva.jpg"
+      },
+      {
+        "name": "Amanda Brugel",
+        "character": "Butterscotch / Blair Caplan",
+        "photo": "https://image.tmdb.org/t/p/w185/3W1RR8CzP5uk6sFt92i1QyjGLRT.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/196322"
+  },
+  {
+    "id": 1423191,
+    "type": "movie",
+    "title": "Resident Evil",
+    "fa": "رزیدنت ایول",
+    "year": 2026,
+    "genres": [
+      "Horror",
+      "Science Fiction",
+      "Adventure"
+    ],
+    "rating": 7.7,
+    "poster": "https://image.tmdb.org/t/p/w500/i7UyjfPio0VFHB9rBUZSFyhOoM8.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/1CIaRYKf3zg2Xyce1CSfCMg2Vfw.jpg",
+    "overview": "",
+    "runtime": 95,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "آستین آبرامز",
+        "character": "Bryan",
+        "photo": "https://image.tmdb.org/t/p/w185/5S7ahFPQk4NUh8GTwp8zZlUQNFs.jpg"
+      },
+      {
+        "name": "Zach Cherry",
+        "character": "Dave",
+        "photo": "https://image.tmdb.org/t/p/w185/fT3Wv8ef0Vn0daHWAObCp2Bd4Y.jpg"
+      },
+      {
+        "name": "Kali Reis",
+        "character": "Pauline",
+        "photo": "https://image.tmdb.org/t/p/w185/ruLDXHnKA4aHEQCcFGDAJ7bLTdt.jpg"
+      },
+      {
+        "name": "پال والتر هاوزر",
+        "character": "Carl",
+        "photo": "https://image.tmdb.org/t/p/w185/hXjjbYg1Ah8mFf5ZcaakyXzDKMx.jpg"
+      },
+      {
+        "name": "Johnno Wilson",
+        "character": "Max",
+        "photo": "https://image.tmdb.org/t/p/w185/eZtBoBE0F7Qb9ZyNpacMOQtmWnM.jpg"
+      },
+      {
+        "name": "Shaun W. Loeser",
+        "character": "Puker",
+        "photo": "https://image.tmdb.org/t/p/w185/pMV7kzy7OHk4X93uRGbrdvuFgQB.jpg"
+      },
+      {
+        "name": "Zach Cregger",
+        "character": "Intercom (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/bpFGFfWYIrZVK7WjwkVLwIoMKEb.jpg"
+      },
+      {
+        "name": "Emily Piggford",
+        "character": "Dr. Maria Stokes",
+        "photo": "https://image.tmdb.org/t/p/w185/ruijvaNNXzGXqGphQXsoHts1Ovc.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1423191"
+  },
+  {
+    "id": 1329016,
+    "type": "movie",
+    "title": "Tony",
+    "fa": "تونی",
+    "year": 2026,
+    "genres": [
+      "Drama",
+      "Comedy"
+    ],
+    "rating": 7.7,
+    "poster": "https://image.tmdb.org/t/p/w500/uwZF5guNR5EnXkjIVTk4UPTVGiS.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/bOqTOVkHAL4z87P0Opf6q5mIeRy.jpg",
+    "overview": "",
+    "runtime": 107,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "دومینیک سسا",
+        "character": "Tony",
+        "photo": "https://image.tmdb.org/t/p/w185/cTYdhJrye7oTREIkQaLAuLoJ8Rt.jpg"
+      },
+      {
+        "name": "آنتونیو باندراس",
+        "character": "Chef",
+        "photo": "https://image.tmdb.org/t/p/w185/n8YlGookYzgD3cmpMP45BYRNIoh.jpg"
+      },
+      {
+        "name": "امیلیا جونز",
+        "character": "Nancy",
+        "photo": "https://image.tmdb.org/t/p/w185/xHzb3lgOAwTl2NoGtc3mmY0u8ii.jpg"
+      },
+      {
+        "name": "Leo Woodall",
+        "character": "Sal",
+        "photo": "https://image.tmdb.org/t/p/w185/yv2JjEVm1jLR44ynkyYfhWP4I6r.jpg"
+      },
+      {
+        "name": "Stavros Halkias",
+        "character": "Stavros",
+        "photo": "https://image.tmdb.org/t/p/w185/9QB7YGMk6O7hRgGWvK0OimTVzl7.jpg"
+      },
+      {
+        "name": "Michael Jibrin",
+        "character": "Tyrone",
+        "photo": "https://image.tmdb.org/t/p/w185/uyaW8ltNwdyRIR906uY1gzt4NE7.jpg"
+      },
+      {
+        "name": "Monica Raymund",
+        "character": "Mary",
+        "photo": "https://image.tmdb.org/t/p/w185/cG8OzzgiAEOO5q1Jw4pC1cdJf7E.jpg"
+      },
+      {
+        "name": "Rich Sommer",
+        "character": "Pierre",
+        "photo": "https://image.tmdb.org/t/p/w185/cfbJ3nyiyRpSq2mLrbbrbg1k3Dh.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1329016"
+  },
+  {
+    "id": 299939,
+    "type": "series",
+    "title": "Monster: The Lizzie Borden Story",
+    "fa": "Monster: The Lizzie Borden Story",
+    "year": 2026,
+    "genres": [
+      "Drama",
+      "Crime"
+    ],
+    "rating": 7.7,
+    "poster": "https://image.tmdb.org/t/p/w500/57XScX1aYtKi1LvHYFQLPUxVhTG.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/tH0Y4Qru4UGH2aYPvVqLqKJEtbM.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 8,
+    "seasons": 1,
+    "status": "Ended",
+    "cast": [
+      {
+        "name": "Ella Beatty",
+        "character": "Lizzie Borden",
+        "photo": "https://image.tmdb.org/t/p/w185/ksWqDRv0knHs9vFffeRD0c28UKH.jpg"
+      },
+      {
+        "name": "ویکی کریپس",
+        "character": "Bridget Sullivan",
+        "photo": "https://image.tmdb.org/t/p/w185/9laK3w40qBnE5UY41wJfnUAYMmC.jpg"
+      },
+      {
+        "name": "سارا پلسون",
+        "character": "Aileen Wuornos",
+        "photo": "https://image.tmdb.org/t/p/w185/tJnhBV516yrekR3hTDUw15UMbxS.jpg"
+      },
+      {
+        "name": "چارلی هونام",
+        "character": "Andrew Borden",
+        "photo": "https://image.tmdb.org/t/p/w185/5WIDrnY25Ps2RYu0zIzHSVuSt5n.jpg"
+      },
+      {
+        "name": "ربکا هال",
+        "character": "Abby Borden",
+        "photo": "https://image.tmdb.org/t/p/w185/coC58ANiDbqRIyle5zEl9QDektf.jpg"
+      },
+      {
+        "name": "Billie Lourd",
+        "character": "Emma Borden",
+        "photo": "https://image.tmdb.org/t/p/w185/1u8bZL6ZXu5iDbPO3Z0Spetyt34.jpg"
+      },
+      {
+        "name": "جسیکا باردن",
+        "character": "Nance O'Neil",
+        "photo": "https://image.tmdb.org/t/p/w185/yff76hxi2Y2yjezWZQ7jAWmbeGk.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/299939"
+  },
+  {
+    "id": 224263,
+    "type": "series",
+    "title": "Stranger Things: Tales from '85",
+    "fa": "Stranger Things: Tales from '85",
+    "year": 2026,
+    "genres": [
+      "Animation",
+      "Sci-Fi & Fantasy",
+      "Mystery",
+      "Action & Adventure"
+    ],
+    "rating": 7.6,
+    "poster": "https://image.tmdb.org/t/p/w500/A3XPMauRPUDbqvjMK4ITKrLHgoU.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/ulBGaxq9GmJexyEOi4Xci74g6Vt.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 18,
+    "seasons": 2,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "Brooklyn Davey Norstedt",
+        "character": "Eleven (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/14WC82gvwj7MI3C2ptGybOqvwEh.jpg"
+      },
+      {
+        "name": "Jolie Hoang-Rappaport",
+        "character": "Max (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/eV1xQFvXg9FnMwRgTEwImDSLK58.jpg"
+      },
+      {
+        "name": "Luca Diaz",
+        "character": "Mike (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/aycLbBk6XXkhdJsLLVRn142hHP9.jpg"
+      },
+      {
+        "name": "Elisha Williams",
+        "character": "Lucas (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/7ltCBzbbS9uEMA1DQBN1XhZwFSK.jpg"
+      },
+      {
+        "name": "Braxton Quinney",
+        "character": "Dustin (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/rbCpMPzbPKZLJrO2Cm1RiSnz5U3.jpg"
+      },
+      {
+        "name": "Benjamin Plessala",
+        "character": "Will (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/z0MzRPtYwviecYYx8zVIoXrxDII.jpg"
+      },
+      {
+        "name": "اودسا آزیون",
+        "character": "Nikki (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/5Q0Z5O3nkZH5JvueTyc2q0anw2B.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/224263"
+  },
+  {
+    "id": 1204680,
+    "type": "movie",
+    "title": "Coyote vs. Acme",
+    "fa": "کایوت در برابر اکمی (میگ میگ)",
+    "year": 2026,
+    "genres": [
+      "Comedy",
+      "Adventure",
+      "Family"
+    ],
+    "rating": 7.5,
+    "poster": "https://image.tmdb.org/t/p/w500/vpF3ysCKAY800vqtgXKuCQ80Nba.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/7GOW6jod9lLurW5utokAatxg7ql.jpg",
+    "overview": "",
+    "runtime": 103,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "ویل فورته",
+        "character": "Kevin Avery",
+        "photo": "https://image.tmdb.org/t/p/w185/4VEzbkL3HwHTUZAPA5PyypFG2U.jpg"
+      },
+      {
+        "name": "لانا کاندر",
+        "character": "Paige Avery",
+        "photo": "https://image.tmdb.org/t/p/w185/vWn27Fk2GLwH7o9fBG9hBWZI6OR.jpg"
+      },
+      {
+        "name": "جان سینا",
+        "character": "Buddy Crane",
+        "photo": "https://image.tmdb.org/t/p/w185/rgB2eIOt7WyQjdgJCOuESdDlrjg.jpg"
+      },
+      {
+        "name": "Tone Bell",
+        "character": "Sal Maltese",
+        "photo": "https://image.tmdb.org/t/p/w185/fB06Xj5FgwvHcZESsNGMupGBTyY.jpg"
+      },
+      {
+        "name": "Martha Kelly",
+        "character": "Dottie Jones",
+        "photo": "https://image.tmdb.org/t/p/w185/ac7HoARDIHdYNqpzgJBzpmKHXHR.jpg"
+      },
+      {
+        "name": "لوئیس گازمن",
+        "character": "Judge Troppogrosso",
+        "photo": "https://image.tmdb.org/t/p/w185/kSdxUckOJj9R5VKrLUnRy14YhNV.jpg"
+      },
+      {
+        "name": "پی. جی. برن",
+        "character": "Bill Pellicanos",
+        "photo": "https://image.tmdb.org/t/p/w185/1JVBaxRy3OxkHymD3nwBd5kVWWL.jpg"
+      },
+      {
+        "name": "John Early",
+        "character": "Henry Heslop",
+        "photo": "https://image.tmdb.org/t/p/w185/gQ0nZXm11wnB7kvk4Oz2zIeisLx.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1204680"
+  },
+  {
+    "id": 1058424,
+    "type": "movie",
+    "title": "호프",
+    "fa": "호프",
+    "year": 2026,
+    "genres": [
+      "Science Fiction",
+      "Mystery",
+      "Action"
+    ],
+    "rating": 7.4,
+    "poster": "https://image.tmdb.org/t/p/w500/ptqlN6mDIAqJjVA86J5eOoG82zc.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/hrCTKrc3Tz2wbPOt5rcrlAhqF11.jpg",
+    "overview": "",
+    "runtime": 157,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "هوانگ جونگ مین",
+        "character": "Go Bum-seok",
+        "photo": "https://image.tmdb.org/t/p/w185/hKF1uh0iEfuZlBE79CXPw415qyn.jpg"
+      },
+      {
+        "name": "조인성",
+        "character": "Go Sung-ki",
+        "photo": "https://image.tmdb.org/t/p/w185/9TS1cSfetbwsa5T59n5cxn7egKc.jpg"
+      },
+      {
+        "name": "هویون جونگ",
+        "character": "Lim Sung-ae",
+        "photo": "https://image.tmdb.org/t/p/w185/AfQFFyGeG9xOQnEJb1Ash1RomkP.jpg"
+      },
+      {
+        "name": "آلیسیا ویکاندر",
+        "character": "J'aur",
+        "photo": "https://image.tmdb.org/t/p/w185/lZu8qiTwiQIN96cuptgqMCCaUtg.jpg"
+      },
+      {
+        "name": "مایکل فاسبندر",
+        "character": "Ma'veyyo",
+        "photo": "https://image.tmdb.org/t/p/w185/xvbnUiB2ZBR3QIt595OzNy657Vw.jpg"
+      },
+      {
+        "name": "تیلور راسل",
+        "character": "Ai'dovor",
+        "photo": "https://image.tmdb.org/t/p/w185/3kW1SvpzyOPPZHxbz7cgR7ilmtQ.jpg"
+      },
+      {
+        "name": "کمرون بریتون",
+        "character": "Va'migere",
+        "photo": "https://image.tmdb.org/t/p/w185/9HFxi8ZnBiby3AQ7tBOPDxXFkCT.jpg"
+      },
+      {
+        "name": "이상희",
+        "character": "Nak-yeon",
+        "photo": "https://image.tmdb.org/t/p/w185/wOYFSg20yGe48VFALqGAlrLjFHV.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1058424"
+  },
+  {
+    "id": 1108427,
+    "type": "movie",
+    "title": "Moana",
+    "fa": "موانا",
+    "year": 2026,
+    "genres": [
+      "Family",
+      "Fantasy",
+      "Comedy",
+      "Adventure"
+    ],
+    "rating": 7.3,
+    "poster": "https://image.tmdb.org/t/p/w500/ssicTcVei4rxACNybaPosfapfty.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/c6BPbkO5Npt1OdwttAxCFo06wtH.jpg",
+    "overview": "",
+    "runtime": 115,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "Catherine Lagaʻaia",
+        "character": "Moana",
+        "photo": "https://image.tmdb.org/t/p/w185/2KRIRDwy1CtY7Bge3aqVZrORelc.jpg"
+      },
+      {
+        "name": "دوئین جانسون",
+        "character": "Maui",
+        "photo": "https://image.tmdb.org/t/p/w185/5QApZVV8FUFlVxQpIK3Ew6cqotq.jpg"
+      },
+      {
+        "name": "Rena Owen",
+        "character": "Gramma Tala",
+        "photo": "https://image.tmdb.org/t/p/w185/648ZdDBmlx6OFDFRmgAbh6q5LBo.jpg"
+      },
+      {
+        "name": "John Tui",
+        "character": "Chief Tui",
+        "photo": "https://image.tmdb.org/t/p/w185/2jIc9M5kl2GmK8fZtbtUr2s1jkS.jpg"
+      },
+      {
+        "name": "فرانکی آدامز",
+        "character": "Sina",
+        "photo": "https://image.tmdb.org/t/p/w185/aAUHUSf0lh3OBRoaiCRL9ep8lfL.jpg"
+      },
+      {
+        "name": "جامین کلمنت",
+        "character": "Tamatoa (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/6eiNbeurpHb2fxIeT0RrJ0wRI25.jpg"
+      },
+      {
+        "name": "Emma Puahi-Shapazian",
+        "character": "Moana (4 years old)",
+        "photo": ""
+      },
+      {
+        "name": "Amaya Masoli",
+        "character": "Moana (8 years old)",
+        "photo": ""
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1108427"
+  },
+  {
+    "id": 1451944,
+    "type": "movie",
+    "title": "Lust Stories 3",
+    "fa": "Lust Stories 3",
+    "year": 2026,
+    "genres": [
+      "Romance",
+      "Drama"
+    ],
+    "rating": 7.0,
+    "poster": "https://image.tmdb.org/t/p/w500/1rYl0kaBlxsDNJtkn4msRIidBvM.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/ygMNjFOBuLVoInEoPzqPU2U0pfg.jpg",
+    "overview": "",
+    "runtime": 153,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "رادیکا آپته",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/wKPybRcSYcbgDiJZwELudrRNf0r.jpg"
+      },
+      {
+        "name": "कोंकणा सेन शर्मा",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/i538HToMEGR6J2OVmOGX3GfWcQC.jpg"
+      },
+      {
+        "name": "विजय वर्मा",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/A46ekiPFC3vA1442FJmiIudpxX1.jpg"
+      },
+      {
+        "name": "Abhishek Banerjee",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/cfyRkFBFfodBbNKbsTc8eG9YtVj.jpg"
+      },
+      {
+        "name": "Ali Fazal",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/lLDmx3RDuMXObASvdFXeUh1GOgd.jpg"
+      },
+      {
+        "name": "Radhika Madan",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/xX6h0GMgJ1jLJdA5lHrFwZcjEIz.jpg"
+      },
+      {
+        "name": "अदिति राव हैदरी",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/iVbsdPXzs4CjlG98qIxG2lsQl31.jpg"
+      },
+      {
+        "name": "سیدارت",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/9XrTuJp9lnB1rsBPzTaoXdp1ig8.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1451944"
+  },
+  {
+    "id": 232018,
+    "type": "series",
+    "title": "Has Fallen",
+    "fa": "سقوط پاریس",
+    "year": 2024,
+    "genres": [
+      "Action & Adventure",
+      "War & Politics"
+    ],
+    "rating": 7.0,
+    "poster": "https://image.tmdb.org/t/p/w500/aFIGvsWknUfDIdjrkJNknyNuZZL.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/v0eBR7tZIWQKNtb2MyJtAji5OjA.jpg",
+    "overview": "پس از یک حمله تروریستی، یک افسر حفاظت و یک مأمور عملیاتی MI6 با هم متحد می‌شوند. آن‌ها در حالی که برای خنثی کردن توطئه‌ای بزرگ‌تر که پاریس را تهدید می‌کند، تلاش می‌کنند، به یک جاسوس نفوذی مشکوک می‌شوند.",
+    "runtime": null,
+    "episodes": 16,
+    "seasons": 2,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "Tewfik Jallab",
+        "character": "Vincent Taleb",
+        "photo": "https://image.tmdb.org/t/p/w185/bxQQdJtkhjHpasmd22YKSCHnM6D.jpg"
+      },
+      {
+        "name": "Ritu Arya",
+        "character": "Zara Taylor",
+        "photo": "https://image.tmdb.org/t/p/w185/bBRGCBAW0wNS7fQeGQroOeA60yw.jpg"
+      },
+      {
+        "name": "Ross Anderson",
+        "character": "Oscar",
+        "photo": "https://image.tmdb.org/t/p/w185/918MEQzDshopEdGBvotRNmp39c2.jpg"
+      },
+      {
+        "name": "Agung Bagus",
+        "character": "Kane",
+        "photo": "https://image.tmdb.org/t/p/w185/iVD3sXOTrpvH8EbajI3gPTtEAJt.jpg"
+      },
+      {
+        "name": "Ben Cura",
+        "character": "Marcos",
+        "photo": "https://image.tmdb.org/t/p/w185/zQu260CHVj1Ai507FZ3cLL4DUox.jpg"
+      },
+      {
+        "name": "Shiraz Yasin",
+        "character": "Omar",
+        "photo": "https://image.tmdb.org/t/p/w185/IvrqhY1HwBneUHqVkcT4JH00fm.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/232018"
+  },
+  {
+    "id": 298008,
+    "type": "series",
+    "title": "ダウンタイム",
+    "fa": "ダウンタイム",
+    "year": 2026,
+    "genres": [
+      "Drama"
+    ],
+    "rating": 7.0,
+    "poster": "https://image.tmdb.org/t/p/w500/zUp3F7qtpJIUMsf31DDLNx1xOdS.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/mIjERiWlnDzQWHTcZdtucLmTCeO.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 8,
+    "seasons": 1,
+    "status": "Ended",
+    "cast": [
+      {
+        "name": "松岡茉優",
+        "character": "Fumi Numata",
+        "photo": "https://image.tmdb.org/t/p/w185/f7Pn68PjbhbsgwdAcQ7mxpkAYPJ.jpg"
+      },
+      {
+        "name": "仲里依紗",
+        "character": "Rin Tohyama",
+        "photo": "https://image.tmdb.org/t/p/w185/lQHNZeMCqEK8AJvNb15BFnji7qO.jpg"
+      },
+      {
+        "name": "間宮祥太朗",
+        "character": "Rui Komiya",
+        "photo": "https://image.tmdb.org/t/p/w185/rTyurOXMTcSyLfjGxLZ1rDedyPt.jpg"
+      },
+      {
+        "name": "田中みな実",
+        "character": "Nanami Todoroki",
+        "photo": "https://image.tmdb.org/t/p/w185/a4owLLPAec6N6cO5UWf8Uq5SsaI.jpg"
+      },
+      {
+        "name": "萩原利久",
+        "character": "Riku Hagiwara",
+        "photo": "https://image.tmdb.org/t/p/w185/yX2Zjhy7FdPwLexGxG8sgoSgakN.jpg"
+      },
+      {
+        "name": "永作博美",
+        "character": "Taeko Numata",
+        "photo": "https://image.tmdb.org/t/p/w185/l0NR6D6aOaTqqtrgd0VrRg62Us1.jpg"
+      },
+      {
+        "name": "渡部篤郎",
+        "character": "Arata Toyama",
+        "photo": "https://image.tmdb.org/t/p/w185/nhG7XVt3QfNgQQHnetBUJvfv79Q.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/298008"
+  },
+  {
+    "id": 1101383,
+    "type": "movie",
+    "title": "The End of Oak Street",
+    "fa": "انتهای خیابان اوک",
+    "year": 2026,
+    "genres": [
+      "Science Fiction",
+      "Mystery",
+      "Thriller"
+    ],
+    "rating": 6.9,
+    "poster": "https://image.tmdb.org/t/p/w500/vp0HL1AadTFIuJ0gePaMqoeVxOy.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/b9q9VmbXDvJmTziRqkwdEmFdwhr.jpg",
+    "overview": "",
+    "runtime": 100,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "ان هتوی",
+        "character": "Denise Platt",
+        "photo": "https://image.tmdb.org/t/p/w185/nbccV2pMoyLTCeg5DQip24Eq0Jp.jpg"
+      },
+      {
+        "name": "ایوان مک‌گرگور",
+        "character": "Greg Platt",
+        "photo": "https://image.tmdb.org/t/p/w185/aEmyadfRXTmmR7UW7OXsm5a6smS.jpg"
+      },
+      {
+        "name": "Maisy Stella",
+        "character": "Audrey Platt",
+        "photo": "https://image.tmdb.org/t/p/w185/dlnP0Yzbr9EEbVg6M0PQVQ7pwUF.jpg"
+      },
+      {
+        "name": "Christian Convery",
+        "character": "Brian Platt",
+        "photo": "https://image.tmdb.org/t/p/w185/tOR2tSrvHPVDltE4jBDEva3GNqY.jpg"
+      },
+      {
+        "name": "Jordan Alexa Davis",
+        "character": "Jeannette Christiansen",
+        "photo": "https://image.tmdb.org/t/p/w185/itz31u3sG9hAlwuFZ6FWz1KhY1R.jpg"
+      },
+      {
+        "name": "پی. جی. برن",
+        "character": "Mel Jacobs",
+        "photo": "https://image.tmdb.org/t/p/w185/1JVBaxRy3OxkHymD3nwBd5kVWWL.jpg"
+      },
+      {
+        "name": "Hudson Meek",
+        "character": "Kaden Tucker",
+        "photo": "https://image.tmdb.org/t/p/w185/29S5mIoO18vNbOs0qrLC2XRVNlV.jpg"
+      },
+      {
+        "name": "Anne Gee Byrd",
+        "character": "Mrs. Huddleston",
+        "photo": "https://image.tmdb.org/t/p/w185/yNqUNepmVQ462yoTnZOWVbudKeG.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1101383"
+  },
+  {
+    "id": 1124142,
+    "type": "movie",
+    "title": "The Rivals of Amziah King",
+    "fa": "رقیبان امزیا کینگ",
+    "year": 2026,
+    "genres": [
+      "Crime",
+      "Drama",
+      "Thriller"
+    ],
+    "rating": 6.8,
+    "poster": "https://image.tmdb.org/t/p/w500/2MBhtiOWqLXe1hPovH5qFmxjEHg.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/nBSlvQrDX60rmngwcxMeMq33I9m.jpg",
+    "overview": "",
+    "runtime": 131,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "متیو مک‌کانهی",
+        "character": "Amziah King",
+        "photo": "https://image.tmdb.org/t/p/w185/lCySuYjhXix3FzQdS4oceDDrXKI.jpg"
+      },
+      {
+        "name": "کرت راسل",
+        "character": "Dob McCoy",
+        "photo": "https://image.tmdb.org/t/p/w185/6g1d98oH4miG4k0ZiZWmF3Dt0bO.jpg"
+      },
+      {
+        "name": "Angelina LookingGlass",
+        "character": "Kateri",
+        "photo": "https://image.tmdb.org/t/p/w185/jo1OhLLAsM9Noqy9tD3ioJLi2AC.jpg"
+      },
+      {
+        "name": "کول اسپراوس",
+        "character": "Oat",
+        "photo": "https://image.tmdb.org/t/p/w185/mQAXL0rUGwX316d1FBBQmloZzHu.jpg"
+      },
+      {
+        "name": "اسکات شپرد",
+        "character": "Chimmy",
+        "photo": "https://image.tmdb.org/t/p/w185/leLuJUpF6uySDWPS7FwHpObAMs4.jpg"
+      },
+      {
+        "name": "راب مورگان",
+        "character": "Rippy",
+        "photo": "https://image.tmdb.org/t/p/w185/ps6wR3JZnk6MY9tbtOLORgadqs6.jpg"
+      },
+      {
+        "name": "تونی ریوولوری",
+        "character": "Colemar",
+        "photo": "https://image.tmdb.org/t/p/w185/tSF6XmXDikrKZbFUeoDnafXxKjT.jpg"
+      },
+      {
+        "name": "Jake Horowitz",
+        "character": "Remick",
+        "photo": "https://image.tmdb.org/t/p/w185/ijZZcfnpgkJFW9NFsHSV0csVZ33.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1124142"
+  },
+  {
+    "id": 1240889,
+    "type": "movie",
+    "title": "Teenage Sex and Death at Camp Miasma",
+    "fa": "Teenage Sex and Death at Camp Miasma",
+    "year": 2026,
+    "genres": [
+      "Comedy",
+      "Horror",
+      "Romance",
+      "Thriller"
+    ],
+    "rating": 6.6,
+    "poster": "https://image.tmdb.org/t/p/w500/nLsFnXifieSTqSeWxjXSS8RvaUZ.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/d1n2ySWSanU34eEsluRjfrjRq52.jpg",
+    "overview": "",
+    "runtime": 112,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "هانا اینبیندر",
+        "character": "Kris",
+        "photo": "https://image.tmdb.org/t/p/w185/iWMeyJAghUYP3zxmOxzcYLU5G8Z.jpg"
+      },
+      {
+        "name": "جیلین اندرسون",
+        "character": "Billy",
+        "photo": "https://image.tmdb.org/t/p/w185/3Ny8ZYahb33vpqNEPNCE2IOXPew.jpg"
+      },
+      {
+        "name": "Amanda Fix",
+        "character": "Young Billy",
+        "photo": "https://image.tmdb.org/t/p/w185/ju3aa2yJL4h5msWcbEryh7cjXOt.jpg"
+      },
+      {
+        "name": "Arthur Conti",
+        "character": "Alex",
+        "photo": "https://image.tmdb.org/t/p/w185/pnO8qBwvLJfN54UaKsy0QQlAc8u.jpg"
+      },
+      {
+        "name": "ایوا ویکتور",
+        "character": "DJ Ella Giastic",
+        "photo": "https://image.tmdb.org/t/p/w185/nlEirkGOQPVUVgNzIqEJysnt70q.jpg"
+      },
+      {
+        "name": "Zach Cherry",
+        "character": "Will",
+        "photo": "https://image.tmdb.org/t/p/w185/fT3Wv8ef0Vn0daHWAObCp2Bd4Y.jpg"
+      },
+      {
+        "name": "Sarah Sherman",
+        "character": "Kris' Agent",
+        "photo": "https://image.tmdb.org/t/p/w185/sPLNz5GGee26tZDFv4eZeyVng6d.jpg"
+      },
+      {
+        "name": "Patrick Fischler",
+        "character": "Rudolph",
+        "photo": "https://image.tmdb.org/t/p/w185/vVj7GjHL9hOilbKwViXZpnUlbcQ.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1240889"
+  },
+  {
+    "id": 1323244,
+    "type": "movie",
+    "title": "Rage of Stars",
+    "fa": "Rage of Stars",
+    "year": 2026,
+    "genres": [
+      "Action",
+      "Science Fiction",
+      "Thriller"
+    ],
+    "rating": 6.6,
+    "poster": "https://image.tmdb.org/t/p/w500/oLld47ZT1I3iecM3OWhIphohQUJ.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/z7lZgL5tzefTfhyRtouThFhsuUS.jpg",
+    "overview": "",
+    "runtime": 106,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "Andrea Tivadar",
+        "character": "Jemma",
+        "photo": "https://image.tmdb.org/t/p/w185/iYtFxJGcrNmxYTq6rhivdFsotMx.jpg"
+      },
+      {
+        "name": "Jord Knotter",
+        "character": "Luk",
+        "photo": "https://image.tmdb.org/t/p/w185/f0ufZ6YbyWnu36kFg1d2OOjcM2S.jpg"
+      },
+      {
+        "name": "Jack McEvoy",
+        "character": "Kriss",
+        "photo": "https://image.tmdb.org/t/p/w185/pmE0tQiPxQT5yI6DZlnnjd8m8nB.jpg"
+      },
+      {
+        "name": "Elijah Rowen",
+        "character": "Tom",
+        "photo": "https://image.tmdb.org/t/p/w185/9aa2UljPdCZlp7meRE4dIzeu4Ej.jpg"
+      },
+      {
+        "name": "Małgorzata Klara",
+        "character": "Commander",
+        "photo": "https://image.tmdb.org/t/p/w185/aOpwXHLkh2KrctgTX7cD7Cs1QN0.jpg"
+      },
+      {
+        "name": "Mayu Gralińska Sakai",
+        "character": "Maya",
+        "photo": ""
+      },
+      {
+        "name": "Jakub Ormaniec",
+        "character": "Mike",
+        "photo": ""
+      },
+      {
+        "name": "Milena Grzybek",
+        "character": "Waitress",
+        "photo": ""
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1323244"
+  },
+  {
+    "id": 320760,
+    "type": "series",
+    "title": "Seni Tanıyorum",
+    "fa": "Seni Tanıyorum",
+    "year": 2026,
+    "genres": [
+      "Drama"
+    ],
+    "rating": 6.5,
+    "poster": "https://image.tmdb.org/t/p/w500/tgBRNtynz81e0DE4bWo8XwTbCw9.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/RUkgsqD4YbEKKq77eFgJjeH89n.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 8,
+    "seasons": 1,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "Melis Sezen",
+        "character": "Nazlı",
+        "photo": "https://image.tmdb.org/t/p/w185/kiTyCXXX1s6vtwtjKGCYKkhwTsx.jpg"
+      },
+      {
+        "name": "Elçin Sangu",
+        "character": "Funda",
+        "photo": "https://image.tmdb.org/t/p/w185/5jGVTT2ykGro046rvKP75y7Mnyi.jpg"
+      },
+      {
+        "name": "Ozan Dolunay",
+        "character": "İlker",
+        "photo": "https://image.tmdb.org/t/p/w185/vLXxGS3DOlK5C8nbAPVndWurnmu.jpg"
+      },
+      {
+        "name": "Cemal Hünal",
+        "character": "Kemal",
+        "photo": "https://image.tmdb.org/t/p/w185/fR3xGBAeOaLVI0W4XGsR9khWE3O.jpg"
+      },
+      {
+        "name": "Efe Taşdelen",
+        "character": "Emre",
+        "photo": "https://image.tmdb.org/t/p/w185/zNxVyYTQmzCvBNOrsL4KwdoFF9i.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/320760"
+  },
+  {
+    "id": 1284465,
+    "type": "movie",
+    "title": "The Death of Robin Hood",
+    "fa": "مرگ رابین هود",
+    "year": 2026,
+    "genres": [
+      "Adventure",
+      "Drama",
+      "Action"
+    ],
+    "rating": 6.2,
+    "poster": "https://image.tmdb.org/t/p/w500/bzKyaqVphhtJEuPtfQmL431a1RM.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/lh3BDkmWJh998n4fQcHYcVi7dpm.jpg",
+    "overview": "رابین هود پس از سال‌ها زندگی در مسیر جرم و قتل، با گذشته تاریک خود درگیر است. او در پی نبردی که گمان می‌کرد آخرین رویارویی‌اش خواهد بود، به‌شدت زخمی می‌شود و در آستانه مرگ قرار می‌گیرد. در حالی که مرز میان زندگی و مرگ برای او کم‌رنگ شده، زنی مرموز او را به مراقبت می‌گیرد. این زن فرصتی برای رستگاری و رهایی از گذشته در اختیارش می‌گذارد؛ فرصتی که می‌تواند سرنوشت رابین هود را برای همیشه تغییر دهد و ...",
+    "runtime": 123,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "هیو جکمن",
+        "character": "Robin Hood",
+        "photo": "https://image.tmdb.org/t/p/w185/oX6CpXmnXCHLyqsa4NEed1DZAKx.jpg"
+      },
+      {
+        "name": "جودی کومر",
+        "character": "Sister Brigid",
+        "photo": "https://image.tmdb.org/t/p/w185/AfsBpnfw0E2h8NZK4zkFcOjYlEb.jpg"
+      },
+      {
+        "name": "بیل اسکارسگارد",
+        "character": "Little John",
+        "photo": "https://image.tmdb.org/t/p/w185/xBXLx1m0uzhXIbY3wN8lmPGeUHl.jpg"
+      },
+      {
+        "name": "Murray Bartlett",
+        "character": "The Leper",
+        "photo": "https://image.tmdb.org/t/p/w185/eN20zfcRB2F51bmUbTK9byQCpb9.jpg"
+      },
+      {
+        "name": "نوآ جوپ",
+        "character": "Arthur / Godwyn",
+        "photo": "https://image.tmdb.org/t/p/w185/cBhJisZrIsZzamiUCVjOZODcqOK.jpg"
+      },
+      {
+        "name": "Jade Croot",
+        "character": "Wainwright",
+        "photo": "https://image.tmdb.org/t/p/w185/j4DuuFPDdnEcDWFWCyBUuhhHkxg.jpg"
+      },
+      {
+        "name": "Faith Delaney",
+        "character": "Little Margaret",
+        "photo": "https://image.tmdb.org/t/p/w185/jIKjTzr4dCoybQgNhyREahh9Aym.jpg"
+      },
+      {
+        "name": "Tabitha Smyth",
+        "character": "Sarah",
+        "photo": "https://image.tmdb.org/t/p/w185/uREVbfIi4rD2W29zWbtzNqIhP4u.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1284465"
+  },
+  {
+    "id": 1279493,
+    "type": "movie",
+    "title": "The Get Out",
+    "fa": "The Get Out",
+    "year": 2026,
+    "genres": [
+      "Action",
+      "Thriller"
+    ],
+    "rating": 6.0,
+    "poster": "https://image.tmdb.org/t/p/w500/zlkeH0s7dDxcnuPcHBqAyXFUxqN.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/mDVnHFcxxUJC9TQFVeKh1TJNBzh.jpg",
+    "overview": "",
+    "runtime": 111,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "راسل کرو",
+        "character": "Manco Kapak",
+        "photo": "https://image.tmdb.org/t/p/w185/uxiXuVH4vNWrKlJMVVPG1sxAJFe.jpg"
+      },
+      {
+        "name": "لوک ایوانز",
+        "character": "Joe Carver",
+        "photo": "https://image.tmdb.org/t/p/w185/qUkYJcrDc4M0LHNYASs30luFvw0.jpg"
+      },
+      {
+        "name": "ترزا پالمر",
+        "character": "Sunny",
+        "photo": "https://image.tmdb.org/t/p/w185/sjSiLSCp9LS1Z0nyGpmquTBuUyr.jpg"
+      },
+      {
+        "name": "دنیل زوواتو",
+        "character": "Rodriguez",
+        "photo": "https://image.tmdb.org/t/p/w185/oDD8ioAU8w7Lhp92DpU9lU1XkXX.jpg"
+      },
+      {
+        "name": "Josh McConville",
+        "character": "Slosser",
+        "photo": "https://image.tmdb.org/t/p/w185/3Au004X5BsV5KIpOLMB8g9DuevT.jpg"
+      },
+      {
+        "name": "Benedict Hardie",
+        "character": "Spence",
+        "photo": "https://image.tmdb.org/t/p/w185/bf02Dz4LMV23scJC6c8P4R6xji6.jpg"
+      },
+      {
+        "name": "نینا دوبرو",
+        "character": "Carrie",
+        "photo": "https://image.tmdb.org/t/p/w185/euHNgS3z3M3OTzLhQQAezViQddq.jpg"
+      },
+      {
+        "name": "آرون پال",
+        "character": "Jeff",
+        "photo": "https://image.tmdb.org/t/p/w185/8Ac9uuoYwZoYVAIJfRLzzLsGGJn.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1279493"
+  },
+  {
+    "id": 1656489,
+    "type": "movie",
+    "title": "Sultana",
+    "fa": "Sultana",
+    "year": 2026,
+    "genres": [
+      "Drama",
+      "Music"
+    ],
+    "rating": 5.5,
+    "poster": "https://image.tmdb.org/t/p/w500/wDebpR4NplIM8EteAGfd51Zdisu.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/29XMlo2zt5LTA0YMjA3hubbM942.jpg",
+    "overview": "",
+    "runtime": 120,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "Tuba Büyüküstün",
+        "character": "Meral",
+        "photo": "https://image.tmdb.org/t/p/w185/14QRLZqXAZglMB7Z25uXg6IG3LG.jpg"
+      },
+      {
+        "name": "Derya Pınar Ak",
+        "character": "Anna",
+        "photo": "https://image.tmdb.org/t/p/w185/9PxHCK6FifopvrEgsAnwOrRcxs5.jpg"
+      },
+      {
+        "name": "Seray Kaya",
+        "character": "Tülay",
+        "photo": "https://image.tmdb.org/t/p/w185/vonxi1y7pUDcbeOantOqYrBSizx.jpg"
+      },
+      {
+        "name": "Begüm Akkaya",
+        "character": "Gülistan",
+        "photo": "https://image.tmdb.org/t/p/w185/5JqzpYhyio17y0ievgDGEDiacBg.jpg"
+      },
+      {
+        "name": "Rojbin Erden",
+        "character": "Fahriye",
+        "photo": "https://image.tmdb.org/t/p/w185/nRTrcE1UHlPlaztsGvrawMHUN4Q.jpg"
+      },
+      {
+        "name": "Şirin Sultan Saldamlı",
+        "character": "Nezo",
+        "photo": "https://image.tmdb.org/t/p/w185/fHCuvVh6SGBW2VMh5gTMCUsIbxL.jpg"
+      },
+      {
+        "name": "Itır Esen",
+        "character": "Selin",
+        "photo": "https://image.tmdb.org/t/p/w185/g6nYeWkmL4bI0fxRNYxcX1QArm7.jpg"
+      },
+      {
+        "name": "Taro Emir Tekin",
+        "character": "Arif",
+        "photo": "https://image.tmdb.org/t/p/w185/jzq1kYMT7YZSRVbpqQTB3fcL9fW.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1656489"
+  },
+  {
+    "id": 1641629,
+    "type": "movie",
+    "title": "Toi+Moi - Seuls contre tous",
+    "fa": "Toi+Moi - Seuls contre tous",
+    "year": 2026,
+    "genres": [
+      "Romance",
+      "Drama"
+    ],
+    "rating": 5.0,
+    "poster": "https://image.tmdb.org/t/p/w500/xwzLNsGMh1yDRGOGH58ftPWmfzq.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/nkEhDomjmPHJSA4Tx8pxv0NlKEy.jpg",
+    "overview": "",
+    "runtime": 93,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "Vittoria Di Savoia",
+        "character": "Alma Lancaster",
+        "photo": "https://image.tmdb.org/t/p/w185/uxlRv4jnvzagvnTR18dnIBTvQNJ.jpg"
+      },
+      {
+        "name": "Lucas Barski",
+        "character": "Vadim Arcadi",
+        "photo": "https://image.tmdb.org/t/p/w185/bNJj7fynrB2ZMoPpDNfcVd4YBg.jpg"
+      },
+      {
+        "name": "Aymeric Fougeron",
+        "character": "Basile Lancaster",
+        "photo": "https://image.tmdb.org/t/p/w185/2GiOfHcnoMqJGwDu7JiU8YMlgph.jpg"
+      },
+      {
+        "name": "Zoé Garcia",
+        "character": "Clémentine",
+        "photo": "https://image.tmdb.org/t/p/w185/alBs6QVCSNvnz4zoHXYRXw1GHYq.jpg"
+      },
+      {
+        "name": "Léo Legrand",
+        "character": "Timothé Vallas",
+        "photo": "https://image.tmdb.org/t/p/w185/yTdqyHFID2EvZil1PvyYEFMlsID.jpg"
+      },
+      {
+        "name": "Jean-Yves Berteloot",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/x8uFQOAsLSbWcbRMyItUj2nMZuo.jpg"
+      },
+      {
+        "name": "Gabrielle Taittinger",
+        "character": "Lily Lancaster",
+        "photo": ""
+      },
+      {
+        "name": "Suliane Brahim",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/dxUO3EA9xPuj23MWXpFd8Sknv36.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1641629"
+  },
+  {
+    "id": 295089,
+    "type": "series",
+    "title": "Lalka",
+    "fa": "Lalka",
+    "year": 2026,
+    "genres": [
+      "Drama"
+    ],
+    "rating": 4.3,
+    "poster": "https://image.tmdb.org/t/p/w500/vIfM0x2zl4sjj6UYaQR5uUeZXIh.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/7Q8H2rxsNzoNHagDEMcTlmAKtfb.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 6,
+    "seasons": 1,
+    "status": "Ended",
+    "cast": [
+      {
+        "name": "Sandra Drzymalska",
+        "character": "Izabela Łęcka",
+        "photo": "https://image.tmdb.org/t/p/w185/qO4jn3TiQ0Ig1Zf1DhHVCb4lYoe.jpg"
+      },
+      {
+        "name": "Tomasz Schuchardt",
+        "character": "Stanisław Wokulski",
+        "photo": "https://image.tmdb.org/t/p/w185/2WOX4dBr97itzYzNqEUbxXrYeE3.jpg"
+      },
+      {
+        "name": "Dariusz Chojnacki",
+        "character": "Ignacy Rzecki",
+        "photo": "https://image.tmdb.org/t/p/w185/uzdik3FJwIbbOKusISw6Wkytqqk.jpg"
+      },
+      {
+        "name": "Jacek Braciak",
+        "character": "Tomasz Łęcki",
+        "photo": "https://image.tmdb.org/t/p/w185/c5gcI2kIvi7pjXr2BpdMDmAYpMd.jpg"
+      },
+      {
+        "name": "Julia Wyszyńska",
+        "character": "Panna Florentyna",
+        "photo": "https://image.tmdb.org/t/p/w185/10L2QRI6T1At67tJNcckONedIyM.jpg"
+      },
+      {
+        "name": "Magdalena Cielecka",
+        "character": "Kazimiera Wąsowska",
+        "photo": "https://image.tmdb.org/t/p/w185/5lL9yMqYrUAnoi8Twq782YDbL7P.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/295089"
+  },
+  {
+    "id": 1514863,
+    "type": "movie",
+    "title": "Best of the Best",
+    "fa": "Best of the Best",
+    "year": 2026,
+    "genres": [
+      "Comedy"
+    ],
+    "rating": 0.0,
+    "poster": "https://image.tmdb.org/t/p/w500/Zm5i6MmXp5cfIT3LffiuAX1uZ6.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/5m1j7Wibh3HnZq5QHm97v8dI3GH.jpg",
+    "overview": "",
+    "runtime": 116,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "Maitreyi Ramakrishnan",
+        "character": "Maya",
+        "photo": "https://image.tmdb.org/t/p/w185/dkhYjeCU5ByYKxAr2wtXz20vb60.jpg"
+      },
+      {
+        "name": "Priyanka Kedia",
+        "character": "Anjali",
+        "photo": "https://image.tmdb.org/t/p/w185/trd4RCbywJ76wW5RoZbhKkt3kiP.jpg"
+      },
+      {
+        "name": "Hasan Minhaj",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/6vHHhLnbKBCPmYc90qAV2Cde95F.jpg"
+      },
+      {
+        "name": "Chaneil Kular",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/b6TmM2wcVntDMJGZWQM3ftshhIi.jpg"
+      },
+      {
+        "name": "Ankur Rathee",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/5ZR7jiE4cGhaM6ZqBS6R7N7h5Q7.jpg"
+      },
+      {
+        "name": "Shreya Navile",
+        "character": "",
+        "photo": ""
+      },
+      {
+        "name": "Becky Alex",
+        "character": "",
+        "photo": ""
+      },
+      {
+        "name": "Nihar Duvvuri",
+        "character": "",
+        "photo": ""
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1514863"
+  },
+  {
+    "id": 275102,
+    "type": "series",
+    "title": "스캔들",
+    "fa": "스캔들",
+    "year": 2026,
+    "genres": [
+      "Drama"
+    ],
+    "rating": 0.0,
+    "poster": "https://image.tmdb.org/t/p/w500/8ra17h8Z3NX14qdWaOKn0scURJR.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/uc1p1PEbEMpdIHqnU9TESNC6Jhp.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 8,
+    "seasons": 1,
+    "status": "Ended",
+    "cast": [
+      {
+        "name": "손예진",
+        "character": "Lady Cho",
+        "photo": "https://image.tmdb.org/t/p/w185/i6fASFvO3mUceZJvipn4RiLHA44.jpg"
+      },
+      {
+        "name": "지창욱",
+        "character": "Cho Won",
+        "photo": "https://image.tmdb.org/t/p/w185/sBmHrO5Tn27Ot5hy0yAKniROmNb.jpg"
+      },
+      {
+        "name": "나나",
+        "character": "Ahn Hui-yeon",
+        "photo": "https://image.tmdb.org/t/p/w185/zEjVBD734pLcNQrZESkKTNhKl6z.jpg"
+      },
+      {
+        "name": "한선화",
+        "character": "So-ok's Mom",
+        "photo": "https://image.tmdb.org/t/p/w185/daP8g9eByOuJnnKUROrKwAGU1Yp.jpg"
+      },
+      {
+        "name": "신윤하",
+        "character": "Lee So-ok",
+        "photo": "https://image.tmdb.org/t/p/w185/9F8XXBvdziId1BwW1EwZbY8hOiB.jpg"
+      },
+      {
+        "name": "강지은",
+        "character": "Lady Jeonggyeong",
+        "photo": "https://image.tmdb.org/t/p/w185/2godIG1dfY3T1akTDsstvStYPh4.jpg"
+      },
+      {
+        "name": "권도균",
+        "character": "Chil-seong",
+        "photo": "https://image.tmdb.org/t/p/w185/glk5bE5fOixuInd8mgAl2jlojg5.jpg"
+      },
+      {
+        "name": "강찬희",
+        "character": "Kwon In-ho",
+        "photo": "https://image.tmdb.org/t/p/w185/2vBAQc9BKRAePO0NQcSp90KHMpk.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/275102"
   }
 ]
