@@ -1,118 +1,38 @@
 const FALLBACK=window.NABZ_DATA||[];
 const GENRES={28:"اکشن",12:"ماجراجویی",16:"انیمیشن",35:"کمدی",80:"جنایی",99:"مستند",18:"درام",10751:"خانوادگی",14:"فانتزی",36:"تاریخی",27:"ترسناک",10402:"موسیقی",9648:"معمایی",10749:"عاشقانه",878:"علمی‌تخیلی",10770:"فیلم تلویزیونی",53:"هیجان‌انگیز",10752:"جنگی",37:"وسترن",10759:"اکشن و ماجراجویی",10765:"علمی‌تخیلی و فانتزی",10768:"جنگ و سیاست"};
 const GNAME={"Action":"اکشن","Adventure":"ماجراجویی","Animation":"انیمیشن","Comedy":"کمدی","Crime":"جنایی","Documentary":"مستند","Drama":"درام","Family":"خانوادگی","Fantasy":"فانتزی","History":"تاریخی","Horror":"ترسناک","Music":"موسیقی","Mystery":"معمایی","Romance":"عاشقانه","Science Fiction":"علمی‌تخیلی","Thriller":"هیجان‌انگیز","War":"جنگی","Western":"وسترن","Action & Adventure":"اکشن و ماجراجویی","Sci-Fi & Fantasy":"علمی‌تخیلی و فانتزی","War & Politics":"جنگ و سیاست","TV Movie":"فیلم تلویزیونی"};
-const $=s=>document.querySelector(s),esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],esc=v=>String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
 const grid=$("#catalogGrid"),topGrid=$("#topGrid"),movieGrid=$("#movieGrid"),seriesGrid=$("#seriesGrid"),search=$("#search"),catalogSearch=$("#catalogSearch"),type=$("#type"),genre=$("#genre"),sort=$("#sort"),modal=$("#modal"),detail=$("#detail"),hero=$("#hero");
-let data=[],shown=18,onlyFav=false;
+let data=[],shown=18,heroIndex=0;
 const favKey="nabzfilm:favorites";
 const getFav=()=>{try{return JSON.parse(localStorage.getItem(favKey)||"[]")}catch{return[]}};
 const setFav=a=>{localStorage.setItem(favKey,JSON.stringify(a));updateFavUI()};
 function updateFavUI(){const n=getFav().length;$("#favCount").textContent=n;$("#favStat").textContent=n}
 function toggleFav(id,e){if(e)e.stopPropagation();let a=getFav(),s=String(id);a=a.includes(s)?a.filter(x=>x!==s):[...a,s];setFav(a);render();renderTop();renderShowcases()}
-function normalize(x){
- const ids=Array.isArray(x.genre_ids)?x.genre_ids:[];
- const raw=Array.isArray(x.genres)?x.genres:(Array.isArray(x.genre)?x.genre:ids.map(id=>GENRES[id]||"سایر"));
- return {...x,fa:x.fa||x.title||"بدون عنوان",genres:raw.map(g=>GNAME[g]||g)};
-}
-function setupGenres(){
- const gs=[...new Set(data.flatMap(x=>x.genres||[]))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"fa"));
- genre.innerHTML='<option value="">همه ژانرها</option>'+gs.map(g=>'<option value="'+esc(g)+'">'+esc(g)+'</option>').join("");
- const html=gs.slice(0,16).map(g=>'<button class="chip" data-genre="'+esc(g)+'">'+esc(g)+'</button>').join("");
- $("#genreChips").innerHTML=html;$("#genreChips2").innerHTML=html;
-}
-function setHero(){
- const x=data[0];if(!x)return;
- hero.style.backgroundImage=x.backdrop?'url("'+x.backdrop+'")':"";
- $("#heroType").textContent=x.type==="movie"?"فیلم":"سریال";$("#heroTitle").textContent=x.fa;
- $("#heroRating").textContent="★ "+(x.rating||"—");$("#heroYear").textContent=x.year||"—";
- $("#heroGenres").textContent=(x.genres||[]).slice(0,3).join(" • ");
- $("#heroOverview").textContent=x.overview||"برای این عنوان خلاصه‌ای ثبت نشده است.";
- $("#heroBtn").onclick=()=>openDetail(x);
-}
-function card(x){
- const fav=getFav().includes(String(x.id));
- return '<article class="card" data-id="'+esc(x.id)+'"><div class="poster"><img loading="lazy" src="'+esc(x.poster||"")+'" alt="'+esc(x.fa)+'"><span class="badge rate">★ '+esc(x.rating||"—")+'</span><span class="badge kind">'+(x.type==="movie"?"فیلم":"سریال")+'</span><button class="fav '+(fav?"on":"")+'" data-fav="'+esc(x.id)+'" aria-label="علاقه‌مندی">'+(fav?"♥":"♡")+'</button></div><div class="info"><h3>'+esc(x.fa)+'</h3><p>'+esc(x.year||"—")+' • '+esc((x.genres||[]).slice(0,2).join("، "))+'</p></div></article>';
-}
-function filtered(){
- const q1=search.value.trim().toLocaleLowerCase("fa"),q2=catalogSearch.value.trim().toLocaleLowerCase("fa");
- let list=data.filter(x=>{
-  const text=(x.fa+" "+x.title).toLocaleLowerCase("fa");
-  return (type.value==="all"||type.value==="favorite"||x.type===type.value)&&(!genre.value||(x.genres||[]).includes(genre.value))&&(!q1||text.includes(q1))&&(!q2||text.includes(q2))&&(type.value!=="favorite"||getFav().includes(String(x.id)));
- });
- if(sort.value==="rating")list.sort((a,b)=>(b.rating||0)-(a.rating||0));
- if(sort.value==="year")list.sort((a,b)=>(b.year||0)-(a.year||0));
- if(sort.value==="az")list.sort((a,b)=>a.fa.localeCompare(b.fa,"fa"));
- return list;
-}
-function render(){
- const list=filtered(),view=list.slice(0,shown);
- grid.innerHTML=view.length?view.map(card).join(""):'<div class="empty">نتیجه‌ای پیدا نشد.</div>';
- $("#count").textContent=list.length+" عنوان";$("#loadMore").style.display=shown<list.length?"inline-flex":"none";
-}
-function renderTop(){topGrid.innerHTML=[...data].sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0,6).map(card).join("")}
-function renderShowcases(){
- const movies=[...data].filter(x=>x.type==="movie").sort((a,b)=>(b.year||0)-(a.year||0)||(b.rating||0)-(a.rating||0)).slice(0,6);
- const series=[...data].filter(x=>x.type==="series").sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0,6);
- if(movieGrid)movieGrid.innerHTML=movies.length?movies.map(card).join(""):'<div class="empty">فیلمی در کاتالوگ نیست.</div>';
- if(seriesGrid)seriesGrid.innerHTML=series.length?series.map(card).join(""):'<div class="empty">سریالی در کاتالوگ نیست.</div>';
-}
-function jumpToType(t){
- type.value=t;shown=18;render();document.querySelector("#catalog").scrollIntoView({behavior:"smooth"});
-}
-function providerLabel(p){return p?.provider_name||p?.name||"سرویس تماشا"}
-function providerLinks(x){
- const az=x.watch?.AZ?.link, us=x.watch?.US?.link;
- const primary=az||us;
- const providers=(primary?'<a class="watch-link watch-primary" target="_blank" rel="noopener" href="'+esc(primary)+'">▶ تماشای قانونی</a>':'');
- return providers + regionsLegacy(x);
-}
-function internalPlayer(x){
- const video=x.video_url||x.stream_url;
- const embed=x.embed_url;
- if(video){
-  return '<div class="internal-watch"><div class="player-head"><strong>🎬 پخش آنلاین داخل سایت</strong><span>منبع مجاز</span></div><video class="site-video" controls playsinline preload="metadata" poster="'+esc(x.backdrop||x.poster||'')+'"><source src="'+esc(video)+'" type="'+esc(x.video_type||'video/mp4')+'">مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.</video><div class="watch-note">منبع پخش توسط صاحب اثر/منبع مجاز ارائه شده است.</div></div>';
- }
- if(embed){
-  return '<div class="internal-watch"><div class="player-head"><strong>🎬 پخش آنلاین داخل سایت</strong><span>منبع مجاز</span></div><div class="player"><iframe src="'+esc(embed)+'" title="پخش آنلاین '+esc(x.fa)+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>';
- }
- return '<div class="internal-watch empty-player"><div class="player-head"><strong>🎬 پخش آنلاین داخل سایت</strong></div><p>برای این عنوان هنوز لینک پخش مستقیمِ مجاز ثبت نشده است.</p><small>برای فیلم‌های دارای مجوز، لینک ویدیو در همین صفحه باز می‌شود و کاربر از سایت خارج نمی‌شود.</small></div>';
-}
-function regionsLegacy(x){
- const regions=[["AZ","🇦🇿 آذربایجان"],["US","🇺🇸 آمریکا"]];
- return regions.map(([code,label])=>{
-  const w=x.watch?.[code]; if(!w)return "";
-  const ps=[...(w.flatrate||[]),...(w.free||[]),...(w.ads||[]),...(w.rent||[]),...(w.buy||[])];
-  const seen=new Set();
-  const links=ps.filter(p=>p&&p.provider_name&&!seen.has(p.provider_name)&&seen.add(p.provider_name)).slice(0,8).map(p=>'<a class="watch-link" target="_blank" rel="noopener" href="'+esc(w.link||x.tmdb_url)+'">▶ '+esc(p.provider_name)+'</a>').join("");
-  return links?'<div><strong style="display:block;margin-bottom:7px">'+label+'</strong><div class="watch-grid">'+links+'</div></div>':"";
- }).join("") || '<div class="watch-note">برای این عنوان، سرویس تماشای قانونی در مناطق بررسی‌شده پیدا نشد.</div>';
-}
-function openDetail(x){
- const cast=(x.cast||[]).map(p=>'<div class="cast"><img loading="lazy" src="'+esc(p.photo||"")+'" alt="'+esc(p.name)+'"><span>'+esc(p.name)+'</span><small>'+esc(p.character||"")+'</small></div>').join("");
- const facts=[];if(x.year)facts.push("📅 "+x.year);if(x.rating)facts.push("⭐ "+x.rating);if(x.runtime)facts.push("⏱ "+x.runtime+" دقیقه");if(x.seasons)facts.push("📺 "+x.seasons+" فصل");if(x.episodes)facts.push("🎞 "+x.episodes+" قسمت");
- detail.innerHTML='<button class="close" aria-label="بستن">×</button><div class="detail-cover" style="background-image:linear-gradient(0deg,#0b0f17,transparent),url("'+esc(x.backdrop||x.poster||"")+'")"></div><div class="detail"><div class="detail-poster"><img src="'+esc(x.poster||"")+'" alt="'+esc(x.fa)+'"></div><div class="copy"><span class="eyebrow">'+(x.type==="movie"?"فیلم":"سریال")+'</span><h2>'+esc(x.fa)+'</h2><p class="en">'+esc(x.title||"")+'</p><div class="facts">'+facts.map(f=>"<span>"+esc(f)+"</span>").join("")+'</div><div class="genres">'+esc((x.genres||[]).join(" • "))+'</div><p class="overview">'+esc(x.overview||"توضیحی ثبت نشده است.")+'</p><div class="detail-actions">'+(x.trailer?'<button class="btn" data-trailer="'+esc(x.trailer)+'">▶ پخش تریلر</button>':"")+'<a class="btn secondary" target="_blank" rel="noopener" href="'+esc(x.tmdb_url||"https://www.themoviedb.org/")+'">اطلاعات رسمی ↗</a><button class="btn ghost" data-detail-fav="'+esc(x.id)+'">'+(getFav().includes(String(x.id))?"♥ حذف از علاقه‌مندی":"♡ افزودن به علاقه‌مندی")+'</button></div></div></div><div class="watch-box"><h3>▶ تماشای آنلاین</h3>'+internalPlayer(x)+'<div class="watch-grid">'+providerLinks(x)+'</div><div id="trailerPlayer"></div><div class="watch-note">پخش کامل فقط برای منابعی نمایش داده می‌شود که اجازه پخش/جاسازی دارند؛ لینک دانلود یا پخش غیرمجاز آثار اضافه نمی‌شود.</div></div><div class="cast-section"><h3>بازیگران</h3><div class="cast-grid">'+(cast||"<span>اطلاعات بازیگران موجود نیست.</span>")+'</div></div><div class="note">اطلاعات این صفحه از TMDB تهیه شده است. نبض فیلم لینک غیرمجاز دانلود یا تماشای آثار ارائه نمی‌کند. برای اطلاعات مربوط به در دسترس بودن قانونی اثر، از صفحه TMDB استفاده کنید.</div>';
- modal.classList.add("show");modal.setAttribute("aria-hidden","false");document.body.classList.add("lock");location.hash="title-"+x.type+"-"+x.id;
-}
+function normalize(x){const ids=Array.isArray(x.genre_ids)?x.genre_ids:[];const raw=Array.isArray(x.genres)?x.genres:(Array.isArray(x.genre)?x.genre:ids.map(id=>GENRES[id]||"سایر"));return {...x,fa:x.fa||x.title||"بدون عنوان",genres:raw.map(g=>GNAME[g]||g).filter(Boolean)}}
+function setupGenres(){const gs=[...new Set(data.flatMap(x=>x.genres||[]))].filter(Boolean).sort((a,b)=>a.localeCompare(b,"fa"));genre.innerHTML='<option value="">همه ژانرها</option>'+gs.map(g=>'<option value="'+esc(g)+'">'+esc(g)+'</option>').join("");const html=gs.slice(0,20).map(g=>'<button class="chip" data-genre="'+esc(g)+'">'+esc(g)+'</button>').join("");$("#genreChips").innerHTML=html;$("#genreChips2").innerHTML=html}
+function card(x){const fav=getFav().includes(String(x.id));return '<article class="card" data-id="'+esc(x.id)+'"><div class="poster">'+(x.poster?'<img loading="lazy" src="'+esc(x.poster)+'" alt="'+esc(x.fa)+'">':'')+'<span class="badge rate">★ '+esc(x.rating||"—")+'</span><span class="badge kind">'+(x.type==="movie"?"فیلم":"سریال")+'</span><button class="fav '+(fav?"on":"")+'" data-fav="'+esc(x.id)+'" aria-label="علاقه‌مندی">'+(fav?"♥":"♡")+'</button></div><div class="info"><h3>'+esc(x.fa)+'</h3><p>'+esc(x.year||"—")+' · '+esc((x.genres||[]).slice(0,2).join("، "))+'</p></div></article>'}
+function setHero(x){if(!x)return;hero.style.backgroundImage=x.backdrop?'url("'+x.backdrop+'")':"";$("#heroType").textContent=x.type==="movie"?"فیلم":"سریال";$("#heroTitle").textContent=x.fa;$("#heroRating").textContent="★ "+(x.rating||"—");$("#heroYear").textContent=x.year||"—";$("#heroGenres").textContent=(x.genres||[]).slice(0,3).join(" • ");$("#heroOverview").textContent=x.overview||"اطلاعات داستانی برای این عنوان ثبت نشده است.";$("#heroBtn").onclick=()=>openDetail(x)}
+function cycleHero(){if(data.length<2)return;heroIndex=(heroIndex+1)%Math.min(data.length,8);setHero(data[heroIndex])}
+function filtered(){const q=(search.value+" "+catalogSearch.value).trim().toLocaleLowerCase("fa");const g=genre.value;const y=$("#year")?.value||"";const min=Number($("#minRating")?.value||0);let list=data.filter(x=>(!q||[x.fa,x.title,(x.genres||[]).join(" ")].join(" ").toLocaleLowerCase("fa").includes(q))&&(!g||(x.genres||[]).includes(g))&&(!y||String(x.year||"")===y)&&(!min||(x.rating||0)>=min));if(type.value==="movie")list=list.filter(x=>x.type==="movie");if(type.value==="series")list=list.filter(x=>x.type==="series");if(type.value==="favorite"){const f=new Set(getFav());list=list.filter(x=>f.has(String(x.id)))}if(sort.value==="year")list.sort((a,b)=>(b.year||0)-(a.year||0)||(b.rating||0)-(a.rating||0));else if(sort.value==="az")list.sort((a,b)=>a.fa.localeCompare(b.fa,"fa"));else list.sort((a,b)=>(b.rating||0)-(a.rating||0));return list}
+function render(){const list=filtered(),view=list.slice(0,shown);grid.innerHTML=view.length?view.map(card).join(""):'<div class="empty">نتیجه‌ای پیدا نشد.</div>';$("#count").textContent=list.length+" عنوان";$("#loadMore").style.display=shown<list.length?"inline-flex":"none"}
+function renderTop(){topGrid.innerHTML=[...data].sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0,8).map(card).join("")}
+function renderShowcases(){const movies=[...data].filter(x=>x.type==="movie").sort((a,b)=>(b.year||0)-(a.year||0)||(b.rating||0)-(a.rating||0)).slice(0,8);const series=[...data].filter(x=>x.type==="series").sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0,8);movieGrid.innerHTML=movies.length?movies.map(card).join(""):'<div class="empty">فیلمی در کاتالوگ نیست.</div>';seriesGrid.innerHTML=series.length?series.map(card).join(""):'<div class="empty">سریالی در کاتالوگ نیست.</div>'}
+function jumpToType(t){type.value=t;shown=18;render();$("#catalog").scrollIntoView({behavior:"smooth"})}
+function providerLinks(x){const regions=Object.entries(x.watch||{});if(!regions.length)return '<div class="watch-note">اطلاعات سرویس تماشا برای این عنوان در مناطق بررسی‌شده موجود نیست.</div>';return regions.map(([code,w])=>{const ps=[...(w.flatrate||[]),...(w.free||[]),...(w.ads||[]),...(w.rent||[]),...(w.buy||[])];const names=[...new Set(ps.map(p=>p?.provider_name).filter(Boolean))].slice(0,8);if(!names.length)return "";return '<div class="provider-region"><strong>'+({AZ:"🇦🇿 آذربایجان",US:"🇺🇸 آمریکا",TR:"🇹🇷 ترکیه",GB:"🇬🇧 بریتانیا",CA:"🇨🇦 کانادا",DE:"🇩🇪 آلمان"}[code]||code)+'</strong><div class="watch-grid">'+names.map(n=>'<a class="watch-link" target="_blank" rel="noopener" href="'+esc(w.link||x.tmdb_url)+'">▶ '+esc(n)+'</a>').join("")+'</div></div>'}).join("")||'<div class="watch-note">سرویس قانونی ثبت‌شده‌ای برای مناطق بررسی‌شده پیدا نشد.</div>'}
+function internalPlayer(x){const video=x.video_url||x.stream_url,embed=x.embed_url;if(video)return '<div class="internal-watch"><div class="player-head"><strong>🎬 پخش داخل سایت</strong><span>منبع مجاز</span></div><video class="site-video" controls playsinline preload="metadata" poster="'+esc(x.backdrop||x.poster||"")+'"><source src="'+esc(video)+'" type="'+esc(x.video_type||"video/mp4")+'">مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.</video></div>';if(embed)return '<div class="internal-watch"><div class="player-head"><strong>🎬 پخش داخل سایت</strong><span>منبع مجاز</span></div><div class="player"><iframe src="'+esc(embed)+'" title="پخش '+esc(x.fa)+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>';return '<div class="internal-watch empty-player"><div class="player-head"><strong>🎬 پخش داخل سایت</strong></div><p>پخش کامل داخلی برای این عنوان منبع مجاز ثبت‌شده ندارد.</p><small>هر منبع ویدیویی فقط در صورت داشتن اجازه پخش/جاسازی وارد سایت می‌شود.</small></div>'}
+function openDetail(x){const cast=(x.cast||[]).map(p=>'<div class="cast"><img loading="lazy" src="'+esc(p.photo||"")+'" alt="'+esc(p.name)+'"><span>'+esc(p.name)+'</span><small>'+esc(p.character||"")+'</small></div>').join("");const facts=[];if(x.year)facts.push("📅 "+x.year);if(x.rating)facts.push("⭐ "+x.rating);if(x.runtime)facts.push("⏱ "+x.runtime+" دقیقه");if(x.seasons)facts.push("📺 "+x.seasons+" فصل");if(x.episodes)facts.push("🎞 "+x.episodes+" قسمت");detail.innerHTML='<button class="close" aria-label="بستن">×</button><div class="detail-cover" style="background-image:linear-gradient(0deg,#0b0f17,transparent),url("'+esc(x.backdrop||x.poster||"")+'")"></div><div class="detail"><div class="detail-poster"><img src="'+esc(x.poster||"")+'" alt="'+esc(x.fa)+'"></div><div class="copy"><span class="eyebrow">'+(x.type==="movie"?"فیلم":"سریال")+'</span><h2>'+esc(x.fa)+'</h2><p class="en">'+esc(x.title||"")+'</p><div class="facts">'+facts.map(f=>"<span>"+esc(f)+"</span>").join("")+'</div><div class="genres">'+esc((x.genres||[]).join(" • "))+'</div><p class="overview">'+esc(x.overview||"توضیحی ثبت نشده است.")+'</p><div class="detail-actions">'+(x.trailer?'<button class="btn" data-trailer="'+esc(x.trailer)+'">▶ تریلر</button>':"")+'<a class="btn secondary" target="_blank" rel="noopener" href="'+esc(x.tmdb_url||"https://www.themoviedb.org/")+'">اطلاعات رسمی ↗</a><button class="btn ghost" data-detail-fav="'+esc(x.id)+'">'+(getFav().includes(String(x.id))?"♥ حذف از علاقه‌مندی":"♡ افزودن به علاقه‌مندی")+'</button></div></div></div><div class="watch-box"><h3>▶ تماشای آنلاین</h3>'+internalPlayer(x)+'<div class="providers">'+providerLinks(x)+'</div><div id="trailerPlayer"></div><div class="watch-note">داده‌های سرویس‌های تماشا از TMDB/JustWatch می‌آیند و لینک مقصد از صفحه TMDB ارائه می‌شود.</div></div><div class="cast-section"><h3>بازیگران</h3><div class="cast-grid">'+(cast||"<span>اطلاعات بازیگران موجود نیست.</span>")+'</div></div><div class="note">نبض فیلم برای آثار دارای منبع مجاز، پخش داخلی HTML5 یا embed مجاز را نمایش می‌دهد. منابع غیرمجاز دانلود یا پخش در سایت قرار نمی‌گیرند.</div>';modal.classList.add("show");modal.setAttribute("aria-hidden","false");document.body.classList.add("lock");location.hash="title-"+x.type+"-"+x.id}
 function closeModal(){modal.classList.remove("show");modal.setAttribute("aria-hidden","true");document.body.classList.remove("lock");if(location.hash.startsWith("#title-"))history.replaceState(null,"",location.pathname+location.search)}
-grid.addEventListener("click",e=>{const f=e.target.closest("[data-fav]");if(f)return toggleFav(f.dataset.fav,e);const c=e.target.closest(".card");if(c){const x=data.find(a=>String(a.id)===String(c.dataset.id));if(x)openDetail(x)}});
-movieGrid&&movieGrid.addEventListener("click",e=>{const f=e.target.closest("[data-fav]");if(f)return toggleFav(f.dataset.fav,e);const c=e.target.closest(".card");if(c){const x=data.find(a=>String(a.id)===String(c.dataset.id));if(x)openDetail(x)}});
-seriesGrid&&seriesGrid.addEventListener("click",e=>{const f=e.target.closest("[data-fav]");if(f)return toggleFav(f.dataset.fav,e);const c=e.target.closest(".card");if(c){const x=data.find(a=>String(a.id)===String(c.dataset.id));if(x)openDetail(x)}});
-topGrid.addEventListener("click",e=>{const f=e.target.closest("[data-fav]");if(f)return toggleFav(f.dataset.fav,e);const c=e.target.closest(".card");if(c){const x=data.find(a=>String(a.id)===String(c.dataset.id));if(x)openDetail(x)}});
-detail.addEventListener("click",e=>{const t=e.target.closest("[data-trailer]");if(t){const p=document.querySelector("#trailerPlayer");p.innerHTML='<div class="player"><iframe src="https://www.youtube.com/embed/'+encodeURIComponent(t.dataset.trailer)+'?autoplay=1&rel=0" title="تریلر رسمی" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';p.scrollIntoView({behavior:"smooth",block:"center"});return}const b=e.target.closest("[data-detail-fav]");if(b){toggleFav(b.dataset.detailFav);b.textContent=getFav().includes(String(b.dataset.detailFav))?"♥ حذف از علاقه‌مندی":"♡ افزودن به علاقه‌مندی"}if(e.target.closest(".close"))closeModal()});
+function wireGrid(el){el?.addEventListener("click",e=>{const f=e.target.closest("[data-fav]");if(f)return toggleFav(f.dataset.fav,e);const c=e.target.closest(".card");if(c){const x=data.find(a=>String(a.id)===String(c.dataset.id));if(x)openDetail(x)}})}
+wireGrid(grid);wireGrid(topGrid);wireGrid(movieGrid);wireGrid(seriesGrid);
+detail.addEventListener("click",e=>{const t=e.target.closest("[data-trailer]");if(t){$("#trailerPlayer").innerHTML='<div class="player"><iframe src="https://www.youtube.com/embed/'+encodeURIComponent(t.dataset.trailer)+'?autoplay=1&rel=0" title="تریلر رسمی" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';$("#trailerPlayer").scrollIntoView({behavior:"smooth",block:"center"});return}const b=e.target.closest("[data-detail-fav]");if(b){toggleFav(b.dataset.detailFav);b.textContent=getFav().includes(String(b.dataset.detailFav))?"♥ حذف از علاقه‌مندی":"♡ افزودن به علاقه‌مندی"}if(e.target.closest(".close"))closeModal()});
 modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
-[search,catalogSearch,type,genre,sort].forEach(el=>el.addEventListener("input",()=>{shown=18;render()}));
+[search,catalogSearch,type,genre,sort,$("#year"),$("#minRating")].filter(Boolean).forEach(el=>el.addEventListener("input",()=>{shown=18;render()}));
 $("#loadMore").onclick=()=>{shown+=18;render()};
-function chooseGenre(g){genre.value=g;shown=18;render();document.querySelector("#catalog").scrollIntoView({behavior:"smooth"})}
-["#genreChips","#genreChips2"].forEach(id=>$(id).addEventListener("click",e=>{const b=e.target.closest("[data-genre]");if(b)chooseGenre(b.dataset.genre)}));
-$("#allGenres").onclick=()=>chooseGenre("");
-$("[data-jump-type]");
-$("[data-jump-type]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();jumpToType(a.dataset.jumpType)}));
-$("#mobileFav")?.addEventListener("click",()=>{$("#favNav").click()});
-$("#favNav").onclick=()=>{type.value="favorite";shown=18;render();document.querySelector("#catalog").scrollIntoView({behavior:"smooth"})};
+function chooseGenre(g){genre.value=g;shown=18;render();$("#catalog").scrollIntoView({behavior:"smooth"})}
+["#genreChips","#genreChips2"].forEach(id=>$(id).addEventListener("click",e=>{const b=e.target.closest("[data-genre]");if(b)chooseGenre(b.dataset.genre)}));$("#allGenres").onclick=()=>chooseGenre("");
+$$("[data-jump-type]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();jumpToType(a.dataset.jumpType)}));
+$("#mobileFav")?.addEventListener("click",()=>$("#favNav").click());$("#favNav").onclick=()=>jumpToType("favorite");
 function stats(){$("#movieCount").textContent=data.filter(x=>x.type==="movie").length;$("#seriesCount").textContent=data.filter(x=>x.type==="series").length;$("#genreCount").textContent=new Set(data.flatMap(x=>x.genres||[])).size;updateFavUI()}
-async function load(){
- try{const r=await fetch("catalog.json?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error(r.status);const j=await r.json();if(!Array.isArray(j)||!j.length)throw Error("empty");data=j.map(normalize)}catch{data=FALLBACK.map(normalize)}
- data.sort((a,b)=>(b.rating||0)-(a.rating||0));setupGenres();stats();setHero();render();renderTop();renderShowcases();
- const m=location.hash.match(/^#title-(movie|series)-(.+)$/);if(m){const x=data.find(a=>a.type===m[1]&&String(a.id)===m[2]);if(x)openDetail(x)}
-}
-load();
+function fillYears(){const years=[...new Set(data.map(x=>x.year).filter(Boolean))].sort((a,b)=>b-a).slice(0,60);const y=$("#year");if(y)y.innerHTML='<option value="">همه سال‌ها</option>'+years.map(v=>'<option value="'+v+'">'+v+'</option>').join("")}
+async function load(){try{const r=await fetch("catalog.json?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error(r.status);const j=await r.json();if(!Array.isArray(j)||!j.length)throw Error("empty");data=j.map(normalize)}catch{data=FALLBACK.map(normalize)}data.sort((a,b)=>(b.rating||0)-(a.rating||0));fillYears();setupGenres();stats();setHero(data[0]);render();renderTop();renderShowcases();const m=location.hash.match(/^#title-(movie|series)-(.+)$/);if(m){const x=data.find(a=>a.type===m[1]&&String(a.id)===m[2]);if(x)openDetail(x)}}load();setInterval(cycleHero,9000);
