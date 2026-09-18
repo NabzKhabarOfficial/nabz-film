@@ -51,7 +51,22 @@ function render(){
 }
 function renderTop(){topGrid.innerHTML=[...data].sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0,6).map(card).join("")}
 function providerLabel(p){return p?.provider_name||p?.name||"سرویس تماشا"}
-function providerLinks(x){const regions=[["AZ","🇦🇿 آذربایجان"],["US","🇺🇸 آمریکا"]];return regions.map(([code,label])=>{const w=x.watch?.[code];if(!w)return "";const ps=[...(w.flatrate||[]),...(w.free||[]),...(w.ads||[]),...(w.rent||[]),...(w.buy||[])];const seen=new Set();const links=ps.filter(p=>p&&p.provider_name&&!seen.has(p.provider_name)&&seen.add(p.provider_name)).slice(0,8).map(p=>'<a class="watch-link" target="_blank" rel="noopener" href="'+esc(w.link||x.tmdb_url)+'">▶ '+esc(providerLabel(p))+'</a>').join("");return links?'<div><strong style="display:block;margin-bottom:7px">'+label+'</strong><div class="watch-grid">'+links+'</div></div>':""}).join("")||'<div class="watch-note">برای این عنوان، سرویس تماشای قانونی در مناطق بررسی‌شده پیدا نشد.</div>'}
+function providerLinks(x){
+ const az=x.watch?.AZ?.link, us=x.watch?.US?.link;
+ const primary=az||us;
+ return (primary?'<a class="watch-link watch-primary" target="_blank" rel="noopener" href="'+esc(primary)+'">▶ تماشای قانونی</a>':'') +
+ regionsLegacy(x);
+}
+function regionsLegacy(x){
+ const regions=[["AZ","🇦🇿 آذربایجان"],["US","🇺🇸 آمریکا"]];
+ return regions.map(([code,label])=>{
+  const w=x.watch?.[code]; if(!w)return "";
+  const ps=[...(w.flatrate||[]),...(w.free||[]),...(w.ads||[]),...(w.rent||[]),...(w.buy||[])];
+  const seen=new Set();
+  const links=ps.filter(p=>p&&p.provider_name&&!seen.has(p.provider_name)&&seen.add(p.provider_name)).slice(0,8).map(p=>'<a class="watch-link" target="_blank" rel="noopener" href="'+esc(w.link||x.tmdb_url)+'">▶ '+esc(p.provider_name)+'</a>').join("");
+  return links?'<div><strong style="display:block;margin-bottom:7px">'+label+'</strong><div class="watch-grid">'+links+'</div></div>':"";
+ }).join("") || '<div class="watch-note">برای این عنوان، سرویس تماشای قانونی در مناطق بررسی‌شده پیدا نشد.</div>';
+}
 function openDetail(x){
  const cast=(x.cast||[]).map(p=>'<div class="cast"><img loading="lazy" src="'+esc(p.photo||"")+'" alt="'+esc(p.name)+'"><span>'+esc(p.name)+'</span><small>'+esc(p.character||"")+'</small></div>').join("");
  const facts=[];if(x.year)facts.push("📅 "+x.year);if(x.rating)facts.push("⭐ "+x.rating);if(x.runtime)facts.push("⏱ "+x.runtime+" دقیقه");if(x.seasons)facts.push("📺 "+x.seasons+" فصل");if(x.episodes)facts.push("🎞 "+x.episodes+" قسمت");
