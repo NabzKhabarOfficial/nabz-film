@@ -57,7 +57,7 @@ jobs:
                       if v.get("site")=="YouTube" and v.get("type")=="Trailer":
                           trailer=v.get("key",""); break
                   genres=[g.get("name") for g in d.get("genres",[]) if g.get("name")]
-                  out.append({
+                  item={
                     "id":d.get("id"),"type":typ,"title":original,"fa":title,
                     "year":int(date[:4]) if date[:4].isdigit() else None,
                     "genres":genres,"rating":round(float(d.get("vote_average") or 0),1),
@@ -71,16 +71,20 @@ jobs:
                     "cast":cast,"trailer":trailer,
                     "tmdb_url":"https://www.themoviedb.org/"+("movie/" if typ=="movie" else "tv/")+str(tid),
                     "watch":{}
-                  })
-              try:
-                  wp=get(f"/movie/{tid}/watch/providers" if typ=="movie" else f"/tv/{tid}/watch/providers",{})
-                  regions={}
-                  for rc in ("AZ","US"):
-                      rr=wp.get("results",{}).get(rc,{})
-                      if rr: regions[rc]={"link":rr.get("link",""),"flatrate":rr.get("flatrate",[]),"free":rr.get("free",[]),"ads":rr.get("ads",[]),"rent":rr.get("rent",[]),"buy":rr.get("buy",[])}
-                  out[-1]["watch"]=regions
+                  }
+                  try:
+                      wp=get(f"/movie/{tid}/watch/providers" if typ=="movie" else f"/tv/{tid}/watch/providers",{})
+                      regions={}
+                      for rc in ("AZ","US"):
+                          rr=wp.get("results",{}).get(rc,{})
+                          if rr:
+                              regions[rc]={"link":rr.get("link",""),"flatrate":rr.get("flatrate",[]),"free":rr.get("free",[]),"ads":rr.get("ads",[]),"rent":rr.get("rent",[]),"buy":rr.get("buy",[])}
+                      item["watch"]=regions
+                  except Exception as e:
+                      print(f"providers skip {typ}/{tid}: {e}")
+                  out.append(item)
               except Exception as e:
-                  print(f"providers skip {typ}/{tid}: {e}")
+                  print(f"skip {typ}/{tid}: {e}")
               time.sleep(0.08)
 
           out.sort(key=lambda x:x.get("rating",0),reverse=True)
