@@ -13,34 +13,77 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch TMDB catalog
+
+      - name: Build rich TMDB catalog
         env:
           TMDB_TOKEN: ${{ secrets.TMDB_TOKEN }}
         run: |
           test -n "$TMDB_TOKEN" || (echo "TMDB_TOKEN secret is missing" && exit 1)
-          curl -sS --fail --request GET             --url "https://api.themoviedb.org/3/trending/all/day?language=fa-IR"             --header "Authorization: Bearer $TMDB_TOKEN"             --header "accept: application/json"             -o /tmp/trending.json
           python - <<'PY'
-          import json
-          src=json.load(open('/tmp/trending.json',encoding='utf-8'))
+          import json, os, urllib.parse, urllib.request, time
+
+          TOKEN=os.environ["TMDB_TOKEN"]
+          BASE="https://api.themoviedb.org/3"
+          HEAD={"Authorization":f"Bearer {TOKEN}","accept":"application/json"}
+          def get(path, params):
+              url=BASE+path+"?"+urllib.parse.urlencode(params)
+              req=urllib.request.Request(url,headers=HEAD)
+              with urllib.request.urlopen(req,timeout=30) as r:
+                  return json.load(r)
+
+          items=[]
+          seen=set()
+          for endpoint,typ in [("/trending/movie/day","movie"),("/trending/tv/day","series")]:
+              page=get(endpoint,{"language":"fa-IR"}) 
+              for x in page.get("results",[])[:20]:
+                  if x.get("id") in seen: continue
+                  seen.add(x["id"])
+                  items.append((x["id"],typ))
+
           out=[]
-          for x in src.get('results',[])[:40]:
-              typ='movie' if x.get('media_type')=='movie' else 'series'
-              title=x.get('title') or x.get('name') or ''
-              original=x.get('original_title') or x.get('original_name') or ''
-              date=x.get('release_date') or x.get('first_air_date') or ''
-              out.append({
-                'id':x.get('id'),'type':typ,'title':original,'fa':title,
-                'year':int(date[:4]) if date[:4].isdigit() else None,
-                'genre_ids':x.get('genre_ids',[]),'rating':round(float(x.get('vote_average') or 0),1),
-                'poster':('https://image.tmdb.org/t/p/w500'+x['poster_path']) if x.get('poster_path') else '',
-                'overview':x.get('overview') or ''
-              })
-          json.dump(out,open('catalog.json','w',encoding='utf-8'),ensure_ascii=False,indent=2)
+          for i,(tid,typ) in enumerate(items):
+              try:
+                  path=f"/movie/{tid}" if typ=="movie" else f"/tv/{tid}"
+                  d=get(path,{"language":"fa-IR","append_to_response":"credits,videos"})
+                  title=d.get("title") or d.get("name") or d.get("original_title") or d.get("original_name") or ""
+                  original=d.get("original_title") or d.get("original_name") or ""
+                  date=d.get("release_date") or d.get("first_air_date") or ""
+                  cast=[]
+                  for p in (d.get("credits") or {}).get("cast",[])[:8]:
+                      if p.get("name"):
+                          cast.append({"name":p["name"],"character":p.get("character",""),"photo":("https://image.tmdb.org/t/p/w185"+p["profile_path"]) if p.get("profile_path") else ""})
+                  trailer=""
+                  for v in (d.get("videos") or {}).get("results",[]):
+                      if v.get("site")=="YouTube" and v.get("type")=="Trailer":
+                          trailer=v.get("key",""); break
+                  genres=[g.get("name") for g in d.get("genres",[]) if g.get("name")]
+                  out.append({
+                    "id":d.get("id"),"type":typ,"title":original,"fa":title,
+                    "year":int(date[:4]) if date[:4].isdigit() else None,
+                    "genres":genres,"rating":round(float(d.get("vote_average") or 0),1),
+                    "poster":("https://image.tmdb.org/t/p/w500"+d["poster_path"]) if d.get("poster_path") else "",
+                    "backdrop":("https://image.tmdb.org/t/p/w1280"+d["backdrop_path"]) if d.get("backdrop_path") else "",
+                    "overview":d.get("overview") or "",
+                    "runtime":d.get("runtime"),
+                    "episodes":d.get("number_of_episodes"),
+                    "seasons":d.get("number_of_seasons"),
+                    "status":d.get("status") or "",
+                    "cast":cast,"trailer":trailer,
+                    "tmdb_url":"https://www.themoviedb.org/"+("movie/" if typ=="movie" else "tv/")+str(tid)
+                  })
+              except Exception as e:
+                  print(f"skip {typ}/{tid}: {e}")
+              time.sleep(0.15)
+
+          out.sort(key=lambda x:x.get("rating",0),reverse=True)
+          json.dump(out,open("catalog.json","w",encoding="utf-8"),ensure_ascii=False,indent=2)
+          print(f"Built {len(out)} rich titles")
           PY
+
       - name: Commit catalog
         run: |
           git config user.name "nabz-film-bot"
           git config user.email "actions@users.noreply.github.com"
           git add catalog.json
-          git diff --cached --quiet || git commit -m "Update TMDB catalog"
+          git diff --cached --quiet || git commit -m "Update rich TMDB catalog"
           git push
