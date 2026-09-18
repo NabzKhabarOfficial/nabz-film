@@ -54,8 +54,19 @@ function providerLabel(p){return p?.provider_name||p?.name||"سرویس تماش
 function providerLinks(x){
  const az=x.watch?.AZ?.link, us=x.watch?.US?.link;
  const primary=az||us;
- return (primary?'<a class="watch-link watch-primary" target="_blank" rel="noopener" href="'+esc(primary)+'">▶ تماشای قانونی</a>':'') +
- regionsLegacy(x);
+ const providers=(primary?'<a class="watch-link watch-primary" target="_blank" rel="noopener" href="'+esc(primary)+'">▶ تماشای قانونی</a>':'');
+ return providers + regionsLegacy(x);
+}
+function internalPlayer(x){
+ const video=x.video_url||x.stream_url;
+ const embed=x.embed_url;
+ if(video){
+  return '<div class="internal-watch"><div class="player-head"><strong>🎬 پخش آنلاین داخل سایت</strong><span>منبع مجاز</span></div><video class="site-video" controls playsinline preload="metadata" poster="'+esc(x.backdrop||x.poster||'')+'"><source src="'+esc(video)+'" type="'+esc(x.video_type||'video/mp4')+'">مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.</video><div class="watch-note">منبع پخش توسط صاحب اثر/منبع مجاز ارائه شده است.</div></div>';
+ }
+ if(embed){
+  return '<div class="internal-watch"><div class="player-head"><strong>🎬 پخش آنلاین داخل سایت</strong><span>منبع مجاز</span></div><div class="player"><iframe src="'+esc(embed)+'" title="پخش آنلاین '+esc(x.fa)+'" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>';
+ }
+ return '<div class="internal-watch empty-player"><div class="player-head"><strong>🎬 پخش آنلاین داخل سایت</strong></div><p>برای این عنوان هنوز لینک پخش مستقیمِ مجاز ثبت نشده است.</p><small>برای فیلم‌های دارای مجوز، لینک ویدیو در همین صفحه باز می‌شود و کاربر از سایت خارج نمی‌شود.</small></div>';
 }
 function regionsLegacy(x){
  const regions=[["AZ","🇦🇿 آذربایجان"],["US","🇺🇸 آمریکا"]];
@@ -70,7 +81,7 @@ function regionsLegacy(x){
 function openDetail(x){
  const cast=(x.cast||[]).map(p=>'<div class="cast"><img loading="lazy" src="'+esc(p.photo||"")+'" alt="'+esc(p.name)+'"><span>'+esc(p.name)+'</span><small>'+esc(p.character||"")+'</small></div>').join("");
  const facts=[];if(x.year)facts.push("📅 "+x.year);if(x.rating)facts.push("⭐ "+x.rating);if(x.runtime)facts.push("⏱ "+x.runtime+" دقیقه");if(x.seasons)facts.push("📺 "+x.seasons+" فصل");if(x.episodes)facts.push("🎞 "+x.episodes+" قسمت");
- detail.innerHTML='<button class="close" aria-label="بستن">×</button><div class="detail-cover" style="background-image:linear-gradient(0deg,#0b0f17,transparent),url("'+esc(x.backdrop||x.poster||"")+'")"></div><div class="detail"><div class="detail-poster"><img src="'+esc(x.poster||"")+'" alt="'+esc(x.fa)+'"></div><div class="copy"><span class="eyebrow">'+(x.type==="movie"?"فیلم":"سریال")+'</span><h2>'+esc(x.fa)+'</h2><p class="en">'+esc(x.title||"")+'</p><div class="facts">'+facts.map(f=>"<span>"+esc(f)+"</span>").join("")+'</div><div class="genres">'+esc((x.genres||[]).join(" • "))+'</div><p class="overview">'+esc(x.overview||"توضیحی ثبت نشده است.")+'</p><div class="detail-actions">'+(x.trailer?'<button class="btn" data-trailer="'+esc(x.trailer)+'">▶ پخش تریلر</button>':"")+'<a class="btn secondary" target="_blank" rel="noopener" href="'+esc(x.tmdb_url||"https://www.themoviedb.org/")+'">اطلاعات رسمی ↗</a><button class="btn ghost" data-detail-fav="'+esc(x.id)+'">'+(getFav().includes(String(x.id))?"♥ حذف از علاقه‌مندی":"♡ افزودن به علاقه‌مندی")+'</button></div></div></div><div class="watch-box"><h3>▶ تماشای قانونی</h3><div class="watch-grid">'+providerLinks(x)+'</div><div id="trailerPlayer"></div><div class="watch-note">نبض فیلم فقط مسیرهای قانونی و تریلرهای رسمی را نمایش می‌دهد؛ لینک دانلود یا پخش غیرمجاز آثار اضافه نمی‌شود.</div></div><div class="cast-section"><h3>بازیگران</h3><div class="cast-grid">'+(cast||"<span>اطلاعات بازیگران موجود نیست.</span>")+'</div></div><div class="note">اطلاعات این صفحه از TMDB تهیه شده است. نبض فیلم لینک غیرمجاز دانلود یا تماشای آثار ارائه نمی‌کند. برای اطلاعات مربوط به در دسترس بودن قانونی اثر، از صفحه TMDB استفاده کنید.</div>';
+ detail.innerHTML='<button class="close" aria-label="بستن">×</button><div class="detail-cover" style="background-image:linear-gradient(0deg,#0b0f17,transparent),url("'+esc(x.backdrop||x.poster||"")+'")"></div><div class="detail"><div class="detail-poster"><img src="'+esc(x.poster||"")+'" alt="'+esc(x.fa)+'"></div><div class="copy"><span class="eyebrow">'+(x.type==="movie"?"فیلم":"سریال")+'</span><h2>'+esc(x.fa)+'</h2><p class="en">'+esc(x.title||"")+'</p><div class="facts">'+facts.map(f=>"<span>"+esc(f)+"</span>").join("")+'</div><div class="genres">'+esc((x.genres||[]).join(" • "))+'</div><p class="overview">'+esc(x.overview||"توضیحی ثبت نشده است.")+'</p><div class="detail-actions">'+(x.trailer?'<button class="btn" data-trailer="'+esc(x.trailer)+'">▶ پخش تریلر</button>':"")+'<a class="btn secondary" target="_blank" rel="noopener" href="'+esc(x.tmdb_url||"https://www.themoviedb.org/")+'">اطلاعات رسمی ↗</a><button class="btn ghost" data-detail-fav="'+esc(x.id)+'">'+(getFav().includes(String(x.id))?"♥ حذف از علاقه‌مندی":"♡ افزودن به علاقه‌مندی")+'</button></div></div></div><div class="watch-box"><h3>▶ تماشای آنلاین</h3>'+internalPlayer(x)+'<div class="watch-grid">'+providerLinks(x)+'</div><div id="trailerPlayer"></div><div class="watch-note">پخش کامل فقط برای منابعی نمایش داده می‌شود که اجازه پخش/جاسازی دارند؛ لینک دانلود یا پخش غیرمجاز آثار اضافه نمی‌شود.</div></div><div class="cast-section"><h3>بازیگران</h3><div class="cast-grid">'+(cast||"<span>اطلاعات بازیگران موجود نیست.</span>")+'</div></div><div class="note">اطلاعات این صفحه از TMDB تهیه شده است. نبض فیلم لینک غیرمجاز دانلود یا تماشای آثار ارائه نمی‌کند. برای اطلاعات مربوط به در دسترس بودن قانونی اثر، از صفحه TMDB استفاده کنید.</div>';
  modal.classList.add("show");modal.setAttribute("aria-hidden","false");document.body.classList.add("lock");location.hash="title-"+x.type+"-"+x.id;
 }
 function closeModal(){modal.classList.remove("show");modal.setAttribute("aria-hidden","true");document.body.classList.remove("lock");if(location.hash.startsWith("#title-"))history.replaceState(null,"",location.pathname+location.search)}
