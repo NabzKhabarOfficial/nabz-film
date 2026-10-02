@@ -795,122 +795,6 @@
     }
   },
   {
-    "id": 285574,
-    "type": "series",
-    "title": "きみが死ぬまで恋をしたい",
-    "fa": "きみが死ぬまで恋をしたい",
-    "year": 2026,
-    "genres": [
-      "Animation",
-      "Drama",
-      "Sci-Fi & Fantasy"
-    ],
-    "rating": 9.3,
-    "poster": "https://image.tmdb.org/t/p/w500/73DZoZWswGICwZ8G287avfBUeYj.jpg",
-    "backdrop": "https://image.tmdb.org/t/p/w1280/ppR5S0tqg53tVFA8Gc8CfkWkQG8.jpg",
-    "overview": "",
-    "runtime": null,
-    "episodes": 13,
-    "seasons": 1,
-    "status": "Ended",
-    "cast": [
-      {
-        "name": "高橋李依",
-        "character": "Sheena Totsuki (voice)",
-        "photo": "https://image.tmdb.org/t/p/w185/aeB7z0cBTASdjKOjQriBAO6hYq4.jpg"
-      },
-      {
-        "name": "日高里菜",
-        "character": "Mimi Kagari (voice)",
-        "photo": "https://image.tmdb.org/t/p/w185/7JupZGvqcq4dRxiTKpPxzg8NUS4.jpg"
-      },
-      {
-        "name": "瀬戸麻沙美",
-        "character": "Lizzy Seiran (voice)",
-        "photo": "https://image.tmdb.org/t/p/w185/iKKCPgKrNd4pJ0iBOC1SBZy2Y4Y.jpg"
-      },
-      {
-        "name": "石川由依",
-        "character": "Ali Maud (voice)",
-        "photo": "https://image.tmdb.org/t/p/w185/zptGIN1iklKJL1xrfHKOpxR2qJ9.jpg"
-      },
-      {
-        "name": "内山夕実",
-        "character": "Fran (voice)",
-        "photo": "https://image.tmdb.org/t/p/w185/JvavoF3YOLCf4LHfl4XvYobANE.jpg"
-      },
-      {
-        "name": "茅野愛衣",
-        "character": "Omi (voice)",
-        "photo": "https://image.tmdb.org/t/p/w185/l8ywp387rfdAS7mOExe3cEZnsk0.jpg"
-      }
-    ],
-    "trailer": "",
-    "tmdb_url": "https://www.themoviedb.org/tv/285574",
-    "watch": {
-      "US": {
-        "link": "https://www.themoviedb.org/tv/285574/watch?locale=US",
-        "flatrate": [
-          {
-            "logo_path": "/qHLLmKo7udRgiSnIASVTwP2IxfJ.png",
-            "provider_id": 1968,
-            "provider_name": "Crunchyroll Amazon Channel",
-            "display_priority": 22
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
-      },
-      "GB": {
-        "link": "https://www.themoviedb.org/tv/285574/watch?locale=GB",
-        "flatrate": [
-          {
-            "logo_path": "/qHLLmKo7udRgiSnIASVTwP2IxfJ.png",
-            "provider_id": 1968,
-            "provider_name": "Crunchyroll Amazon Channel",
-            "display_priority": 14
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
-      },
-      "CA": {
-        "link": "https://www.themoviedb.org/tv/285574/watch?locale=CA",
-        "flatrate": [
-          {
-            "logo_path": "/qHLLmKo7udRgiSnIASVTwP2IxfJ.png",
-            "provider_id": 1968,
-            "provider_name": "Crunchyroll Amazon Channel",
-            "display_priority": 10
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
-      },
-      "DE": {
-        "link": "https://www.themoviedb.org/tv/285574/watch?locale=DE",
-        "flatrate": [
-          {
-            "logo_path": "/qHLLmKo7udRgiSnIASVTwP2IxfJ.png",
-            "provider_id": 1968,
-            "provider_name": "Crunchyroll Amazon Channel",
-            "display_priority": 174
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
-      }
-    }
-  },
-  {
     "id": 1560520,
     "type": "movie",
     "title": "Batman: Knightfall Part 1: Knightfall",
@@ -1749,6 +1633,122 @@
             "display_priority": 103
           }
         ]
+      }
+    }
+  },
+  {
+    "id": 285574,
+    "type": "series",
+    "title": "きみが死ぬまで恋をしたい",
+    "fa": "きみが死ぬまで恋をしたい",
+    "year": 2026,
+    "genres": [
+      "Animation",
+      "Drama",
+      "Sci-Fi & Fantasy"
+    ],
+    "rating": 9.1,
+    "poster": "https://image.tmdb.org/t/p/w500/73DZoZWswGICwZ8G287avfBUeYj.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/ppR5S0tqg53tVFA8Gc8CfkWkQG8.jpg",
+    "overview": "",
+    "runtime": null,
+    "episodes": 13,
+    "seasons": 1,
+    "status": "Ended",
+    "cast": [
+      {
+        "name": "高橋李依",
+        "character": "Sheena Totsuki (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/aeB7z0cBTASdjKOjQriBAO6hYq4.jpg"
+      },
+      {
+        "name": "日高里菜",
+        "character": "Mimi Kagari (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/7JupZGvqcq4dRxiTKpPxzg8NUS4.jpg"
+      },
+      {
+        "name": "瀬戸麻沙美",
+        "character": "Lizzy Seiran (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/iKKCPgKrNd4pJ0iBOC1SBZy2Y4Y.jpg"
+      },
+      {
+        "name": "石川由依",
+        "character": "Ali Maud (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/zptGIN1iklKJL1xrfHKOpxR2qJ9.jpg"
+      },
+      {
+        "name": "内山夕実",
+        "character": "Fran (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/JvavoF3YOLCf4LHfl4XvYobANE.jpg"
+      },
+      {
+        "name": "茅野愛衣",
+        "character": "Omi (voice)",
+        "photo": "https://image.tmdb.org/t/p/w185/l8ywp387rfdAS7mOExe3cEZnsk0.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/285574",
+    "watch": {
+      "US": {
+        "link": "https://www.themoviedb.org/tv/285574/watch?locale=US",
+        "flatrate": [
+          {
+            "logo_path": "/qHLLmKo7udRgiSnIASVTwP2IxfJ.png",
+            "provider_id": 1968,
+            "provider_name": "Crunchyroll Amazon Channel",
+            "display_priority": 22
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
+      },
+      "GB": {
+        "link": "https://www.themoviedb.org/tv/285574/watch?locale=GB",
+        "flatrate": [
+          {
+            "logo_path": "/qHLLmKo7udRgiSnIASVTwP2IxfJ.png",
+            "provider_id": 1968,
+            "provider_name": "Crunchyroll Amazon Channel",
+            "display_priority": 14
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
+      },
+      "CA": {
+        "link": "https://www.themoviedb.org/tv/285574/watch?locale=CA",
+        "flatrate": [
+          {
+            "logo_path": "/qHLLmKo7udRgiSnIASVTwP2IxfJ.png",
+            "provider_id": 1968,
+            "provider_name": "Crunchyroll Amazon Channel",
+            "display_priority": 10
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
+      },
+      "DE": {
+        "link": "https://www.themoviedb.org/tv/285574/watch?locale=DE",
+        "flatrate": [
+          {
+            "logo_path": "/qHLLmKo7udRgiSnIASVTwP2IxfJ.png",
+            "provider_id": 1968,
+            "provider_name": "Crunchyroll Amazon Channel",
+            "display_priority": 174
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
       }
     }
   },
@@ -4086,7 +4086,7 @@
     ],
     "rating": 8.8,
     "poster": "https://image.tmdb.org/t/p/w500/uaSZiH6yoGaVJcqzKtrfSkqDuHX.jpg",
-    "backdrop": "https://image.tmdb.org/t/p/w1280/zii3j8dk78586q5yb9Ga9Lls0Tq.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/84AWZojNIyMdp5Wf3ebRCKnnhvw.jpg",
     "overview": "",
     "runtime": 155,
     "episodes": null,
@@ -10762,22 +10762,22 @@
       {
         "name": "박지훈",
         "character": "Yeon Si-eun",
-        "photo": "https://image.tmdb.org/t/p/w185/zbNZZ8o6qF3gaDndsq76h19Pe33.jpg"
+        "photo": "https://image.tmdb.org/t/p/w185/liwMbUByO6gQ0qykopRlwzCnxdp.jpg"
       },
       {
         "name": "최현욱",
         "character": "Ahn Su-ho",
-        "photo": "https://image.tmdb.org/t/p/w185/oHG5nnXAzkNBs0xEQlbwOaIFYPQ.jpg"
+        "photo": "https://image.tmdb.org/t/p/w185/2s3xxkSPJMy8WFeyRd1lyFLYofk.jpg"
       },
       {
         "name": "홍경",
         "character": "Oh Beom-seok",
-        "photo": "https://image.tmdb.org/t/p/w185/wRXum47BB0ciPGINjCvT36rDuQE.jpg"
+        "photo": "https://image.tmdb.org/t/p/w185/l1q775xOPfnl5vgxOaXGGLwKFYF.jpg"
       },
       {
         "name": "려운",
         "character": "Park Hu-min",
-        "photo": "https://image.tmdb.org/t/p/w185/y2QVVNdV0PqWfvhuPT0hvdWOouP.jpg"
+        "photo": "https://image.tmdb.org/t/p/w185/loev88wySqUjZHPL5Oq1AcOzBxN.jpg"
       },
       {
         "name": "چوی مین یونگ",
@@ -16872,10 +16872,10 @@
         "link": "https://www.themoviedb.org/movie/240-the-godfather-part-ii/watch?locale=US",
         "flatrate": [
           {
-            "logo_path": "/gk7O3l9qHttE9F3hgDNnhbhlOs7.png",
-            "provider_id": 583,
-            "provider_name": "MGM+ Amazon Channel",
-            "display_priority": 13
+            "logo_path": "/gMZdpavHmxFNnLpMHwVxfqeux2g.png",
+            "provider_id": 9,
+            "provider_name": "Amazon Prime Video",
+            "display_priority": 4
           },
           {
             "logo_path": "/4N4BMd0Mm0kHAmF7RZgL5lW3cwc.png",
@@ -16888,12 +16888,6 @@
             "provider_id": 2616,
             "provider_name": "Paramount Plus Essential",
             "display_priority": 15
-          },
-          {
-            "logo_path": "/mfbhzQwmQKjm7bLZPF5CTeu3Ilc.png",
-            "provider_id": 2383,
-            "provider_name": "Philo",
-            "display_priority": 17
           },
           {
             "logo_path": "/bxX0YVOCY7bI85BKRlJAAQ2EjUR.png",
@@ -16912,6 +16906,12 @@
             "provider_id": 633,
             "provider_name": "Paramount+ Roku Premium Channel",
             "display_priority": 62
+          },
+          {
+            "logo_path": "/tpwTT1FpWqLLhxUfAuDavIXDDfI.png",
+            "provider_id": 2100,
+            "provider_name": "Amazon Prime Video with Ads",
+            "display_priority": 201
           }
         ],
         "free": [],
@@ -17402,12 +17402,6 @@
             "provider_id": 2,
             "provider_name": "Apple TV Store",
             "display_priority": 5
-          },
-          {
-            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
-            "provider_id": 10,
-            "provider_name": "Amazon Video",
-            "display_priority": 7
           },
           {
             "logo_path": "/aZRENwYILujqs0RVOZutTh0BVGV.png",
@@ -31088,6 +31082,12 @@
             "provider_id": 337,
             "provider_name": "Disney Plus",
             "display_priority": 3
+          },
+          {
+            "logo_path": "/er0P3HwuVruKgnOqF8CoNdAAPPD.png",
+            "provider_id": 2750,
+            "provider_name": "RTL+",
+            "display_priority": 19
           },
           {
             "logo_path": "/eGUwOOIxcazwEBxqJpSN5sWEu6V.png",
@@ -54018,169 +54018,6 @@
             "display_priority": 126
           }
         ]
-      }
-    }
-  },
-  {
-    "id": 250203,
-    "type": "series",
-    "title": "Brothers",
-    "fa": "برادران",
-    "year": 2026,
-    "genres": [
-      "Comedy"
-    ],
-    "rating": 8.4,
-    "poster": "https://image.tmdb.org/t/p/w500/gdFKwZhmRDMejzCTz4VRQI5OLB7.jpg",
-    "backdrop": "https://image.tmdb.org/t/p/w1280/aLE7R8QZPpTiWZS48PS22i2OWbl.jpg",
-    "overview": "متیو مک‌کانهی و وودی هارلسون، بازیگران هالیوودی، سال‌هاست بهترین دوستان یکدیگر هستند؛ اما یک راز خانوادگی شوکه‌کننده نشان می‌دهد که شاید رابطه آن‌ها حتی نزدیک‌تر از چیزی باشد که فکر می‌کردیم.",
-    "runtime": null,
-    "episodes": 8,
-    "seasons": 1,
-    "status": "Returning Series",
-    "cast": [
-      {
-        "name": "متیو مک‌کانهی",
-        "character": "Matthew McConaughey",
-        "photo": "https://image.tmdb.org/t/p/w185/lCySuYjhXix3FzQdS4oceDDrXKI.jpg"
-      },
-      {
-        "name": "وودی هارلسون",
-        "character": "Woody Harrelson",
-        "photo": "https://image.tmdb.org/t/p/w185/igxYDQBbTEdAqaJxaW6ffqswmUU.jpg"
-      },
-      {
-        "name": "ناتالی مارتینز",
-        "character": "Valentina",
-        "photo": "https://image.tmdb.org/t/p/w185/cFn0OI9c8aypx20hm3XpTqkrMEx.jpg"
-      },
-      {
-        "name": "Brittany Ishibashi",
-        "character": "Joy",
-        "photo": "https://image.tmdb.org/t/p/w185/qIBMA7pQi4wnukwbTIn0YgzVMPn.jpg"
-      },
-      {
-        "name": "Nolan Almeida",
-        "character": "Wyatt",
-        "photo": "https://image.tmdb.org/t/p/w185/iOZRVnGed3F3jOHmCsHJGosli1z.jpg"
-      },
-      {
-        "name": "Ella Grace Helton",
-        "character": "Clara",
-        "photo": "https://image.tmdb.org/t/p/w185/px2Ixt87atJ82O62XykyV4ZyobE.jpg"
-      },
-      {
-        "name": "Noah Carganilla",
-        "character": "River",
-        "photo": ""
-      },
-      {
-        "name": "Highdee Kuan",
-        "character": "Olive",
-        "photo": "https://image.tmdb.org/t/p/w185/6g9a5LEdPp8ju4qRMIJbRIjjOqS.jpg"
-      }
-    ],
-    "trailer": "",
-    "tmdb_url": "https://www.themoviedb.org/tv/250203",
-    "watch": {
-      "AZ": {
-        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=AZ",
-        "flatrate": [
-          {
-            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
-            "provider_id": 350,
-            "provider_name": "Apple TV",
-            "display_priority": 2
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
-      },
-      "US": {
-        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=US",
-        "flatrate": [
-          {
-            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
-            "provider_id": 350,
-            "provider_name": "Apple TV",
-            "display_priority": 5
-          },
-          {
-            "logo_path": "/rerVCu9auZrgxTTiZu1criqrQzg.png",
-            "provider_id": 2243,
-            "provider_name": "Apple TV Amazon Channel",
-            "display_priority": 215
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
-      },
-      "GB": {
-        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=GB",
-        "flatrate": [
-          {
-            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
-            "provider_id": 350,
-            "provider_name": "Apple TV",
-            "display_priority": 2
-          },
-          {
-            "logo_path": "/rerVCu9auZrgxTTiZu1criqrQzg.png",
-            "provider_id": 2243,
-            "provider_name": "Apple TV Amazon Channel",
-            "display_priority": 116
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
-      },
-      "CA": {
-        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=CA",
-        "flatrate": [
-          {
-            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
-            "provider_id": 350,
-            "provider_name": "Apple TV",
-            "display_priority": 0
-          },
-          {
-            "logo_path": "/rerVCu9auZrgxTTiZu1criqrQzg.png",
-            "provider_id": 2243,
-            "provider_name": "Apple TV Amazon Channel",
-            "display_priority": 119
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
-      },
-      "DE": {
-        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=DE",
-        "flatrate": [
-          {
-            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
-            "provider_id": 350,
-            "provider_name": "Apple TV",
-            "display_priority": 2
-          },
-          {
-            "logo_path": "/rerVCu9auZrgxTTiZu1criqrQzg.png",
-            "provider_id": 2243,
-            "provider_name": "Apple TV Amazon Channel",
-            "display_priority": 189
-          }
-        ],
-        "free": [],
-        "ads": [],
-        "rent": [],
-        "buy": []
       }
     }
   },
@@ -84823,23 +84660,7 @@
     ],
     "trailer": "",
     "tmdb_url": "https://www.themoviedb.org/movie/644479",
-    "watch": {
-      "US": {
-        "link": "https://www.themoviedb.org/movie/644479-dedicada-a-mi-ex/watch?locale=US",
-        "flatrate": [],
-        "free": [],
-        "ads": [
-          {
-            "logo_path": "/9dEuvA8wg5TSeFBZlPxSVxFdimJ.png",
-            "provider_id": 73,
-            "provider_name": "Tubi TV",
-            "display_priority": 346
-          }
-        ],
-        "rent": [],
-        "buy": []
-      }
-    }
+    "watch": {}
   },
   {
     "id": 914,
@@ -91142,6 +90963,169 @@
             "display_priority": 126
           }
         ]
+      }
+    }
+  },
+  {
+    "id": 250203,
+    "type": "series",
+    "title": "Brothers",
+    "fa": "برادران",
+    "year": 2026,
+    "genres": [
+      "Comedy"
+    ],
+    "rating": 8.2,
+    "poster": "https://image.tmdb.org/t/p/w500/gdFKwZhmRDMejzCTz4VRQI5OLB7.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/aLE7R8QZPpTiWZS48PS22i2OWbl.jpg",
+    "overview": "متیو مک‌کانهی و وودی هارلسون، بازیگران هالیوودی، سال‌هاست بهترین دوستان یکدیگر هستند؛ اما یک راز خانوادگی شوکه‌کننده نشان می‌دهد که شاید رابطه آن‌ها حتی نزدیک‌تر از چیزی باشد که فکر می‌کردیم.",
+    "runtime": null,
+    "episodes": 8,
+    "seasons": 1,
+    "status": "Returning Series",
+    "cast": [
+      {
+        "name": "متیو مک‌کانهی",
+        "character": "Matthew McConaughey",
+        "photo": "https://image.tmdb.org/t/p/w185/lCySuYjhXix3FzQdS4oceDDrXKI.jpg"
+      },
+      {
+        "name": "وودی هارلسون",
+        "character": "Woody Harrelson",
+        "photo": "https://image.tmdb.org/t/p/w185/igxYDQBbTEdAqaJxaW6ffqswmUU.jpg"
+      },
+      {
+        "name": "ناتالی مارتینز",
+        "character": "Valentina",
+        "photo": "https://image.tmdb.org/t/p/w185/cFn0OI9c8aypx20hm3XpTqkrMEx.jpg"
+      },
+      {
+        "name": "Brittany Ishibashi",
+        "character": "Joy",
+        "photo": "https://image.tmdb.org/t/p/w185/qIBMA7pQi4wnukwbTIn0YgzVMPn.jpg"
+      },
+      {
+        "name": "Nolan Almeida",
+        "character": "Wyatt",
+        "photo": "https://image.tmdb.org/t/p/w185/iOZRVnGed3F3jOHmCsHJGosli1z.jpg"
+      },
+      {
+        "name": "Ella Grace Helton",
+        "character": "Clara",
+        "photo": "https://image.tmdb.org/t/p/w185/px2Ixt87atJ82O62XykyV4ZyobE.jpg"
+      },
+      {
+        "name": "Noah Carganilla",
+        "character": "River",
+        "photo": ""
+      },
+      {
+        "name": "Highdee Kuan",
+        "character": "Olive",
+        "photo": "https://image.tmdb.org/t/p/w185/6g9a5LEdPp8ju4qRMIJbRIjjOqS.jpg"
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/tv/250203",
+    "watch": {
+      "AZ": {
+        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=AZ",
+        "flatrate": [
+          {
+            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
+            "provider_id": 350,
+            "provider_name": "Apple TV",
+            "display_priority": 2
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
+      },
+      "US": {
+        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=US",
+        "flatrate": [
+          {
+            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
+            "provider_id": 350,
+            "provider_name": "Apple TV",
+            "display_priority": 5
+          },
+          {
+            "logo_path": "/rerVCu9auZrgxTTiZu1criqrQzg.png",
+            "provider_id": 2243,
+            "provider_name": "Apple TV Amazon Channel",
+            "display_priority": 215
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
+      },
+      "GB": {
+        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=GB",
+        "flatrate": [
+          {
+            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
+            "provider_id": 350,
+            "provider_name": "Apple TV",
+            "display_priority": 2
+          },
+          {
+            "logo_path": "/rerVCu9auZrgxTTiZu1criqrQzg.png",
+            "provider_id": 2243,
+            "provider_name": "Apple TV Amazon Channel",
+            "display_priority": 116
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
+      },
+      "CA": {
+        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=CA",
+        "flatrate": [
+          {
+            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
+            "provider_id": 350,
+            "provider_name": "Apple TV",
+            "display_priority": 0
+          },
+          {
+            "logo_path": "/rerVCu9auZrgxTTiZu1criqrQzg.png",
+            "provider_id": 2243,
+            "provider_name": "Apple TV Amazon Channel",
+            "display_priority": 119
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
+      },
+      "DE": {
+        "link": "https://www.themoviedb.org/tv/250203-brothers/watch?locale=DE",
+        "flatrate": [
+          {
+            "logo_path": "/9icYBfYFcwgCbky5VdGUIKJ4C5i.png",
+            "provider_id": 350,
+            "provider_name": "Apple TV",
+            "display_priority": 2
+          },
+          {
+            "logo_path": "/rerVCu9auZrgxTTiZu1criqrQzg.png",
+            "provider_id": 2243,
+            "provider_name": "Apple TV Amazon Channel",
+            "display_priority": 189
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
       }
     }
   },
@@ -108798,6 +108782,12 @@
         ],
         "free": [
           {
+            "logo_path": "/gtjNBzAoGgUtYzt0UKXmwG34WWL.png",
+            "provider_id": 212,
+            "provider_name": "Hoopla",
+            "display_priority": 36
+          },
+          {
             "logo_path": "/dNF4vWhF3TduWvOyfVxEyTqSNRl.png",
             "provider_id": 2409,
             "provider_name": "Fawesome",
@@ -108805,6 +108795,12 @@
           }
         ],
         "ads": [
+          {
+            "logo_path": "/wpOt6x0dRxTrIzuBosto4LGd7E9.png",
+            "provider_id": 332,
+            "provider_name": "Fandango at Home Free",
+            "display_priority": 39
+          },
           {
             "logo_path": "/gqaJWT5oFiJyVDojVLYRSFPbhQ1.png",
             "provider_id": 235,
@@ -109054,7 +109050,14 @@
             "display_priority": 108
           }
         ],
-        "free": [],
+        "free": [
+          {
+            "logo_path": "/gtjNBzAoGgUtYzt0UKXmwG34WWL.png",
+            "provider_id": 212,
+            "provider_name": "Hoopla",
+            "display_priority": 8
+          }
+        ],
         "ads": [
           {
             "logo_path": "/9dEuvA8wg5TSeFBZlPxSVxFdimJ.png",
@@ -111639,6 +111642,12 @@
             "provider_id": 8,
             "provider_name": "Netflix",
             "display_priority": 0
+          },
+          {
+            "logo_path": "/9CvDwtzSJwchEfXpK2MRKwvVLGi.png",
+            "provider_id": 678,
+            "provider_name": "Filmlegenden Amazon Channel",
+            "display_priority": 63
           },
           {
             "logo_path": "/eGUwOOIxcazwEBxqJpSN5sWEu6V.png",
@@ -119678,14 +119687,7 @@
           }
         ],
         "free": [],
-        "ads": [
-          {
-            "logo_path": "/9dEuvA8wg5TSeFBZlPxSVxFdimJ.png",
-            "provider_id": 73,
-            "provider_name": "Tubi TV",
-            "display_priority": 19
-          }
-        ],
+        "ads": [],
         "rent": [
           {
             "logo_path": "/qdEGArH3lKfFnAtYXMkSYk5wxuG.png",
@@ -119698,6 +119700,12 @@
             "provider_id": 3,
             "provider_name": "Google Play Movies",
             "display_priority": 7
+          },
+          {
+            "logo_path": "/fyUUKmDdzpJjSwsXPN4Rpi7jTu5.png",
+            "provider_id": 140,
+            "provider_name": "CosmoGo",
+            "display_priority": 12
           },
           {
             "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
@@ -119724,6 +119732,12 @@
             "provider_id": 3,
             "provider_name": "Google Play Movies",
             "display_priority": 7
+          },
+          {
+            "logo_path": "/fyUUKmDdzpJjSwsXPN4Rpi7jTu5.png",
+            "provider_id": 140,
+            "provider_name": "CosmoGo",
+            "display_priority": 12
           },
           {
             "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
@@ -130597,7 +130611,20 @@
       },
       "CA": {
         "link": "https://www.themoviedb.org/movie/426-vertigo/watch?locale=CA",
-        "flatrate": [],
+        "flatrate": [
+          {
+            "logo_path": "/cvPPliKBVmZHoXeIJgnVeMztDxX.png",
+            "provider_id": 182,
+            "provider_name": "Hollywood Suite",
+            "display_priority": 28
+          },
+          {
+            "logo_path": "/dWWIw3QpIVcoK8YdIsuOYIc3sIq.png",
+            "provider_id": 705,
+            "provider_name": "Hollywood Suite Amazon Channel",
+            "display_priority": 84
+          }
+        ],
         "free": [],
         "ads": [],
         "rent": [
@@ -130612,6 +130639,12 @@
             "provider_id": 3,
             "provider_name": "Google Play Movies",
             "display_priority": 7
+          },
+          {
+            "logo_path": "/fyUUKmDdzpJjSwsXPN4Rpi7jTu5.png",
+            "provider_id": 140,
+            "provider_name": "CosmoGo",
+            "display_priority": 12
           },
           {
             "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
@@ -130638,6 +130671,12 @@
             "provider_id": 3,
             "provider_name": "Google Play Movies",
             "display_priority": 7
+          },
+          {
+            "logo_path": "/fyUUKmDdzpJjSwsXPN4Rpi7jTu5.png",
+            "provider_id": 140,
+            "provider_name": "CosmoGo",
+            "display_priority": 12
           },
           {
             "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
@@ -136028,6 +136067,371 @@
             "provider_id": 1993,
             "provider_name": "Videoload",
             "display_priority": 103
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 46738,
+    "type": "movie",
+    "title": "Incendies",
+    "fa": "ویران‌شده",
+    "year": 2010,
+    "genres": [
+      "Drama",
+      "War",
+      "Mystery"
+    ],
+    "rating": 8.1,
+    "poster": "https://image.tmdb.org/t/p/w500/i5GsLIII66LubmOai65cWiB4kZq.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/f3ATwil5vmUeTsogBaMEKbBYBth.jpg",
+    "overview": "روزنامه نگاری به خاورمیانه سفر می کند تا در مورد خانواده اش تحقیق کند و به آخرین آرزوهای مادرش پی ببرد...",
+    "runtime": 131,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "لوبنا آزابال",
+        "character": "Nawal",
+        "photo": "https://image.tmdb.org/t/p/w185/qjsoXqKJPnmoMs1eyeTLBKKShYQ.jpg"
+      },
+      {
+        "name": "Mélissa Désormeaux-Poulin",
+        "character": "Jeanne Marwan",
+        "photo": "https://image.tmdb.org/t/p/w185/bVQfqJXVSDB6x6GVKHIsOVoPrnS.jpg"
+      },
+      {
+        "name": "Maxim Gaudette",
+        "character": "Simon Marwan",
+        "photo": "https://image.tmdb.org/t/p/w185/iGFDGJmGUxLOSIamTENFDecJdkA.jpg"
+      },
+      {
+        "name": "Rémy Girard",
+        "character": "Notary Lebel",
+        "photo": "https://image.tmdb.org/t/p/w185/enULDDsKvyNoUCZoFg10Mtq1MFk.jpg"
+      },
+      {
+        "name": "Allen Altman",
+        "character": "Notaire Maddad",
+        "photo": "https://image.tmdb.org/t/p/w185/5oWrQwH4Xx243Nk3XdNnKiekEw4.jpg"
+      },
+      {
+        "name": "Abdelghafour Elaaziz",
+        "character": "Abou Tarek",
+        "photo": "https://image.tmdb.org/t/p/w185/pT72K2CqBelPtSVelkRci21HctE.jpg"
+      },
+      {
+        "name": "Dominique Briand",
+        "character": "Professor Niv Cohen",
+        "photo": "https://image.tmdb.org/t/p/w185/y2Ko6ktN4DpMooZUpTw3g3Hv5bl.jpg"
+      },
+      {
+        "name": "Frédéric Paquet",
+        "character": "Doctor in the Emergency Room",
+        "photo": ""
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/46738",
+    "watch": {
+      "US": {
+        "link": "https://www.themoviedb.org/movie/46738-incendies/watch?locale=US",
+        "flatrate": [],
+        "free": [],
+        "ads": [
+          {
+            "logo_path": "/b7uhrYJtAe7b1ieJGg705vTbwrX.png",
+            "provider_id": 207,
+            "provider_name": "The Roku Channel",
+            "display_priority": 29
+          },
+          {
+            "logo_path": "/9dEuvA8wg5TSeFBZlPxSVxFdimJ.png",
+            "provider_id": 73,
+            "provider_name": "Tubi TV",
+            "display_priority": 346
+          }
+        ],
+        "rent": [
+          {
+            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
+            "provider_id": 10,
+            "provider_name": "Amazon Video",
+            "display_priority": 8
+          },
+          {
+            "logo_path": "/qdEGArH3lKfFnAtYXMkSYk5wxuG.png",
+            "provider_id": 2,
+            "provider_name": "Apple TV Store",
+            "display_priority": 9
+          },
+          {
+            "logo_path": "/aZRENwYILujqs0RVOZutTh0BVGV.png",
+            "provider_id": 3,
+            "provider_name": "Google Play Movies",
+            "display_priority": 20
+          },
+          {
+            "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
+            "provider_id": 192,
+            "provider_name": "YouTube",
+            "display_priority": 21
+          },
+          {
+            "logo_path": "/wpOt6x0dRxTrIzuBosto4LGd7E9.png",
+            "provider_id": 7,
+            "provider_name": "Fandango At Home",
+            "display_priority": 37
+          }
+        ],
+        "buy": [
+          {
+            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
+            "provider_id": 10,
+            "provider_name": "Amazon Video",
+            "display_priority": 8
+          },
+          {
+            "logo_path": "/qdEGArH3lKfFnAtYXMkSYk5wxuG.png",
+            "provider_id": 2,
+            "provider_name": "Apple TV Store",
+            "display_priority": 9
+          },
+          {
+            "logo_path": "/aZRENwYILujqs0RVOZutTh0BVGV.png",
+            "provider_id": 3,
+            "provider_name": "Google Play Movies",
+            "display_priority": 20
+          },
+          {
+            "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
+            "provider_id": 192,
+            "provider_name": "YouTube",
+            "display_priority": 21
+          },
+          {
+            "logo_path": "/wpOt6x0dRxTrIzuBosto4LGd7E9.png",
+            "provider_id": 7,
+            "provider_name": "Fandango At Home",
+            "display_priority": 37
+          }
+        ]
+      },
+      "TR": {
+        "link": "https://www.themoviedb.org/movie/46738-incendies/watch?locale=TR",
+        "flatrate": [
+          {
+            "logo_path": "/ck9ropbn6okqSdtgxGkkvMMgtSe.png",
+            "provider_id": 1904,
+            "provider_name": "TV+",
+            "display_priority": 10
+          },
+          {
+            "logo_path": "/skypuy7SXuugIQeYg0IglmzoKaS.png",
+            "provider_id": 1899,
+            "provider_name": "HBO Max",
+            "display_priority": 29
+          }
+        ],
+        "free": [],
+        "ads": [],
+        "rent": [],
+        "buy": []
+      },
+      "GB": {
+        "link": "https://www.themoviedb.org/movie/46738-incendies/watch?locale=GB",
+        "flatrate": [],
+        "free": [],
+        "ads": [
+          {
+            "logo_path": "/blAEhvx3XX8sV0fFVFk88FFjubs.png",
+            "provider_id": 538,
+            "provider_name": "Plex",
+            "display_priority": 45
+          }
+        ],
+        "rent": [
+          {
+            "logo_path": "/qdEGArH3lKfFnAtYXMkSYk5wxuG.png",
+            "provider_id": 2,
+            "provider_name": "Apple TV Store",
+            "display_priority": 5
+          },
+          {
+            "logo_path": "/872dfVu1biZISJ8rO143CZZutPR.png",
+            "provider_id": 35,
+            "provider_name": "Rakuten TV",
+            "display_priority": 6
+          },
+          {
+            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
+            "provider_id": 10,
+            "provider_name": "Amazon Video",
+            "display_priority": 8
+          },
+          {
+            "logo_path": "/aZRENwYILujqs0RVOZutTh0BVGV.png",
+            "provider_id": 3,
+            "provider_name": "Google Play Movies",
+            "display_priority": 17
+          },
+          {
+            "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
+            "provider_id": 192,
+            "provider_name": "YouTube",
+            "display_priority": 23
+          }
+        ],
+        "buy": [
+          {
+            "logo_path": "/qdEGArH3lKfFnAtYXMkSYk5wxuG.png",
+            "provider_id": 2,
+            "provider_name": "Apple TV Store",
+            "display_priority": 5
+          },
+          {
+            "logo_path": "/872dfVu1biZISJ8rO143CZZutPR.png",
+            "provider_id": 35,
+            "provider_name": "Rakuten TV",
+            "display_priority": 6
+          },
+          {
+            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
+            "provider_id": 10,
+            "provider_name": "Amazon Video",
+            "display_priority": 8
+          },
+          {
+            "logo_path": "/aZRENwYILujqs0RVOZutTh0BVGV.png",
+            "provider_id": 3,
+            "provider_name": "Google Play Movies",
+            "display_priority": 17
+          },
+          {
+            "logo_path": "/nNkZ1JKe6vNhzti14KiKEUWHE6H.png",
+            "provider_id": 130,
+            "provider_name": "Sky Store",
+            "display_priority": 18
+          },
+          {
+            "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
+            "provider_id": 192,
+            "provider_name": "YouTube",
+            "display_priority": 23
+          }
+        ]
+      },
+      "CA": {
+        "link": "https://www.themoviedb.org/movie/46738-incendies/watch?locale=CA",
+        "flatrate": [
+          {
+            "logo_path": "/rK1KljqmbvO9HQa1PBFLILWah72.png",
+            "provider_id": 8,
+            "provider_name": "Netflix",
+            "display_priority": 3
+          },
+          {
+            "logo_path": "/dLpf8SgUM19VcFyMrK2KFcsF52i.png",
+            "provider_id": 146,
+            "provider_name": "iciTouTV",
+            "display_priority": 13
+          },
+          {
+            "logo_path": "/a2o4bE63LR71m8jHrkx9BnBucN0.png",
+            "provider_id": 230,
+            "provider_name": "Crave",
+            "display_priority": 14
+          },
+          {
+            "logo_path": "/adymMNlhhLlJl5xccRCrsh3OehD.png",
+            "provider_id": 1794,
+            "provider_name": "Starz Amazon Channel",
+            "display_priority": 89
+          },
+          {
+            "logo_path": "/eGUwOOIxcazwEBxqJpSN5sWEu6V.png",
+            "provider_id": 1796,
+            "provider_name": "Netflix Standard with Ads",
+            "display_priority": 90
+          },
+          {
+            "logo_path": "/6EuODonAziRYWv90wAtEmUjk78R.png",
+            "provider_id": 2604,
+            "provider_name": "Crave Amazon Channel",
+            "display_priority": 136
+          }
+        ],
+        "free": [],
+        "ads": [
+          {
+            "logo_path": "/klrHjePSLUguAFNIV4M9LTXD8RM.png",
+            "provider_id": 314,
+            "provider_name": "CBC Gem",
+            "display_priority": 42
+          }
+        ],
+        "rent": [
+          {
+            "logo_path": "/qdEGArH3lKfFnAtYXMkSYk5wxuG.png",
+            "provider_id": 2,
+            "provider_name": "Apple TV Store",
+            "display_priority": 6
+          },
+          {
+            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
+            "provider_id": 10,
+            "provider_name": "Amazon Video",
+            "display_priority": 55
+          }
+        ],
+        "buy": [
+          {
+            "logo_path": "/qdEGArH3lKfFnAtYXMkSYk5wxuG.png",
+            "provider_id": 2,
+            "provider_name": "Apple TV Store",
+            "display_priority": 6
+          },
+          {
+            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
+            "provider_id": 10,
+            "provider_name": "Amazon Video",
+            "display_priority": 55
+          }
+        ]
+      },
+      "DE": {
+        "link": "https://www.themoviedb.org/movie/46738-incendies/watch?locale=DE",
+        "flatrate": [],
+        "free": [],
+        "ads": [],
+        "rent": [
+          {
+            "logo_path": "/aZRENwYILujqs0RVOZutTh0BVGV.png",
+            "provider_id": 3,
+            "provider_name": "Google Play Movies",
+            "display_priority": 9
+          },
+          {
+            "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
+            "provider_id": 192,
+            "provider_name": "YouTube",
+            "display_priority": 10
+          }
+        ],
+        "buy": [
+          {
+            "logo_path": "/aZRENwYILujqs0RVOZutTh0BVGV.png",
+            "provider_id": 3,
+            "provider_name": "Google Play Movies",
+            "display_priority": 9
+          },
+          {
+            "logo_path": "/5Maob4o5w8oZnNeYpCDyVFD3M7X.png",
+            "provider_id": 192,
+            "provider_name": "YouTube",
+            "display_priority": 10
           }
         ]
       }
@@ -155029,7 +155433,7 @@
       {
         "name": "رابرت پتینسون",
         "character": "Cedric Diggory",
-        "photo": "https://image.tmdb.org/t/p/w185/sRUM2u8qLcsOaTm0jGJGlOEQhlQ.jpg"
+        "photo": "https://image.tmdb.org/t/p/w185/3qZ09UE7lN6AtorfXFRYpEtSY93.jpg"
       },
       {
         "name": "رالف فاینز",
@@ -166649,6 +167053,12 @@
             "display_priority": 6
           },
           {
+            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
+            "provider_id": 10,
+            "provider_name": "Amazon Video",
+            "display_priority": 8
+          },
+          {
             "logo_path": "/nNkZ1JKe6vNhzti14KiKEUWHE6H.png",
             "provider_id": 130,
             "provider_name": "Sky Store",
@@ -166676,6 +167086,12 @@
             "display_priority": 6
           },
           {
+            "logo_path": "/fyUUKmDdzpJjSwsXPN4Rpi7jTu5.png",
+            "provider_id": 140,
+            "provider_name": "CosmoGo",
+            "display_priority": 12
+          },
+          {
             "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
             "provider_id": 10,
             "provider_name": "Amazon Video",
@@ -166688,6 +167104,12 @@
             "provider_id": 2,
             "provider_name": "Apple TV Store",
             "display_priority": 6
+          },
+          {
+            "logo_path": "/fyUUKmDdzpJjSwsXPN4Rpi7jTu5.png",
+            "provider_id": 140,
+            "provider_name": "CosmoGo",
+            "display_priority": 12
           },
           {
             "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
@@ -166771,6 +167193,12 @@
             "provider_id": 2,
             "provider_name": "Apple TV Store",
             "display_priority": 5
+          },
+          {
+            "logo_path": "/jn6TLbtaTZntTRX9UYucHJvpQx1.png",
+            "provider_id": 10,
+            "provider_name": "Amazon Video",
+            "display_priority": 7
           },
           {
             "logo_path": "/f1uWfExJA6DSAvuTL0YJ9Kyftfg.png",
@@ -176841,6 +177269,41 @@
         "name": "沈腾",
         "character": "",
         "photo": "https://image.tmdb.org/t/p/w185/h9l1fHqty8EdCqDWNWjO5tp48xZ.jpg"
+      },
+      {
+        "name": "白敬亭",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/b3kmtLVQtgywB1QKWYHoNLsdqSO.jpg"
+      },
+      {
+        "name": "贾冰",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/pum0e3d2ZVq9XZyNohZSXt46bkH.jpg"
+      },
+      {
+        "name": "胡先煦",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/tvwi2L267zDUPfrnipgaxMMi2tm.jpg"
+      },
+      {
+        "name": "王安宇",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/7ai55C0CoOdzOlkAOpfatW5xuh.jpg"
+      },
+      {
+        "name": "范丞丞",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/mmpJ9EcYweG9pr1iU5q5aqcsusG.jpg"
+      },
+      {
+        "name": "黄景瑜",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/mc7HlXJU0Sr5WkodEHS3csaxi6E.jpg"
+      },
+      {
+        "name": "王楚然",
+        "character": "",
+        "photo": "https://image.tmdb.org/t/p/w185/trE6PMD0vgcuvEMog7gRpnWr8TQ.jpg"
       }
     ],
     "trailer": "",
@@ -200928,7 +201391,7 @@
       {
         "name": "رابرت پتینسون",
         "character": "Charlie",
-        "photo": "https://image.tmdb.org/t/p/w185/sRUM2u8qLcsOaTm0jGJGlOEQhlQ.jpg"
+        "photo": "https://image.tmdb.org/t/p/w185/3qZ09UE7lN6AtorfXFRYpEtSY93.jpg"
       },
       {
         "name": "Alana Haim",
@@ -226432,6 +226895,70 @@
     "watch": {}
   },
   {
+    "id": 1244523,
+    "type": "movie",
+    "title": "Beware Boiúna",
+    "fa": "Beware Boiúna",
+    "year": 2026,
+    "genres": [
+      "Horror",
+      "Thriller"
+    ],
+    "rating": 5.0,
+    "poster": "https://image.tmdb.org/t/p/w500/tENVMxKvOkslv8kagVNdIEQ13RT.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/9nU0FKNefmhbgi2xXlvZchZsqwm.jpg",
+    "overview": "",
+    "runtime": 104,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "لوگان مارشال-گرین",
+        "character": "Brennan Malloy",
+        "photo": "https://image.tmdb.org/t/p/w185/vOV76X3Dd8LsBxrTLdHybFLU8w8.jpg"
+      },
+      {
+        "name": "کیانا مادیرا",
+        "character": "Lena",
+        "photo": "https://image.tmdb.org/t/p/w185/mTXIwrrek6mDt8ODLmoV32fe7IO.jpg"
+      },
+      {
+        "name": "جسیکا راث",
+        "character": "Alli",
+        "photo": "https://image.tmdb.org/t/p/w185/oItPXy56W0Y5taqIMZilRtnPDMn.jpg"
+      },
+      {
+        "name": "Jackson Bews",
+        "character": "Shawn",
+        "photo": "https://image.tmdb.org/t/p/w185/of70BbE1KAq6J1PuUFnEHRyzh3Z.jpg"
+      },
+      {
+        "name": "Juan Pablo Shuk",
+        "character": "Miguel",
+        "photo": "https://image.tmdb.org/t/p/w185/bUJgufFSqWMpa8gEXPTNun8MP8i.jpg"
+      },
+      {
+        "name": "Will Close",
+        "character": "Callum",
+        "photo": ""
+      },
+      {
+        "name": "Vicente Peña",
+        "character": "Pedro",
+        "photo": ""
+      },
+      {
+        "name": "Jaime Newball",
+        "character": "Raúl",
+        "photo": ""
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/1244523",
+    "watch": {}
+  },
+  {
     "id": 1623435,
     "type": "movie",
     "title": "Paatki",
@@ -226982,6 +227509,69 @@
     "watch": {}
   },
   {
+    "id": 384527,
+    "type": "movie",
+    "title": "Dolce... calda Lisa",
+    "fa": "Dolce... calda Lisa",
+    "year": 1980,
+    "genres": [
+      "Drama"
+    ],
+    "rating": 4.9,
+    "poster": "https://image.tmdb.org/t/p/w500/taoUcLRMSijDDySXv9AT2oX9BmO.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/eYYpIStJ6eetCfwwl1k4BnYbr2E.jpg",
+    "overview": "",
+    "runtime": 84,
+    "episodes": null,
+    "seasons": null,
+    "status": "Released",
+    "cast": [
+      {
+        "name": "Luigina Rocchi",
+        "character": "Lisa",
+        "photo": "https://image.tmdb.org/t/p/w185/jtX62XtWnIujZs7ueCTdsOklz7J.jpg"
+      },
+      {
+        "name": "Francesco Parisi",
+        "character": "Lisa's husband",
+        "photo": "https://image.tmdb.org/t/p/w185/zlA6LSIjTkLC4vtO7peyRJIn9rH.jpg"
+      },
+      {
+        "name": "Mario Cutini",
+        "character": "Marco",
+        "photo": "https://image.tmdb.org/t/p/w185/3w7wZCUXT4ZCrkuFlrYudsJNPhO.jpg"
+      },
+      {
+        "name": "Guia Lauri Filzi",
+        "character": "Carmen",
+        "photo": "https://image.tmdb.org/t/p/w185/5kEDLtB0LpUVj8JSq4oS2tm9Ixr.jpg"
+      },
+      {
+        "name": "Enzo Fisichella",
+        "character": "The Count",
+        "photo": "https://image.tmdb.org/t/p/w185/7f8A4VV75Gqfwg0IRilAfQMZcJ.jpg"
+      },
+      {
+        "name": "Annj Goren",
+        "character": "Carmen's lover",
+        "photo": "https://image.tmdb.org/t/p/w185/hfQoRtXdbHf5VTeXW4v7V0uvcFP.jpg"
+      },
+      {
+        "name": "Giovanni Di Benedetto",
+        "character": "Ing. Boschi (as Gianni Di Benedetto)",
+        "photo": "https://image.tmdb.org/t/p/w185/yknDKsf8plEdYXKI9nbiyNF344f.jpg"
+      },
+      {
+        "name": "Maruska Ferretti",
+        "character": "Patrizia, Marco's lover",
+        "photo": ""
+      }
+    ],
+    "trailer": "",
+    "tmdb_url": "https://www.themoviedb.org/movie/384527",
+    "watch": {}
+  },
+  {
     "id": 1477712,
     "type": "movie",
     "title": "Ice Cream Man",
@@ -226992,7 +227582,7 @@
       "Horror",
       "Thriller"
     ],
-    "rating": 4.9,
+    "rating": 4.8,
     "poster": "https://image.tmdb.org/t/p/w500/lNBxToxHWrzmkqeFnf1XADUTxQq.jpg",
     "backdrop": "https://image.tmdb.org/t/p/w1280/hjF1rzTDR7YvnJUcH2SfP48w492.jpg",
     "overview": "",
@@ -227196,69 +227786,6 @@
         ]
       }
     }
-  },
-  {
-    "id": 384527,
-    "type": "movie",
-    "title": "Dolce... calda Lisa",
-    "fa": "Dolce... calda Lisa",
-    "year": 1980,
-    "genres": [
-      "Drama"
-    ],
-    "rating": 4.9,
-    "poster": "https://image.tmdb.org/t/p/w500/taoUcLRMSijDDySXv9AT2oX9BmO.jpg",
-    "backdrop": "https://image.tmdb.org/t/p/w1280/eYYpIStJ6eetCfwwl1k4BnYbr2E.jpg",
-    "overview": "",
-    "runtime": 84,
-    "episodes": null,
-    "seasons": null,
-    "status": "Released",
-    "cast": [
-      {
-        "name": "Luigina Rocchi",
-        "character": "Lisa",
-        "photo": "https://image.tmdb.org/t/p/w185/jtX62XtWnIujZs7ueCTdsOklz7J.jpg"
-      },
-      {
-        "name": "Francesco Parisi",
-        "character": "Lisa's husband",
-        "photo": "https://image.tmdb.org/t/p/w185/zlA6LSIjTkLC4vtO7peyRJIn9rH.jpg"
-      },
-      {
-        "name": "Mario Cutini",
-        "character": "Marco",
-        "photo": "https://image.tmdb.org/t/p/w185/3w7wZCUXT4ZCrkuFlrYudsJNPhO.jpg"
-      },
-      {
-        "name": "Guia Lauri Filzi",
-        "character": "Carmen",
-        "photo": "https://image.tmdb.org/t/p/w185/5kEDLtB0LpUVj8JSq4oS2tm9Ixr.jpg"
-      },
-      {
-        "name": "Enzo Fisichella",
-        "character": "The Count",
-        "photo": "https://image.tmdb.org/t/p/w185/7f8A4VV75Gqfwg0IRilAfQMZcJ.jpg"
-      },
-      {
-        "name": "Annj Goren",
-        "character": "Carmen's lover",
-        "photo": "https://image.tmdb.org/t/p/w185/hfQoRtXdbHf5VTeXW4v7V0uvcFP.jpg"
-      },
-      {
-        "name": "Giovanni Di Benedetto",
-        "character": "Ing. Boschi (as Gianni Di Benedetto)",
-        "photo": "https://image.tmdb.org/t/p/w185/yknDKsf8plEdYXKI9nbiyNF344f.jpg"
-      },
-      {
-        "name": "Maruska Ferretti",
-        "character": "Patrizia, Marco's lover",
-        "photo": ""
-      }
-    ],
-    "trailer": "",
-    "tmdb_url": "https://www.themoviedb.org/movie/384527",
-    "watch": {}
   },
   {
     "id": 82976,
@@ -231931,70 +232458,6 @@
     ],
     "trailer": "",
     "tmdb_url": "https://www.themoviedb.org/movie/1137888",
-    "watch": {}
-  },
-  {
-    "id": 1244523,
-    "type": "movie",
-    "title": "Beware Boiúna",
-    "fa": "Beware Boiúna",
-    "year": 2026,
-    "genres": [
-      "Horror",
-      "Thriller"
-    ],
-    "rating": 0.0,
-    "poster": "https://image.tmdb.org/t/p/w500/tENVMxKvOkslv8kagVNdIEQ13RT.jpg",
-    "backdrop": "https://image.tmdb.org/t/p/w1280/9nU0FKNefmhbgi2xXlvZchZsqwm.jpg",
-    "overview": "",
-    "runtime": 104,
-    "episodes": null,
-    "seasons": null,
-    "status": "Released",
-    "cast": [
-      {
-        "name": "لوگان مارشال-گرین",
-        "character": "Brennan Malloy",
-        "photo": "https://image.tmdb.org/t/p/w185/vOV76X3Dd8LsBxrTLdHybFLU8w8.jpg"
-      },
-      {
-        "name": "کیانا مادیرا",
-        "character": "Lena",
-        "photo": "https://image.tmdb.org/t/p/w185/mTXIwrrek6mDt8ODLmoV32fe7IO.jpg"
-      },
-      {
-        "name": "جسیکا راث",
-        "character": "Alli",
-        "photo": "https://image.tmdb.org/t/p/w185/oItPXy56W0Y5taqIMZilRtnPDMn.jpg"
-      },
-      {
-        "name": "Jackson Bews",
-        "character": "Shawn",
-        "photo": "https://image.tmdb.org/t/p/w185/of70BbE1KAq6J1PuUFnEHRyzh3Z.jpg"
-      },
-      {
-        "name": "Juan Pablo Shuk",
-        "character": "Miguel",
-        "photo": "https://image.tmdb.org/t/p/w185/bUJgufFSqWMpa8gEXPTNun8MP8i.jpg"
-      },
-      {
-        "name": "Will Close",
-        "character": "Callum",
-        "photo": ""
-      },
-      {
-        "name": "Vicente Peña",
-        "character": "Pedro",
-        "photo": ""
-      },
-      {
-        "name": "Jaime Newball",
-        "character": "Raúl",
-        "photo": ""
-      }
-    ],
-    "trailer": "",
-    "tmdb_url": "https://www.themoviedb.org/movie/1244523",
     "watch": {}
   },
   {
