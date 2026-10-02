@@ -8,6 +8,8 @@
 <meta name="description" content="نبض فیلم: کشف فیلم و سریال با خلاصه داستان، بازیگران، تریلر و جای تماشای قانونی؛ به‌علاوه صدها فیلم کامل رایگان که همین‌جا پخش می‌شوند.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://nabzkhabarofficial.github.io/nabz-film/">
+<link rel="alternate" hreflang="fa" href="https://nabzkhabarofficial.github.io/nabz-film/">
+<link rel="alternate" hreflang="en" href="https://nabzkhabarofficial.github.io/nabz-film/?lang=en">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://image.tmdb.org">
@@ -17,16 +19,18 @@
 <meta property="og:url" content="https://nabzkhabarofficial.github.io/nabz-film/">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"نبض فیلم","alternateName":"NABZ FILM","url":"https://nabzkhabarofficial.github.io/nabz-film/","inLanguage":"fa-IR","potentialAction":{"@type":"SearchAction","target":"https://nabzkhabarofficial.github.io/nabz-film/#/browse?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
-<link rel="stylesheet" href="assets/style.css?v=3">
-<link rel="stylesheet" href="assets/player.css?v=3">
+<script>try{var L=new URLSearchParams(location.search).get("lang")||localStorage.getItem("nabzfilm:lang");if(L==="en"){document.documentElement.lang="en";document.documentElement.dir="ltr"}}catch(e){}</script>
+<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="stylesheet" href="assets/player.css?v=4">
 </head>
 <body>
 <header class="top">
-  <a class="logo" href="#/">نبض <b>فیلم</b></a>
+  <a class="logo" href="#/" data-nt><span class="only-fa">نبض <b>فیلم</b></span><span class="only-en">NABZ <b>FILM</b></span></a>
   <nav class="menu">
     <a href="#/" data-nav="home">خانه</a><a href="#/movies" data-nav="movies">فیلم‌ها</a><a href="#/series" data-nav="series">سریال‌ها</a><a href="#/free" data-nav="free">▶ تماشای رایگان</a><a href="#/list" data-nav="list">لیست من</a>
   </nav>
   <div class="search"><input id="q" type="search" placeholder="جستجوی فیلم یا سریال..." aria-label="جستجو" autocomplete="off"><div id="sr" class="sr"></div></div>
+  <button class="lang-btn" data-nt onclick="setLang(window.LANG==='en'?'fa':'en')"><span class="l-en">🌐 <i>English</i><b>EN</b></span><span class="l-fa">🌐 <i>فارسی</i><b>فا</b></span></button>
   <a class="tg" href="https://t.me/NabzKhabarOfficial" target="_blank" rel="noopener">📢 نبض خبر</a>
 </header>
 <main id="app"><div class="hero skeleton"></div></main>
@@ -41,7 +45,8 @@
 </nav>
 <div id="toast" class="toast"></div>
 <script src="data.js"></script>
-<script src="assets/player.js?v=3"></script>
-<script src="assets/app.js?v=3"></script>
+<script src="assets/i18n.js?v=4"></script>
+<script src="assets/player.js?v=4"></script>
+<script src="assets/app.js?v=4"></script>
 </body>
 </html>

@@ -100,3 +100,12 @@ img{display:block;max-width:100%}.wrap{width:min(var(--max),92%);margin-inline:a
 .bottom-nav a{flex:1;text-align:center;font-size:11px;color:#aab3c3;padding:4px}.bottom-nav a b{display:block;font-size:19px;font-weight:400}.bottom-nav a.on{color:#fff}
 .sp-body{grid-template-columns:1fr}.sp-poster{width:140px}}
 @media(max-width:380px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+.lang-btn{border:1px solid var(--line);background:var(--s2);color:var(--text);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.lang-btn:hover{border-color:var(--red)}
+html[lang=en] .lang-btn .l-en,html:not([lang=en]) .lang-btn .l-fa{display:none}
+html[dir=ltr] body{font-family:Inter,system-ui,"Segoe UI",Roboto,Vazirmatn,Arial,sans-serif}
+.lang-btn i{font-style:normal}.lang-btn b{display:none}
+@media (max-width:640px){.lang-btn{padding:6px 9px;font-size:12px}.lang-btn i{display:none}.lang-btn b{display:inline}}
+html[lang=en] .only-fa,html:not([lang=en]) .only-en{display:none}
+html[dir=ltr] .hero:after{background:linear-gradient(90deg,#07090ef5 0%,#07090ec0 38%,#07090e22 75%),linear-gradient(0deg,var(--bg) 2%,transparent 40%)}
