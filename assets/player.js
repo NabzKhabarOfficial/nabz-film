@@ -2,9 +2,9 @@
    NabzPlayer.mount(el, {sources:[{src,label,h,size}], subs:[{src,lang,label}], poster, title, key, page}) */
 (function(){
 "use strict";
-const FA="۰۱۲۳۴۵۶۷۸۹";const fa=n=>String(n).replace(/\d/g,d=>FA[d]);
+const fa=n=>String(n);
 const tf=s=>{s=Math.max(0,Math.floor(s||0));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return fa((h?h+":"+String(m).padStart(2,"0"):m)+":"+String(x).padStart(2,"0"))};
-const mb=b=>b?(b>=1073741824?fa((b/1073741824).toFixed(1))+" گیگ":fa(Math.round(b/1048576))+" مگ"):"";
+const mb=b=>b?(b>=1073741824?(b/1073741824).toFixed(1)+" GB":Math.round(b/1048576)+" MB"):"";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const LS={get:(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
 const I={
@@ -32,33 +32,34 @@ function pickDefault(src){
 function mount(el,o){
   const src=(o.sources||[]).filter(s=>s&&s.src).sort((a,b)=>(b.h||0)-(a.h||0));
   const subs=o.subs||[];const key="np:pos:"+(o.key||"");
-  if(!src.length){el.innerHTML='<div class="np-err">فایل پخش برای این عنوان پیدا نشد.</div>';return}
+  if(!src.length){el.innerHTML='<div class="np-err">No playable file was found for this title.</div>';return}
   let cur=pickDefault(src),tried=new Set(),hideT=0,subOn=LS.get("np:sub",null),subSize=LS.get("np:subsize",1);
-  el.innerHTML=`<div class="np" tabindex="0" dir="rtl">
+  el.innerHTML=`<div class="np" tabindex="0" dir="ltr" data-nt>
   <video playsinline preload="metadata" poster="${esc(o.poster||"")}"></video>
-  <div class="np-sub"><span></span></div>
+  <div class="np-sub"><span dir="auto"></span></div>
   <div class="np-cover"${o.poster?` style="background-image:url('${esc(o.poster)}')"`:""}><div class="np-shade"></div>
-    <div class="np-meta"><span class="np-badge">NABZ PLAYER</span><b>${esc(o.title||"")}</b><small>${src.length>1?fa(src.length)+" کیفیت":"کیفیت "+esc(src[0].label)}${subs.length?" · زیرنویس":""} · بدون یوتیوب</small></div>
-    <button class="np-big" aria-label="پخش">${I.play}</button></div>
+    <div class="np-meta"><span class="np-badge">NABZ PLAYER</span><b dir="auto">${esc(o.title||"")}</b><small>${src.length>1?src.length+" qualities":esc(src[0].label)}${subs.length?" · Subtitles":""} · No YouTube</small></div>
+    <button class="np-big" aria-label="Play">${I.play}</button></div>
   <div class="np-spin"></div><div class="np-flash"></div>
-  <div class="np-resume" hidden><span></span><button class="np-r-yes">ادامه تماشا</button><button class="np-r-no">از اول</button></div>
-  <div class="np-tap np-tap-l"></div><div class="np-tap np-tap-r"></div>
-  <div class="np-top"><b>${esc(o.title||"")}</b></div>
+  <div class="np-resume" hidden><span></span><button class="np-r-yes">Resume</button><button class="np-r-no">Start over</button></div>
+  <div class="np-touch"></div>
+  <div class="np-mid"><button class="np-m np-mbk" aria-label="Back 10 seconds">${I.back}</button><button class="np-m np-mpp" aria-label="Play/Pause">${I.play}</button><button class="np-m np-mfw" aria-label="Forward 10 seconds">${I.fwd}</button></div>
+  <div class="np-top"><b dir="auto">${esc(o.title||"")}</b></div>
   <div class="np-bar">
     <div class="np-prog" dir="ltr"><div class="np-buf"></div><div class="np-done"></div><div class="np-knob"></div><div class="np-tip">0:00</div></div>
     <div class="np-row">
       <div class="np-grp">
-        <button class="np-b np-pp" aria-label="پخش/مکث">${I.play}</button>
-        <button class="np-b np-fw" aria-label="۱۰ ثانیه جلو">${I.fwd}</button>
-        <button class="np-b np-bk" aria-label="۱۰ ثانیه عقب">${I.back}</button>
-        <div class="np-vol"><button class="np-b np-mu" aria-label="صدا">${I.vol}</button><input type="range" min="0" max="1" step="0.05" value="1" dir="ltr" aria-label="بلندی صدا"></div>
+        <button class="np-b np-pp" aria-label="Play/Pause (k)">${I.play}</button>
+        <button class="np-b np-bk" aria-label="Back 10 seconds">${I.back}</button>
+        <button class="np-b np-fw" aria-label="Forward 10 seconds">${I.fwd}</button>
+        <div class="np-vol"><button class="np-b np-mu" aria-label="Mute (m)">${I.vol}</button><input type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></div>
         <span class="np-time" dir="ltr">0:00 / 0:00</span>
       </div>
       <div class="np-grp">
-        ${subs.length?`<button class="np-b np-cc" aria-label="زیرنویس">${I.cc}</button>`:""}
-        <button class="np-b np-set" aria-label="تنظیمات">${I.gear}<i class="np-ql"></i></button>
-        ${document.pictureInPictureEnabled?`<button class="np-b np-pip" aria-label="تصویر در تصویر">${I.pip}</button>`:""}
-        <button class="np-b np-fs" aria-label="تمام‌صفحه">${I.full}</button>
+        ${subs.length?`<button class="np-b np-cc" aria-label="Subtitles (c)">${I.cc}</button>`:""}
+        <button class="np-b np-set" aria-label="Settings">${I.gear}<i class="np-ql"></i></button>
+        ${document.pictureInPictureEnabled?`<button class="np-b np-pip" aria-label="Picture in picture">${I.pip}</button>`:""}
+        <button class="np-b np-fs" aria-label="Fullscreen (f)">${I.full}</button>
       </div>
     </div>
   </div>
@@ -83,24 +84,25 @@ function mount(el,o){
   $(".np-big").onclick=start;
   const toggle=()=>{if(!R.classList.contains("np-started"))return start();V.paused?V.play().catch(()=>{}):V.pause()};
   $(".np-pp").onclick=toggle;
-  V.addEventListener("click",()=>{if(menu.hidden)toggle();else closeMenu()});
+  V.addEventListener("click",()=>{if(!menu.hidden)return closeMenu();toggle();wake()});
   const flash=h=>{const f=$(".np-flash");f.innerHTML=h;f.classList.remove("on");void f.offsetWidth;f.classList.add("on")};
-  const seek=d=>{V.currentTime=Math.min(Math.max(0,V.currentTime+d),V.duration||1e9);flash(`<span>${d>0?"+":"−"}${fa(Math.abs(d))} ثانیه</span>`);wake()};
+  const seek=d=>{V.currentTime=Math.min(Math.max(0,V.currentTime+d),V.duration||1e9);flash(`<span>${d>0?"+":"−"}${Math.abs(d)}s</span>`);wake()};
   $(".np-fw").onclick=()=>seek(10);$(".np-bk").onclick=()=>seek(-10);
-  V.addEventListener("play",()=>{R.classList.add("np-playing","np-started");$(".np-pp").innerHTML=I.pause;wake()});
-  V.addEventListener("pause",()=>{R.classList.remove("np-playing");$(".np-pp").innerHTML=I.play;R.classList.add("np-show")});
+  $(".np-mfw").onclick=e=>{e.stopPropagation();seek(10)};$(".np-mbk").onclick=e=>{e.stopPropagation();seek(-10)};$(".np-mpp").onclick=e=>{e.stopPropagation();toggle();wake()};
+  V.addEventListener("play",()=>{R.classList.add("np-playing","np-started");$(".np-pp").innerHTML=I.pause;$(".np-mpp").innerHTML=I.pause;wake()});
+  V.addEventListener("pause",()=>{R.classList.remove("np-playing");$(".np-pp").innerHTML=I.play;$(".np-mpp").innerHTML=I.play;R.classList.add("np-show");clearTimeout(hideT)});
   V.addEventListener("waiting",()=>R.classList.add("np-load"));
   ["playing","canplay","seeked"].forEach(e=>V.addEventListener(e,()=>R.classList.remove("np-load")));
   const upd=()=>{const d=V.duration||0,p=d?V.currentTime/d:0;done.style.width=p*100+"%";knob.style.left=p*100+"%";$(".np-time").textContent=tf(V.currentTime)+" / "+tf(d);
     try{if(V.buffered.length&&d)buf.style.width=V.buffered.end(V.buffered.length-1)/d*100+"%"}catch{}};
   V.addEventListener("timeupdate",()=>{upd();renderSub();if(V.currentTime>20&&V.duration&&V.currentTime<V.duration-90)LS.set(key,Math.floor(V.currentTime));else if(V.duration&&V.currentTime>=V.duration-90)LS.set(key,0)});
   V.addEventListener("progress",upd);V.addEventListener("seeked",renderSub);V.addEventListener("durationchange",upd);
-  V.addEventListener("loadedmetadata",function once(){V.removeEventListener("loadedmetadata",once);const s=LS.get(key,0);if(s>30&&(!V.duration||s<V.duration-90)){const r=$(".np-resume");r.hidden=false;r.querySelector("span").textContent="از "+tf(s)+" ادامه بدیم؟";
+  V.addEventListener("loadedmetadata",function once(){V.removeEventListener("loadedmetadata",once);const s=LS.get(key,0);if(s>30&&(!V.duration||s<V.duration-90)){const r=$(".np-resume");r.hidden=false;r.querySelector("span").textContent="Continue from "+tf(s)+"?";
     r.querySelector(".np-r-yes").onclick=()=>{V.currentTime=s;r.hidden=true;start()};r.querySelector(".np-r-no").onclick=()=>{LS.set(key,0);r.hidden=true;start()}}});
   V.addEventListener("ended",()=>{LS.set(key,0);R.classList.add("np-show")});
   V.addEventListener("error",()=>{if(!V.currentSrc&&!V.src)return;tried.add(cur.src);const next=src.find(s=>!tried.has(s.src)&&s.h<=cur.h)||src.find(s=>!tried.has(s.src));
-    if(next){setSrc(next,true);flash("<span>تغییر خودکار به "+esc(next.label)+"</span>");return}
-    R.classList.remove("np-load");const e=$(".np-err");e.hidden=false;e.innerHTML=`<b>پخش انجام نشد</b><p>ممکن است archive.org روی اینترنت شما کند یا محدود باشد. کیفیت پایین‌تر یا اینترنت دیگری را امتحان کن، یا فایل را مستقیم دانلود کن.</p>${o.page?`<a href="${esc(o.page)}" target="_blank" rel="noopener">صفحه اصلی فیلم ↗</a>`:""}<a href="${esc(src[src.length-1].src)}" target="_blank" rel="noopener" download>دانلود مستقیم ↓</a>`});
+    if(next){setSrc(next,true);flash("<span>Switched to "+esc(next.label)+"</span>");return}
+    R.classList.remove("np-load");const e=$(".np-err");e.hidden=false;e.innerHTML=`<b>Playback failed</b><p>archive.org may be slow or blocked on your connection. Try a lower quality or another network, or download the file directly.</p>${o.page?`<a href="${esc(o.page)}" target="_blank" rel="noopener">Film page ↗</a>`:""}<a href="${esc(src[src.length-1].src)}" target="_blank" rel="noopener" download>Direct download ↓</a>`});
 
   /* progress bar */
   const pos=e=>{const r=prog.getBoundingClientRect(),x=(e.touches?e.touches[0].clientX:e.clientX);return Math.min(1,Math.max(0,(x-r.left)/r.width))};
@@ -116,20 +118,24 @@ function mount(el,o){
   /* menus */
   function closeMenu(){menu.hidden=true;R.classList.remove("np-menuon")}
   function openMenu(kind){if(!menu.hidden&&menu.dataset.k===kind)return closeMenu();menu.dataset.k=kind;menu.hidden=false;R.classList.add("np-menuon");draw(kind)}
+  const SZ=["Small","Normal","Large","Extra large"];
+  const LN={fa:"Persian",en:"English",ar:"Arabic",tr:"Turkish",fr:"French",es:"Spanish",de:"German",xx:"Unknown language"};
+  const subName=x=>(LN[x.lang]||x.label||x.lang)+(/ماشینی|machine|AI/i.test(x.label||"")?" (AI translated)":"");
+  const rate=r=>r===1?"Normal":r+"×";
   function draw(kind){
-    if(kind==="main"){menu.innerHTML=`<div class="np-mh">تنظیمات</div>
-      <button data-go="q"><span>کیفیت</span><em>${esc(cur.label)} ‹</em></button>
-      <button data-go="speed"><span>سرعت پخش</span><em>${V.playbackRate===1?"عادی":fa(V.playbackRate)+"×"} ‹</em></button>
-      ${subs.length?`<button data-go="subs"><span>زیرنویس</span><em>${subOn===null?"خاموش":esc(subs[subOn].label)} ‹</em></button><button data-go="size"><span>اندازه زیرنویس</span><em>${["کوچک","عادی","بزرگ","خیلی بزرگ"][subSize]} ‹</em></button>`:""}
-      <a href="${esc(cur.src)}" target="_blank" rel="noopener" download><span>${I.dl} دانلود این کیفیت</span><em>${mb(cur.size)}</em></a>`}
-    if(kind==="q")menu.innerHTML=`<div class="np-mh"><button data-go="main">›</button> کیفیت تصویر</div>`+src.map((s,i)=>`<button data-q="${i}" class="${s===cur?"on":""}"><span>${esc(s.label)}${s.h>=720?' <b class="np-hd">HD</b>':""}</span><em>${mb(s.size)}</em></button>`).join("")+`<p class="np-hint">اینترنت ضعیف داری؟ کیفیت پایین‌تر را انتخاب کن.</p>`;
-    if(kind==="speed")menu.innerHTML=`<div class="np-mh"><button data-go="main">›</button> سرعت پخش</div>`+[0.5,0.75,1,1.25,1.5,2].map(r=>`<button data-r="${r}" class="${V.playbackRate===r?"on":""}"><span>${r===1?"عادی":fa(r)+"×"}</span></button>`).join("");
-    if(kind==="subs")menu.innerHTML=`<div class="np-mh">${menu.dataset.from==="cc"?"":'<button data-go="main">›</button> '}زیرنویس</div><button data-s="-1" class="${subOn===null?"on":""}"><span>خاموش</span></button>`+subs.map((s,i)=>`<button data-s="${i}" class="${subOn===i?"on":""}"><span>${esc(s.label)}</span></button>`).join("");
-    if(kind==="size")menu.innerHTML=`<div class="np-mh"><button data-go="main">›</button> اندازه زیرنویس</div>`+["کوچک","عادی","بزرگ","خیلی بزرگ"].map((n,i)=>`<button data-z="${i}" class="${subSize===i?"on":""}"><span>${n}</span></button>`).join("");
+    if(kind==="main"){menu.innerHTML=`<div class="np-mh">Settings</div>
+      <button data-go="q"><span>Quality</span><em>${esc(cur.label)} ›</em></button>
+      <button data-go="speed"><span>Playback speed</span><em>${rate(V.playbackRate)} ›</em></button>
+      ${subs.length?`<button data-go="subs"><span>Subtitles</span><em>${subOn===null?"Off":esc(subName(subs[subOn]))} ›</em></button><button data-go="size"><span>Subtitle size</span><em>${SZ[subSize]} ›</em></button>`:""}
+      <a href="${esc(cur.src)}" target="_blank" rel="noopener" download><span>${I.dl} Download this quality</span><em>${mb(cur.size)}</em></a>`}
+    if(kind==="q")menu.innerHTML=`<div class="np-mh"><button data-go="main">‹</button> Quality</div>`+src.map((s,i)=>`<button data-q="${i}" class="${s===cur?"on":""}"><span>${esc(s.label)}${s.h>=720?' <b class="np-hd">HD</b>':""}</span><em>${mb(s.size)}</em></button>`).join("")+`<p class="np-hint">Slow connection? Pick a lower quality.</p>`;
+    if(kind==="speed")menu.innerHTML=`<div class="np-mh"><button data-go="main">‹</button> Playback speed</div>`+[0.5,0.75,1,1.25,1.5,2].map(r=>`<button data-r="${r}" class="${V.playbackRate===r?"on":""}"><span>${rate(r)}</span></button>`).join("");
+    if(kind==="subs")menu.innerHTML=`<div class="np-mh">${menu.dataset.from==="cc"?"":'<button data-go="main">‹</button> '}Subtitles</div><button data-s="-1" class="${subOn===null?"on":""}"><span>Off</span></button>`+subs.map((s,i)=>`<button data-s="${i}" class="${subOn===i?"on":""}"><span>${esc(subName(s))}</span></button>`).join("");
+    if(kind==="size")menu.innerHTML=`<div class="np-mh"><button data-go="main">‹</button> Subtitle size</div>`+SZ.map((n,i)=>`<button data-z="${i}" class="${subSize===i?"on":""}"><span>${n}</span></button>`).join("");
   }
   menu.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;e.stopPropagation();
     if(b.dataset.go){menu.dataset.from="";menu.dataset.k=b.dataset.go;return draw(b.dataset.go)}
-    if(b.dataset.q){const s=src[+b.dataset.q];LS.set("np:q",s.h);tried.clear();if(s!==cur){setSrc(s,true);flash("<span>کیفیت "+esc(s.label)+"</span>")}return closeMenu()}
+    if(b.dataset.q){const s=src[+b.dataset.q];LS.set("np:q",s.h);tried.clear();if(s!==cur){setSrc(s,true);flash("<span>Quality "+esc(s.label)+"</span>")}return closeMenu()}
     if(b.dataset.r){V.playbackRate=+b.dataset.r;return closeMenu()}
     if(b.dataset.s){const v=+b.dataset.s;subOn=v<0?null:v;LS.set("np:sub",subOn);applySubs();return closeMenu()}
     if(b.dataset.z){subSize=+b.dataset.z;LS.set("np:subsize",subSize);applySubs();return closeMenu()}});
@@ -142,20 +148,30 @@ function mount(el,o){
   document.addEventListener("fullscreenchange",()=>{R.classList.toggle("np-isfs",fsEl()===R);$(".np-fs").innerHTML=fsEl()?I.exit:I.full});
   $(".np-pip")&&($(".np-pip").onclick=()=>{(document.pictureInPictureElement?document.exitPictureInPicture():V.requestPictureInPicture()).catch(()=>{})});
 
-  /* auto-hide */
-  function wake(){R.classList.add("np-show");clearTimeout(hideT);hideT=setTimeout(()=>{if(!V.paused&&menu.hidden&&!drag)R.classList.remove("np-show")},2600)}
-  R.addEventListener("pointermove",wake);R.addEventListener("touchstart",wake,{passive:true});
+  /* auto-hide: generous delay, never while paused, in a menu, dragging or using the bar */
+  const touchUI=matchMedia("(hover: none)").matches;
+  let overBar=false;const bar=$(".np-bar");
+  bar.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse")overBar=true});bar.addEventListener("pointerleave",()=>{overBar=false;wake()});
+  function wake(){R.classList.add("np-show");clearTimeout(hideT);hideT=setTimeout(()=>{if(!V.paused&&menu.hidden&&!drag&&!overBar)R.classList.remove("np-show");else wake()},touchUI?5000:3500)}
+  function hideNow(){clearTimeout(hideT);if(!V.paused&&menu.hidden)R.classList.remove("np-show")}
+  R.addEventListener("pointermove",e=>{if(e.pointerType==="mouse")wake()});
+  [bar,menu,$(".np-mid")].forEach(x=>x.addEventListener("pointerdown",wake));
+  V.addEventListener("dblclick",()=>{if(!touchUI)$(".np-fs").click()});
 
-  /* double tap to seek on touch */
-  let lastTap=0;[["l",-10],["r",10]].forEach(([s,d])=>{$(".np-tap-"+s).addEventListener("click",e=>{const n=Date.now();if(n-lastTap<320){seek(d);lastTap=0}else{lastTap=n;setTimeout(()=>{if(lastTap===n){R.classList.contains("np-show")&&!V.paused?R.classList.remove("np-show"):wake()}},330)}})});
+  /* touch: tap = show/hide controls (never pauses), double tap left/right = -10/+10s */
+  let tapT=0,lastTap=0;
+  $(".np-touch").addEventListener("click",e=>{if(!menu.hidden)return closeMenu();const n=Date.now(),r=R.getBoundingClientRect(),right=(e.clientX-r.left)>r.width/2;
+    if(n-lastTap<300){clearTimeout(tapT);lastTap=0;seek(right?10:-10);return}
+    lastTap=n;tapT=setTimeout(()=>{R.classList.contains("np-show")?hideNow():wake()},300)});
 
   /* keyboard */
-  R.addEventListener("keydown",e=>{const k=e.key.toLowerCase();if(e.target.tagName==="INPUT"&&k!==" ")return;
+  R.addEventListener("keydown",e=>{wake();const k=e.key.toLowerCase();if(e.target.tagName==="INPUT"&&k!==" ")return;
     if(k===" "||k==="k"){e.preventDefault();toggle()}else if(k==="arrowright"){e.preventDefault();seek(10)}else if(k==="arrowleft"){e.preventDefault();seek(-10)}
-    else if(k==="arrowup"){e.preventDefault();V.volume=Math.min(1,V.volume+.1);flash("<span>صدا "+fa(Math.round(V.volume*100))+"٪</span>")}
-    else if(k==="arrowdown"){e.preventDefault();V.volume=Math.max(0,V.volume-.1);flash("<span>صدا "+fa(Math.round(V.volume*100))+"٪</span>")}
+    else if(k==="arrowup"){e.preventDefault();V.volume=Math.min(1,V.volume+.1);flash("<span>Volume "+Math.round(V.volume*100)+"%</span>")}
+    else if(k==="arrowdown"){e.preventDefault();V.volume=Math.max(0,V.volume-.1);flash("<span>Volume "+Math.round(V.volume*100)+"%</span>")}
     else if(k==="f"||k==="ب")$(".np-fs").click();else if(k==="m"||k==="پ")$(".np-mu").click();
-    else if((k==="c"||k==="ز")&&subs.length){subOn=subOn===null?0:(subOn+1<subs.length?subOn+1:null);LS.set("np:sub",subOn);applySubs();flash("<span>زیرنویس: "+(subOn===null?"خاموش":esc(subs[subOn].label))+"</span>")}
+    else if(k==="j")seek(-10);else if(k==="l")seek(10);
+    else if((k==="c"||k==="ز")&&subs.length){subOn=subOn===null?0:(subOn+1<subs.length?subOn+1:null);LS.set("np:sub",subOn);applySubs();flash("<span>Subtitles: "+(subOn===null?"Off":esc(subName(subs[subOn])))+"</span>")}
     else if(k==="escape")closeMenu();});
   document.addEventListener("click",e=>{if(!R.contains(e.target))closeMenu()});
   applySubs();R.classList.add("np-show");
