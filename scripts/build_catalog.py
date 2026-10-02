@@ -563,16 +563,22 @@ def archive_media(ident):
     subs = []
     for f in files:
         name = str(f.get("name") or "")
-        if re.search(r"\.(srt|vtt)$", name, re.I) and int(f.get("size") or 0) < 2_000_000:
-            subs.append((name, _sub_lang(name)))
+        if not re.search(r"\.(srt|vtt)$", name, re.I) or int(f.get("size") or 0) >= 2_000_000:
+            continue
+        # Archive's automatic speech-recognition subtitles are mostly nonsense.
+        if re.search(r"(?:^|[._ -])asr(?:[._ -]|$)", name, re.I) or "speech recognition" in str(f.get("format", "")).lower():
+            continue
+        subs.append((name, _sub_lang(name)))
     return sources, subs, longest
 
 
 def srt_to_vtt(text):
     text = text.replace("\ufeff", "").replace("\r\n", "\n").replace("\r", "\n")
-    if text.lstrip().startswith("WEBVTT"):
+    is_vtt = text.lstrip().startswith("WEBVTT")
+    text = re.sub(r"(\d\d:\d\d:\d\d)[,.](\d{1,3})(?!\d)",
+                  lambda m: f"{m.group(1)}.{m.group(2).ljust(3, '0')}", text)
+    if is_vtt:
         return text
-    text = re.sub(r"(\d\d:\d\d:\d\d),(\d\d\d)", r"\1.\2", text)
     text = re.sub(r"(?m)^\d+\s*\n(?=\d\d:\d\d)", "", text)
     return "WEBVTT\n\n" + text.strip() + "\n"
 
@@ -591,11 +597,15 @@ def _http_text(url, timeout=30):
 
 def _probe(item):
     det = item["_detail"]
-    for ident in ([det["ia"]] if det.get("ia") else []) + det.get("ia_candidates", [])[:4]:
+    if det.get("ia"):
+        sources, subs, dur = archive_media(det["ia"])
+        return (item, det["ia"], sources, subs, dur) if sources else (item, None, [], [], 0)
+    best = (item, None, [], [], 0)
+    for ident in det.get("ia_candidates", [])[:4]:  # open movies: pick the copy with the most qualities
         sources, subs, dur = archive_media(ident)
-        if sources:
-            return item, ident, sources, subs, dur
-    return item, None, [], [], 0
+        if sources and (len(sources), sources[0]["h"], len(subs)) > (len(best[2]), best[2][0]["h"] if best[2] else 0, len(best[3])):
+            best = (item, ident, sources, subs, dur)
+    return best
 
 
 def list_subs(key, sub_dir):
@@ -626,6 +636,9 @@ def attach_media(items, out_dir):
         results = list(pool.map(_probe, targets))
     sub_dir = os.path.join(out_dir, "data", "sub")
     os.makedirs(sub_dir, exist_ok=True)
+    for name in os.listdir(sub_dir):  # re-fetched below; drops old speech-recognition files
+        if name.endswith(".xx.vtt"):
+            os.remove(os.path.join(sub_dir, name))
     ok, dead, nsubs = 0, set(), 0
     for item, ident, sources, subs, dur in results:
         det = item["_detail"]
@@ -653,7 +666,11 @@ def attach_media(items, out_dir):
                 continue
             path = os.path.join(sub_dir, f"{item['k']}.{lang}.vtt")
             try:
-                if not os.path.exists(path):
+                if os.path.exists(path):
+                    fixed = srt_to_vtt(open(path, encoding="utf-8").read())
+                    with open(path, "w", encoding="utf-8") as fh:
+                        fh.write(fixed)
+                else:
                     vtt = srt_to_vtt(_http_text(ARCHIVE_DL + urllib.parse.quote(ident) + "/" + urllib.parse.quote(name)))
                     if "-->" not in vtt:
                         continue
@@ -728,7 +745,12 @@ def translate_subs(out_dir, budget_files=3, budget_sec=600):
                 fa_texts += part
                 time.sleep(1.2)
         except Exception as exc:
-            print(f"Subtitle translation failed for {name}: {exc}")
+            detail = ""
+            try:
+                detail = exc.read().decode("utf-8", "ignore")[:300]
+            except Exception:
+                pass
+            print(f"Subtitle translation failed for {name}: {type(exc).__name__}: {exc} {detail}")
             continue
         for (i, lines), t in zip(cues, fa_texts):
             stamp = next(l for l in lines if "-->" in l)
