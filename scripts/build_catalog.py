@@ -26,6 +26,7 @@ import re
 import shutil
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -736,6 +737,22 @@ def _ai_translate(lines):
     return [got.get(i, lines[i]) for i in range(len(lines))]
 
 
+STATUS = {"translated": [], "translation_errors": []}
+
+
+def write_status(out_dir, meta):
+    """Small public build report (no secrets) so problems can be checked without opening the Actions log."""
+    sub_dir = os.path.join(out_dir, "data", "sub")
+    subs = sorted(os.listdir(sub_dir)) if os.path.isdir(sub_dir) else []
+    rep = {"built": meta.get("built"), "count": meta.get("count"), "free": meta.get("free"),
+           "ai_key": "groq" if os.environ.get("GROQ_API_KEY") else ("gemini" if os.environ.get("AI_API_KEY") else "none"),
+           "subtitle_files": len([n for n in subs if n.endswith(".vtt")]),
+           "en_subtitles": [n for n in subs if n.endswith(".en.vtt")][:50],
+           "fa_subtitles": [n for n in subs if n.endswith(".fa.vtt")][:50], **STATUS}
+    with open(os.path.join(out_dir, "data", "status.json"), "w", encoding="utf-8") as fh:
+        json.dump(rep, fh, ensure_ascii=False, indent=1)
+
+
 def translate_subs(out_dir, budget_files=3, budget_sec=600):
     if not (os.environ.get("GROQ_API_KEY") or os.environ.get("AI_API_KEY")):
         print("Persian subtitle translation: no AI key, skipped")
@@ -755,12 +772,19 @@ def translate_subs(out_dir, budget_files=3, budget_sec=600):
         texts = [" ".join(l for l in lines if "-->" not in l and l.strip()).strip() for _, lines in cues]
         try:
             fa_texts = []
-            for j in range(0, len(texts), 60):
-                part = _ai_translate(texts[j:j + 60])
+            for j in range(0, len(texts), 40):
+                for attempt in range(4):  # free tiers rate-limit (HTTP 429): wait and retry
+                    try:
+                        part = _ai_translate(texts[j:j + 40])
+                        break
+                    except urllib.error.HTTPError as he:
+                        if he.code != 429 or attempt == 3:
+                            raise
+                        time.sleep(20 * (attempt + 1))
                 if part is None:
                     raise RuntimeError("no provider")
                 fa_texts += part
-                time.sleep(1.2)
+                time.sleep(2)
         except Exception as exc:
             detail = ""
             try:
@@ -768,6 +792,7 @@ def translate_subs(out_dir, budget_files=3, budget_sec=600):
             except Exception:
                 pass
             print(f"Subtitle translation failed for {name}: {type(exc).__name__}: {exc} {detail}")
+            STATUS["translation_errors"].append(f"{name}: {type(exc).__name__}: {exc} {detail}"[:400])
             continue
         for (i, lines), t in zip(cues, fa_texts):
             stamp = next(l for l in lines if "-->" in l)
@@ -776,6 +801,7 @@ def translate_subs(out_dir, budget_files=3, budget_sec=600):
             fh.write("\n\n".join(b for b in blocks if b.strip()) + "\n")
         open(fa_path + ".ai", "w").close()
         done += 1
+        STATUS["translated"].append(name)
         print(f"Persian subtitle created: {fa_path}")
     return done
 
@@ -1052,7 +1078,8 @@ def main():
     if tmdb_count < 50 and not args.from_legacy:
         print("Too few TMDB titles; keeping the previous catalog.", file=sys.stderr)
         return 1
-    write_all(items, args.out)
+    meta = write_all(items, args.out)
+    write_status(args.out, meta)
     return 0
 
 
