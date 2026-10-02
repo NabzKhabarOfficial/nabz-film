@@ -745,7 +745,7 @@ def _ai_translate(lines, what="film subtitle lines"):
                     out = json.load(r)["choices"][0]["message"]["content"]
                 break
             except urllib.error.HTTPError as he:
-                if he.code in (400, 404) and n < len(models) - 1:
+                if he.code in (400, 404, 429) and n < len(models) - 1:  # 429: next model has its own quota
                     continue
                 raise
     elif gem:
@@ -780,7 +780,7 @@ def _ai_retry(lines, what):
             time.sleep(20 * (attempt + 1))
 
 
-def translate_overviews(items, out_dir, budget_items=240, budget_sec=420):
+def translate_overviews(items, out_dir, budget_items=300, budget_sec=900):
     """TMDB/Archive often has no Persian synopsis: translate the English one with AI (cached between runs)."""
     path = os.path.join(out_dir, "data", "fa_ai.json")
     try:
@@ -806,17 +806,20 @@ def translate_overviews(items, out_dir, budget_items=240, budget_sec=420):
     STATUS["overviews_missing_fa"] = len(need)
     if not need or not (os.environ.get("GROQ_API_KEY") or os.environ.get("AI_API_KEY")):
         return 0
-    started, done = time.time(), 0
+    started, done, fails = time.time(), 0, 0
     todo = need[:budget_items]
-    for j in range(0, len(todo), 8):
-        if time.time() - started > budget_sec:
+    for j in range(0, len(todo), 6):
+        if time.time() - started > budget_sec or fails >= 4:
             break
-        chunk = todo[j:j + 8]
+        chunk = todo[j:j + 6]
         try:
             out = _ai_retry([c[2] for c in chunk], "film/series synopses")
-        except Exception as exc:
-            STATUS["translation_errors"].append(f"overviews: {type(exc).__name__}: {exc}"[:300])
-            break
+        except Exception as exc:  # rate limit: cool down and keep going while time is left
+            fails += 1
+            if fails == 1:
+                STATUS["translation_errors"].append(f"overviews: {type(exc).__name__}: {exc}"[:300])
+            time.sleep(45)
+            continue
         if out is None:
             break
         for (x, field, src, txt), fa in zip(chunk, out):
@@ -826,7 +829,7 @@ def translate_overviews(items, out_dir, budget_items=240, budget_sec=420):
                 det[field + "_en"] = det.get(field + "_en") or txt
                 det[field] = fa
                 done += 1
-        time.sleep(2)
+        time.sleep(8)  # stay under the free tier's tokens-per-minute limit
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(cache, fh, ensure_ascii=False, separators=(",", ":"))
