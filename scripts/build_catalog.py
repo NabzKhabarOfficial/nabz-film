@@ -1,0 +1,545 @@
+#!/usr/bin/env python3
+"""NABZ FILM catalog builder.
+
+Builds a light list for the app, one detail file per title, a static SEO page
+per title and a full sitemap.
+
+Sources:
+* TMDB (metadata, posters, cast, trailers, seasons, legal watch providers).
+* Internet Archive feature-film and cartoon collections (public-domain films,
+  played through Archive's own embed player; no file is copied).
+* Blender open movies (Creative Commons, official YouTube embeds).
+
+Run in GitHub Actions with TMDB_TOKEN set. Without a token (or with
+--from-legacy catalog.json) it converts an existing catalog instead.
+"""
+
+import argparse
+import html
+import json
+import os
+import re
+import shutil
+import sys
+import time
+import urllib.parse
+import urllib.request
+
+SITE = "https://nabzkhabarofficial.github.io/nabz-film/"
+CHANNEL = "https://t.me/NabzKhabarOfficial"
+IMG = "https://image.tmdb.org/t/p/"
+BASE = "https://api.themoviedb.org/3"
+REGIONS = ("US", "GB", "CA", "DE", "TR", "AZ")
+MIN_VOTES = 200  # Bayesian prior: a title needs votes before it can top the list
+
+GNAME = {
+    "Action": "اکشن", "Adventure": "ماجراجویی", "Animation": "انیمیشن", "Comedy": "کمدی",
+    "Crime": "جنایی", "Documentary": "مستند", "Drama": "درام", "Family": "خانوادگی",
+    "Fantasy": "فانتزی", "History": "تاریخی", "Horror": "ترسناک", "Music": "موسیقی",
+    "Mystery": "معمایی", "Romance": "عاشقانه", "Science Fiction": "علمی‌تخیلی",
+    "Thriller": "هیجان‌انگیز", "War": "جنگی", "Western": "وسترن",
+    "Action & Adventure": "اکشن", "Sci-Fi & Fantasy": "علمی‌تخیلی", "War & Politics": "جنگی",
+    "TV Movie": "فیلم تلویزیونی", "Kids": "کودک", "Reality": "واقع‌نما", "Soap": "درام",
+    "Talk": "گفتگو محور", "News": "خبری",
+}
+# Persian TMDB genre names are normalised to the same short set.
+GFA = {"اکشن و ماجراجویی": "اکشن", "علمی-تخیلی": "علمی‌تخیلی", "علمی تخیلی": "علمی‌تخیلی",
+       "علمی‌تخیلی و فانتزی": "علمی‌تخیلی", "جنگ و سیاست": "جنگی", "مهیج": "هیجان‌انگیز",
+       "رازآلود": "معمایی", "ماجرایی": "ماجراجویی", "درام ": "درام"}
+
+ARCHIVE_GENRES = (
+    ("comedy", "کمدی"), ("horror", "ترسناک"), ("western", "وسترن"), ("noir", "جنایی"),
+    ("crime", "جنایی"), ("mystery", "معمایی"), ("drama", "درام"), ("science fiction", "علمی‌تخیلی"),
+    ("sci-fi", "علمی‌تخیلی"), ("war", "جنگی"), ("romance", "عاشقانه"), ("cartoon", "انیمیشن"),
+    ("animation", "انیمیشن"), ("documentary", "مستند"), ("adventure", "ماجراجویی"),
+    ("thriller", "هیجان‌انگیز"), ("musical", "موسیقی"), ("silent", "صامت"),
+)
+
+OPEN_MOVIES = [
+    ("open-big-buck-bunny", "Big Buck Bunny", "باک بانی بزرگ", 2008, ["انیمیشن", "کمدی"], "YE7VzlLtp-4",
+     "خرگوش غول‌پیکر و مهربانی که آرامشش را سه جونده‌ی مزاحم به هم می‌زنند، تصمیم می‌گیرد حسابشان را برسد."),
+    ("open-elephants-dream", "Elephants Dream", "رویای فیل‌ها", 2006, ["انیمیشن", "علمی‌تخیلی"], "TLkA0RELQ1g",
+     "دو شخصیت در دنیایی مکانیکی و سورئال سرگردان‌اند؛ نخستین فیلم آزاد پروژه Open Movie بلندر."),
+    ("open-sintel", "Sintel", "سینتل", 2010, ["انیمیشن", "فانتزی", "ماجراجویی"], "eRsGyueVLvQ",
+     "دختری تنها برای پیدا کردن بچه‌اژدهایی که نجاتش داده بود، به سفری خطرناک می‌رود."),
+    ("open-tears-of-steel", "Tears of Steel", "اشک‌های فولادی", 2012, ["علمی‌تخیلی", "اکشن"], "R6MlUcmOul8",
+     "گروهی از دانشمندان در آمستردامِ آینده تلاش می‌کنند جهان را از ربات‌های ویرانگر نجات دهند."),
+    ("open-cosmos-laundromat", "Cosmos Laundromat", "رخت‌شوی‌خانه کیهان", 2015, ["انیمیشن", "کمدی", "فانتزی"], "Y-rmzh0PI3c",
+     "گوسفندی ناامید در جزیره‌ای دورافتاده با فروشنده‌ای عجیب آشنا می‌شود که زندگی‌های دیگری به او پیشنهاد می‌دهد."),
+    ("open-spring", "Spring", "بهار", 2019, ["انیمیشن", "فانتزی"], "WhWc3b3KhnY",
+     "دختری چوپان و سگش با ارواح باستانی روبه‌رو می‌شوند تا چرخه زندگی دوباره آغاز شود."),
+    ("open-agent-327", "Agent 327: Operation Barbershop", "مأمور ۳۲۷: عملیات آرایشگاه", 2017, ["انیمیشن", "اکشن", "کمدی"], "mN0zPOpADL4",
+     "مأمور مخفی هلندی برای کشف یک توطئه وارد آرایشگاهی مشکوک می‌شود."),
+]
+
+# Extra TMDB lists (endpoint, type, tag, params, pages)
+LISTS = [
+    ("/trending/movie/day", "m", "trend", {}, 5),
+    ("/trending/tv/day", "s", "trend", {}, 5),
+    ("/movie/popular", "m", "popular", {}, 8),
+    ("/tv/popular", "s", "popular", {}, 8),
+    ("/movie/top_rated", "m", "top", {}, 8),
+    ("/tv/top_rated", "s", "top", {}, 8),
+    ("/movie/now_playing", "m", "new", {}, 3),
+    ("/discover/movie", "m", "iran", {"with_original_language": "fa", "sort_by": "popularity.desc"}, 4),
+    ("/discover/tv", "s", "iran", {"with_original_language": "fa", "sort_by": "popularity.desc"}, 2),
+    ("/discover/tv", "s", "korea", {"with_original_language": "ko", "sort_by": "popularity.desc", "vote_count.gte": 50}, 3),
+    ("/discover/tv", "s", "turkey", {"with_original_language": "tr", "sort_by": "popularity.desc", "vote_count.gte": 20}, 3),
+    ("/discover/tv", "s", "anime", {"with_original_language": "ja", "with_genres": "16", "sort_by": "popularity.desc"}, 3),
+    ("/discover/movie", "m", "anime", {"with_original_language": "ja", "with_genres": "16", "sort_by": "popularity.desc"}, 2),
+]
+
+
+# --------------------------------------------------------------------------
+# HTTP helpers
+# --------------------------------------------------------------------------
+
+def _http_json(url, headers=None, timeout=30, tries=3):
+    last = None
+    for attempt in range(tries):
+        try:
+            req = urllib.request.Request(url, headers=headers or {"User-Agent": "nabz-film/2.0"})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.load(r)
+        except Exception as exc:  # network hiccups / 429
+            last = exc
+            time.sleep(1.5 * (attempt + 1))
+    raise last
+
+
+class TMDB:
+    def __init__(self, token):
+        self.head = {"Authorization": f"Bearer {token}", "accept": "application/json",
+                     "User-Agent": "nabz-film/2.0"}
+
+    def get(self, path, params=None):
+        url = BASE + path + "?" + urllib.parse.urlencode(params or {})
+        time.sleep(0.04)
+        return _http_json(url, self.head)
+
+
+# --------------------------------------------------------------------------
+# Normalisation
+# --------------------------------------------------------------------------
+
+def genre_fa(name):
+    name = str(name or "").strip()
+    name = GNAME.get(name, name)
+    return GFA.get(name, name)
+
+
+def weighted(rating, votes, mean=6.8, m=MIN_VOTES):
+    rating, votes = float(rating or 0), float(votes or 0)
+    if votes <= 0:
+        return 0.0
+    return round((votes / (votes + m)) * rating + (m / (votes + m)) * mean, 3)
+
+
+def year_of(date):
+    date = str(date or "")
+    return int(date[:4]) if date[:4].isdigit() else None
+
+
+def safe_key(value):
+    return re.sub(r"[^A-Za-z0-9._-]+", "-", str(value)).strip("-")[:90]
+
+
+def strip_html(text):
+    text = re.sub(r"<[^>]+>", " ", str(text or ""))
+    return re.sub(r"\s+", " ", html.unescape(text)).strip()
+
+
+# --------------------------------------------------------------------------
+# Collectors
+# --------------------------------------------------------------------------
+
+def collect_tmdb(api):
+    picked = {}  # (type, id) -> set(tags)
+    rank = {}
+    for path, typ, tag, params, pages in LISTS:
+        for page_no in range(1, pages + 1):
+            try:
+                page = api.get(path, {"language": "fa-IR", "page": page_no, **params})
+            except Exception as exc:
+                print(f"list skip {path} p{page_no}: {exc}")
+                break
+            for i, x in enumerate(page.get("results", [])):
+                if not x.get("id"):
+                    continue
+                k = (typ, x["id"])
+                picked.setdefault(k, set()).add(tag)
+                if tag == "trend":
+                    rank.setdefault(k, (page_no - 1) * 20 + i)
+            if page_no >= int(page.get("total_pages") or 1):
+                break
+    print(f"TMDB candidates: {len(picked)}")
+    out = []
+    for n, ((typ, tid), tags) in enumerate(picked.items()):
+        try:
+            out.append(tmdb_title(api, typ, tid, tags, rank.get((typ, tid))))
+        except Exception as exc:
+            print(f"skip {typ}{tid}: {exc}")
+        if n and n % 100 == 0:
+            print(f"  ... {n} titles")
+    return [x for x in out if x]
+
+
+def tmdb_title(api, typ, tid, tags, trend_rank):
+    path = f"/movie/{tid}" if typ == "m" else f"/tv/{tid}"
+    d = api.get(path, {"language": "fa-IR", "include_video_language": "fa,en,null",
+                       "append_to_response": "credits,videos,recommendations,watch/providers"})
+    fa = d.get("title") or d.get("name") or ""
+    en = d.get("original_title") or d.get("original_name") or fa
+    overview = (d.get("overview") or "").strip()
+    tagline = (d.get("tagline") or "").strip()
+    if not overview:
+        try:
+            e = api.get(path, {"language": "en-US"})
+            overview = (e.get("overview") or "").strip()
+            if not fa:
+                fa = e.get("title") or e.get("name") or en
+        except Exception:
+            pass
+    if not (fa or en):
+        return None
+    if not d.get("poster_path"):
+        return None
+    credits = d.get("credits") or {}
+    cast = [{"name": p["name"], "role": p.get("character", ""),
+             "photo": p.get("profile_path") or ""}
+            for p in credits.get("cast", [])[:12] if p.get("name")]
+    crew = []
+    for p in credits.get("crew", []):
+        if p.get("job") in ("Director",) and p.get("name") not in crew:
+            crew.append(p["name"])
+    for p in d.get("created_by", []) or []:
+        if p.get("name") and p["name"] not in crew:
+            crew.append(p["name"])
+    trailer = ""
+    vids = (d.get("videos") or {}).get("results", [])
+    for want in ("Trailer", "Teaser"):
+        for v in vids:
+            if v.get("site") == "YouTube" and v.get("type") == want and v.get("key"):
+                trailer = v["key"]
+                break
+        if trailer:
+            break
+    watch = {}
+    wp = (d.get("watch/providers") or {}).get("results", {})
+    for rc in REGIONS:
+        rr = wp.get(rc) or {}
+        names = []
+        for bucket in ("flatrate", "free", "ads", "rent", "buy"):
+            for p in rr.get(bucket, []) or []:
+                nm = p.get("provider_name")
+                if nm and nm not in [x["n"] for x in names]:
+                    names.append({"n": nm, "kind": bucket, "logo": p.get("logo_path") or ""})
+        if names:
+            watch[rc] = {"link": rr.get("link", ""), "p": names[:8]}
+    seasons = []
+    for s in d.get("seasons", []) or []:
+        if s.get("season_number") is None:
+            continue
+        seasons.append({"n": s["season_number"], "name": s.get("name") or f"فصل {s['season_number']}",
+                        "ep": s.get("episode_count") or 0, "y": year_of(s.get("air_date")),
+                        "poster": s.get("poster_path") or ""})
+    recs = [("m" if (r.get("media_type") or ("movie" if typ == "m" else "tv")) == "movie" else "s") + str(r["id"])
+            for r in (d.get("recommendations") or {}).get("results", [])[:16] if r.get("id")]
+    date = d.get("release_date") or d.get("first_air_date") or ""
+    genres = []
+    for g in d.get("genres", []) or []:
+        name = genre_fa(g.get("name"))
+        if name and name not in genres:
+            genres.append(name)
+    if d.get("original_language") == "fa":
+        tags = set(tags) | {"iran"}
+    item = {
+        "k": f"{typ}{tid}", "t": typ, "fa": fa or en, "en": en, "y": year_of(date),
+        "g": genres, "r": round(float(d.get("vote_average") or 0), 1),
+        "v": int(d.get("vote_count") or 0), "pop": round(float(d.get("popularity") or 0), 1),
+        "p": d.get("poster_path") or "", "b": d.get("backdrop_path") or "",
+        "lang": d.get("original_language") or "", "tags": sorted(tags),
+    }
+    if trend_rank is not None:
+        item["tr"] = trend_rank
+    item["w"] = weighted(item["r"], item["v"])
+    item["_detail"] = {
+        "overview": overview, "tagline": tagline,
+        "runtime": d.get("runtime") or (d.get("episode_run_time") or [None])[0],
+        "status": d.get("status") or "", "seasons": seasons,
+        "episodes": d.get("number_of_episodes"), "crew": crew[:4],
+        "countries": [c.get("iso_3166_1") for c in d.get("production_countries", []) or []][:3],
+        "cast": cast, "trailer": trailer, "watch": watch, "recs": recs,
+        "tmdb": f"https://www.themoviedb.org/{'movie' if typ == 'm' else 'tv'}/{tid}",
+    }
+    return item
+
+
+def archive_genres(subjects):
+    text = " ".join(subjects if isinstance(subjects, list) else [str(subjects or "")]).lower()
+    out = []
+    for word, fa in ARCHIVE_GENRES:
+        if word in text and fa not in out:
+            out.append(fa)
+    return out[:3] or ["کلاسیک"]
+
+
+def collect_archive():
+    queries = [
+        ("collection:(feature_films) AND mediatype:(movies)", 350, None),
+        ("collection:(classic_cartoons) AND mediatype:(movies)", 120, "انیمیشن"),
+        ('mediatype:(movies) AND licenseurl:(*publicdomain*) AND -collection:(feature_films)', 80, None),
+    ]
+    out, seen = [], set()
+    for q, rows, forced in queries:
+        params = [("q", q), ("rows", rows), ("page", 1), ("output", "json"), ("sort[]", "downloads desc")]
+        for f in ("identifier", "title", "year", "date", "description", "downloads", "subject", "runtime"):
+            params.append(("fl[]", f))
+        url = "https://archive.org/advancedsearch.php?" + urllib.parse.urlencode(params)
+        try:
+            docs = _http_json(url).get("response", {}).get("docs", [])
+        except Exception as exc:
+            print(f"Internet Archive skip ({q[:30]}): {exc}")
+            continue
+        for x in docs:
+            ident = x.get("identifier")
+            if not ident or ident in seen:
+                continue
+            seen.add(ident)
+            title = strip_html(x.get("title") or ident)
+            if isinstance(x.get("title"), list):
+                title = strip_html(x["title"][0])
+            desc = x.get("description")
+            if isinstance(desc, list):
+                desc = " ".join(map(str, desc))
+            y = year_of(x.get("year")) or year_of(x.get("date"))
+            genres = archive_genres(x.get("subject"))
+            if forced and forced not in genres:
+                genres = [forced] + genres[:2]
+            key = "ia-" + safe_key(ident)
+            item = {
+                "k": key, "t": "m", "fa": title, "en": title, "y": y, "g": genres,
+                "r": 0, "v": 0, "pop": int(x.get("downloads") or 0), "w": 0,
+                "p": f"https://archive.org/services/img/{urllib.parse.quote(ident)}",
+                "b": "", "lang": "en", "tags": ["free", "classic"], "play": 1,
+            }
+            item["_detail"] = {
+                "overview": strip_html(desc)[:1200] or "فیلم کلاسیک با مالکیت عمومی از آرشیو اینترنت.",
+                "embed": f"https://archive.org/embed/{urllib.parse.quote(ident)}",
+                "source": "Internet Archive · مالکیت عمومی",
+                "source_url": f"https://archive.org/details/{urllib.parse.quote(ident)}",
+                "runtime": None, "cast": [], "recs": [], "watch": {}, "seasons": [],
+            }
+            out.append(item)
+    print(f"Internet Archive playable titles: {len(out)}")
+    return out
+
+
+def collect_open_movies():
+    out = []
+    for key, en, fa, year, genres, yt, overview in OPEN_MOVIES:
+        out.append({
+            "k": key, "t": "m", "fa": fa, "en": en, "y": year, "g": genres, "r": 0, "v": 0,
+            "pop": 10 ** 7, "w": 0, "p": f"https://i.ytimg.com/vi/{yt}/hqdefault.jpg",
+            "b": f"https://i.ytimg.com/vi/{yt}/maxresdefault.jpg", "lang": "en",
+            "tags": ["free", "open"], "play": 1,
+            "_detail": {"overview": overview, "embed": f"https://www.youtube-nocookie.com/embed/{yt}?rel=0",
+                        "source": "Blender Foundation · Creative Commons",
+                        "source_url": f"https://www.youtube.com/watch?v={yt}",
+                        "cast": [], "recs": [], "watch": {}, "seasons": [], "runtime": None},
+        })
+    return out
+
+
+def from_legacy(path):
+    """Convert the old single catalog.json into the new format (no network)."""
+    data = json.load(open(path, encoding="utf-8"))
+    out = []
+    for x in data:
+        typ = "m" if x.get("type") == "movie" else "s"
+        raw = str(x.get("id"))
+        playable = bool(x.get("embed_url") or x.get("video_url"))
+        key = ("ia-" + safe_key(raw[3:])) if raw.startswith("ia-") else (
+            safe_key(raw) if not raw.isdigit() else f"{typ}{raw}")
+        poster = x.get("poster") or ""
+        backdrop = x.get("backdrop") or ""
+        for size in ("w500", "w1280", "w342", "original"):
+            poster = poster.replace(IMG + size, "")
+            backdrop = backdrop.replace(IMG + size, "")
+        item = {
+            "k": key, "t": typ, "fa": x.get("fa") or x.get("title") or "", "en": x.get("title") or "",
+            "y": x.get("year"), "g": [genre_fa(g) for g in (x.get("genres") or x.get("genre") or [])],
+            "r": x.get("rating") or 0, "v": 0, "pop": 0, "p": poster, "b": backdrop, "lang": "",
+            "tags": ["free"] if playable else [], "w": float(x.get("rating") or 0) * 0.9,
+        }
+        if playable:
+            item["play"] = 1
+        watch = {}
+        for rc, w in (x.get("watch") or {}).items():
+            names = []
+            for bucket in ("flatrate", "free", "ads", "rent", "buy"):
+                for p in w.get(bucket, []) or []:
+                    if p.get("provider_name") and p["provider_name"] not in [n["n"] for n in names]:
+                        names.append({"n": p["provider_name"], "kind": bucket, "logo": p.get("logo_path") or ""})
+            if names:
+                watch[rc] = {"link": w.get("link", ""), "p": names[:8]}
+        item["_detail"] = {
+            "overview": x.get("overview") or "", "runtime": x.get("runtime"),
+            "episodes": x.get("episodes"), "seasons": [], "status": x.get("status") or "",
+            "cast": [{"name": c.get("name"), "role": c.get("character", ""),
+                      "photo": (c.get("photo") or "").replace(IMG + "w185", "")} for c in x.get("cast") or []],
+            "trailer": x.get("trailer") or "", "watch": watch, "recs": [],
+            "tmdb": x.get("tmdb_url") or "", "embed": x.get("embed_url") or "",
+            "video": x.get("video_url") or "", "source": x.get("source_label") or "",
+        }
+        out.append(item)
+    return out
+
+
+# --------------------------------------------------------------------------
+# Writers
+# --------------------------------------------------------------------------
+
+def img(path, size):
+    if not path:
+        return ""
+    return path if path.startswith("http") else IMG + size + path
+
+
+def esc(v):
+    return html.escape(str(v if v is not None else ""), quote=True)
+
+
+def static_page(item, detail, by_key):
+    kind = "فیلم" if item["t"] == "m" else "سریال"
+    title = item["fa"]
+    year = f" ({item['y']})" if item.get("y") else ""
+    url = f"{SITE}t/{item['k']}.html"
+    poster = img(item.get("p"), "w500")
+    backdrop = img(item.get("b"), "w1280") or poster
+    overview = detail.get("overview") or ""
+    desc = (overview[:155] + "…") if len(overview) > 160 else overview
+    play = ""
+    if detail.get("embed"):
+        play = (f'<div class="player"><iframe src="{esc(detail["embed"])}" title="پخش {esc(title)}" '
+                'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>'
+                f'<p class="src">منبع پخش: {esc(detail.get("source", ""))}</p>')
+    elif detail.get("trailer"):
+        play = (f'<div class="player"><iframe src="https://www.youtube-nocookie.com/embed/{esc(detail["trailer"])}?rel=0" '
+                f'title="تریلر {esc(title)}" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>')
+    facts = []
+    if item.get("y"):
+        facts.append(f"📅 {item['y']}")
+    if item.get("r"):
+        facts.append(f"⭐ {item['r']}")
+    if detail.get("runtime"):
+        facts.append(f"⏱ {detail['runtime']} دقیقه")
+    if detail.get("seasons"):
+        real = [s for s in detail["seasons"] if s.get("n")]
+        facts.append(f"📺 {len(real)} فصل")
+    cast = "".join(f'<li>{esc(c["name"])}<small>{esc(c.get("role", ""))}</small></li>'
+                   for c in detail.get("cast", [])[:10])
+    recs = "".join(f'<a href="{esc(r)}.html">{esc(by_key[r]["fa"])}</a>'
+                   for r in detail.get("recs", []) if r in by_key)[:4000]
+    ld = {"@context": "https://schema.org", "@type": "Movie" if item["t"] == "m" else "TVSeries",
+          "name": title, "alternateName": item.get("en") or None, "image": poster or None,
+          "description": overview[:500] or None, "url": url,
+          "datePublished": str(item["y"]) if item.get("y") else None,
+          "genre": item.get("g") or None}
+    if item.get("r") and item.get("v"):
+        ld["aggregateRating"] = {"@type": "AggregateRating", "ratingValue": item["r"],
+                                 "ratingCount": item["v"], "bestRating": 10}
+    ld = {k: v for k, v in ld.items() if v}
+    return f"""<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{esc(title)}{esc(year)} | {kind} | نبض فیلم</title>
+<meta name="description" content="{esc(desc or f'{kind} {title} در نبض فیلم: خلاصه داستان، بازیگران، تریلر و جای تماشای قانونی.')}">
+<link rel="canonical" href="{esc(url)}"><meta name="theme-color" content="#07090e">
+<meta property="og:type" content="video.{'movie' if item['t'] == 'm' else 'tv_show'}"><meta property="og:title" content="{esc(title)}{esc(year)} | نبض فیلم">
+<meta property="og:description" content="{esc(desc)}"><meta property="og:image" content="{esc(backdrop)}"><meta property="og:url" content="{esc(url)}">
+<meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css"><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>
+<body class="static"><header class="top"><a class="logo" href="../">نبض <b>فیلم</b></a><a class="btn sm" href="../#/t/{esc(item['k'])}">باز کردن در اپ</a></header>
+<main class="sp"><div class="sp-cover" style="background-image:url('{esc(backdrop)}')"></div>
+<article class="sp-body"><img class="sp-poster" src="{esc(poster)}" alt="پوستر {esc(title)}" loading="lazy">
+<div><span class="eyebrow">{kind}</span><h1>{esc(title)}</h1><p class="en">{esc(item.get('en') if item.get('en') != title else '')}</p>
+<div class="facts">{''.join(f'<span>{esc(f)}</span>' for f in facts)}</div><p class="genres">{esc(' • '.join(item.get('g') or []))}</p>
+<p class="overview">{esc(overview or 'خلاصه‌ای برای این عنوان ثبت نشده است.')}</p></div></article>
+<section class="sp-sec">{play}</section>
+{'<section class="sp-sec"><h2>بازیگران</h2><ul class="sp-cast">' + cast + '</ul></section>' if cast else ''}
+{'<section class="sp-sec"><h2>پیشنهادهای مشابه</h2><div class="sp-recs">' + recs + '</div></section>' if recs else ''}
+<p class="sp-sec"><a class="btn" href="../#/t/{esc(item['k'])}">▶ تماشا و جزئیات کامل در نبض فیلم</a> <a class="btn ghost" href="{CHANNEL}" rel="noopener">📢 کانال نبض خبر</a></p>
+</main><footer class="foot">© نبض فیلم · داده‌ها از TMDB (This product uses the TMDB API but is not endorsed or certified by TMDB).</footer></body></html>"""
+
+
+def write_all(items, out_dir):
+    items = [x for x in items if x.get("fa")]
+    # Free/playable first within ties; list sorted by weighted score.
+    items.sort(key=lambda x: (x.get("w") or 0, x.get("pop") or 0), reverse=True)
+    by_key = {}
+    for x in items:
+        by_key.setdefault(x["k"], x)
+    items = list(by_key.values())
+
+    for sub in ("data/t", "t"):
+        path = os.path.join(out_dir, sub)
+        if os.path.isdir(path):
+            shutil.rmtree(path)
+        os.makedirs(path, exist_ok=True)
+
+    light = []
+    for x in items:
+        detail = x.pop("_detail", {}) or {}
+        detail["recs"] = [r for r in detail.get("recs", []) if r in by_key][:12]
+        row = {k: v for k, v in x.items() if v not in (None, "", [], 0) or k in ("k", "t")}
+        light.append(row)
+        with open(os.path.join(out_dir, "data/t", x["k"] + ".json"), "w", encoding="utf-8") as fh:
+            json.dump(detail, fh, ensure_ascii=False, separators=(",", ":"))
+        with open(os.path.join(out_dir, "t", x["k"] + ".html"), "w", encoding="utf-8") as fh:
+            fh.write(static_page(x, detail, by_key))
+
+    meta = {"built": int(time.time()), "count": len(light),
+            "movies": sum(1 for x in light if x["t"] == "m"),
+            "series": sum(1 for x in light if x["t"] == "s"),
+            "free": sum(1 for x in light if x.get("play"))}
+    with open(os.path.join(out_dir, "data/list.json"), "w", encoding="utf-8") as fh:
+        json.dump({"meta": meta, "items": light}, fh, ensure_ascii=False, separators=(",", ":"))
+
+    urls = [f"<url><loc>{SITE}</loc><changefreq>daily</changefreq><priority>1.0</priority></url>"]
+    urls += [f"<url><loc>{SITE}t/{esc(x['k'])}.html</loc><changefreq>weekly</changefreq></url>" for x in light]
+    with open(os.path.join(out_dir, "sitemap.xml"), "w", encoding="utf-8") as fh:
+        fh.write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+                 + "".join(urls) + "</urlset>")
+    print(f"Wrote {meta}")
+    return meta
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", default=".")
+    ap.add_argument("--from-legacy", default="")
+    ap.add_argument("--no-archive", action="store_true")
+    args = ap.parse_args()
+
+    token = os.environ.get("TMDB_TOKEN", "").strip()
+    items = []
+    if args.from_legacy:
+        items = from_legacy(args.from_legacy)
+    elif token:
+        items = collect_tmdb(TMDB(token))
+    else:
+        print("TMDB_TOKEN missing and no --from-legacy given", file=sys.stderr)
+        return 1
+    tmdb_count = len(items)
+    if not args.no_archive and not args.from_legacy:
+        items += collect_archive()
+    items += collect_open_movies()
+    if tmdb_count < 50 and not args.from_legacy:
+        print("Too few TMDB titles; keeping the previous catalog.", file=sys.stderr)
+        return 1
+    write_all(items, args.out)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
