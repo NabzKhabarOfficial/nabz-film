@@ -77,6 +77,16 @@ OPEN_MOVIES = [
      "مأمور مخفی هلندی برای کشف یک توطئه وارد آرایشگاهی مشکوک می‌شود."),
 ]
 
+OPEN_EN = {
+    "open-big-buck-bunny": "A giant, gentle rabbit takes revenge on three bullying rodents who ruin his peaceful day.",
+    "open-elephants-dream": "Two men wander through a surreal mechanical world; the first Blender Open Movie.",
+    "open-sintel": "A lonely girl sets out on a dangerous journey to find the baby dragon she once saved.",
+    "open-tears-of-steel": "In a future Amsterdam, a group of scientists tries to save the world from destructive robots.",
+    "open-cosmos-laundromat": "A suicidal sheep on a desolate island meets a strange salesman who offers him other lives.",
+    "open-spring": "A shepherd girl and her dog face ancient spirits to continue the cycle of life.",
+    "open-agent-327": "Dutch secret agent 327 investigates a suspicious barbershop to uncover a conspiracy.",
+}
+
 # Extra TMDB lists (endpoint, type, tag, params, pages)
 LISTS = [
     ("/trending/movie/day", "m", "trend", {}, 5),
@@ -197,14 +207,18 @@ def tmdb_title(api, typ, tid, tags, trend_rank):
     en = d.get("original_title") or d.get("original_name") or fa
     overview = (d.get("overview") or "").strip()
     tagline = (d.get("tagline") or "").strip()
+    title_en, overview_en, tagline_en = "", "", ""
+    try:  # English data for the English version of the site
+        e = api.get(path, {"language": "en-US"})
+        title_en = e.get("title") or e.get("name") or ""
+        overview_en = (e.get("overview") or "").strip()
+        tagline_en = (e.get("tagline") or "").strip()
+    except Exception:
+        pass
     if not overview:
-        try:
-            e = api.get(path, {"language": "en-US"})
-            overview = (e.get("overview") or "").strip()
-            if not fa:
-                fa = e.get("title") or e.get("name") or en
-        except Exception:
-            pass
+        overview = overview_en
+    if not fa:
+        fa = title_en or en
     if not (fa or en):
         return None
     if not d.get("poster_path"):
@@ -264,12 +278,14 @@ def tmdb_title(api, typ, tid, tags, trend_rank):
         "v": int(d.get("vote_count") or 0), "pop": round(float(d.get("popularity") or 0), 1),
         "p": d.get("poster_path") or "", "b": d.get("backdrop_path") or "",
         "lang": d.get("original_language") or "", "tags": sorted(tags),
+        "ten": title_en if title_en and title_en != en else "",
     }
     if trend_rank is not None:
         item["tr"] = trend_rank
     item["w"] = weighted(item["r"], item["v"])
     item["_detail"] = {
         "overview": overview, "tagline": tagline,
+        "overview_en": overview_en if overview_en != overview else "", "tagline_en": tagline_en,
         "runtime": d.get("runtime") or (d.get("episode_run_time") or [None])[0],
         "status": d.get("status") or "", "seasons": seasons,
         "episodes": d.get("number_of_episodes"), "crew": crew[:4],
@@ -432,6 +448,7 @@ def enrich_archive(api, archive, tmdb_items):
             "r": round(rating, 1), "v": votes, "w": weighted(rating, votes),
             "p": hit.get("poster_path") or a["p"], "b": hit.get("backdrop_path") or "",
         })
+        det["overview_en"] = det["overview"] if re.search(r"[A-Za-z]{4}", det["overview"]) else ""
         det["overview"] = overview or det["overview"]
         det["tmdb"] = f"https://www.themoviedb.org/movie/{hit['id']}"
         kept.append(a)
@@ -466,7 +483,7 @@ def collect_open_movies(api=None):
             "k": key, "t": "m", "fa": fa, "en": en, "y": year, "g": genres, "r": rating, "v": votes,
             "pop": 10 ** 7, "w": 0, "p": poster or (f"https://archive.org/services/img/{idents[0]}" if idents else ""),
             "b": backdrop, "lang": "en", "tags": ["free", "open"], "play": 1,
-            "_detail": {"overview": overview, "ia_candidates": idents,
+            "_detail": {"overview": overview, "overview_en": OPEN_EN.get(key, ""), "ia_candidates": idents,
                         "source": "Blender Foundation · Creative Commons",
                         "source_url": "https://studio.blender.org/films/",
                         "cast": [], "recs": [], "watch": {}, "seasons": [], "runtime": None},
@@ -871,7 +888,7 @@ def static_page(item, detail, by_key):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}{esc(year)} | {kind} | نبض فیلم</title>
 <meta name="description" content="{esc(desc or f'{kind} {title} در نبض فیلم: خلاصه داستان، بازیگران، تریلر و جای تماشای قانونی.')}">
-<link rel="canonical" href="{esc(url)}"><meta name="theme-color" content="#07090e">
+<link rel="canonical" href="{esc(url)}"><link rel="alternate" hreflang="fa" href="{esc(url)}"><link rel="alternate" hreflang="en" href="{SITE}en/t/{esc(item['k'])}.html"><meta name="theme-color" content="#07090e">
 <meta property="og:type" content="video.{'movie' if item['t'] == 'm' else 'tv_show'}"><meta property="og:title" content="{esc(title)}{esc(year)} | نبض فیلم">
 <meta property="og:description" content="{esc(desc)}"><meta property="og:image" content="{esc(backdrop)}"><meta property="og:url" content="{esc(url)}">
 <meta name="twitter:card" content="summary_large_image"><link rel="icon" href="../favicon.svg" type="image/svg+xml">
@@ -889,6 +906,75 @@ def static_page(item, detail, by_key):
 </main><footer class="foot">© نبض فیلم · داده‌ها از TMDB (This product uses the TMDB API but is not endorsed or certified by TMDB).</footer></body></html>"""
 
 
+GENRE_EN = {"اکشن": "Action", "ماجراجویی": "Adventure", "انیمیشن": "Animation", "کمدی": "Comedy",
+            "جنایی": "Crime", "مستند": "Documentary", "درام": "Drama", "خانوادگی": "Family",
+            "فانتزی": "Fantasy", "تاریخی": "History", "ترسناک": "Horror", "موسیقی": "Music",
+            "معمایی": "Mystery", "عاشقانه": "Romance", "علمی‌تخیلی": "Sci-Fi", "هیجان‌انگیز": "Thriller",
+            "جنگی": "War", "وسترن": "Western", "فیلم تلویزیونی": "TV Movie", "کودک": "Kids",
+            "واقع‌نما": "Reality", "گفتگو محور": "Talk", "خبری": "News", "صامت": "Silent", "کلاسیک": "Classic"}
+
+
+def static_page_en(item, detail, by_key):
+    kind = "Movie" if item["t"] == "m" else "TV Series"
+    title = item.get("ten") or item.get("en") or item["fa"]
+    year = f" ({item['y']})" if item.get("y") else ""
+    url = f"{SITE}en/t/{item['k']}.html"
+    poster = img(item.get("p"), "w500")
+    backdrop = img(item.get("b"), "w1280") or poster
+    overview = detail.get("overview_en") or (detail.get("overview") if not re.search(r"[\u0600-\u06FF]", detail.get("overview") or "") else "")
+    desc = (overview[:155] + "…") if len(overview) > 160 else overview
+    genres = [GENRE_EN.get(g, g) for g in item.get("g") or []]
+    play = ""
+    if detail.get("sources"):
+        srcs = "".join(f'<source src="{esc(x["src"])}" type="video/mp4">'
+                       for x in sorted(detail["sources"], key=lambda x: abs(x["h"] - 480)))
+        play = (f'<div class="player"><video controls playsinline preload="none" poster="{esc(backdrop)}">{srcs}</video></div>'
+                f'<p class="src">Free and legal · {len(detail["sources"])} quality option(s) · '
+                f'<a href="{SITE}?lang=en#/watch/{esc(item["k"])}">Watch in the NABZ player ›</a></p>')
+    elif detail.get("trailer"):
+        play = (f'<div class="player"><iframe src="https://www.youtube-nocookie.com/embed/{esc(detail["trailer"])}?rel=0" '
+                f'title="{esc(title)} trailer" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>')
+    facts = [str(item["y"])] if item.get("y") else []
+    if item.get("r"):
+        facts.append(f"★ {item['r']}")
+    if detail.get("runtime"):
+        facts.append(f"{detail['runtime']} min")
+    cast = "".join(f'<li>{esc(c["name"])}<small>{esc(c.get("role", ""))}</small></li>'
+                   for c in detail.get("cast", [])[:10])
+    recs = "".join(f'<a href="{esc(r)}.html">{esc(by_key[r].get("ten") or by_key[r].get("en") or by_key[r]["fa"])}</a>'
+                   for r in detail.get("recs", []) if r in by_key)[:4000]
+    ld = {"@context": "https://schema.org", "@type": "Movie" if item["t"] == "m" else "TVSeries",
+          "name": title, "image": poster or None, "description": overview[:500] or None, "url": url,
+          "inLanguage": "en", "datePublished": str(item["y"]) if item.get("y") else None, "genre": genres or None}
+    if item.get("r") and item.get("v"):
+        ld["aggregateRating"] = {"@type": "AggregateRating", "ratingValue": item["r"],
+                                 "ratingCount": item["v"], "bestRating": 10}
+    ld = {k: v for k, v in ld.items() if v}
+    fa_url = f"{SITE}t/{item['k']}.html"
+    return f"""<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{esc(title)}{esc(year)} | {kind} | NABZ FILM</title>
+<meta name="description" content="{esc(desc or f'{title}{year}: synopsis, cast, trailer and where to watch legally on NABZ FILM.')}">
+<link rel="canonical" href="{esc(url)}"><link rel="alternate" hreflang="en" href="{esc(url)}"><link rel="alternate" hreflang="fa" href="{esc(fa_url)}">
+<meta name="theme-color" content="#07090e"><meta property="og:type" content="video.{'movie' if item['t'] == 'm' else 'tv_show'}">
+<meta property="og:title" content="{esc(title)}{esc(year)} | NABZ FILM"><meta property="og:description" content="{esc(desc)}">
+<meta property="og:image" content="{esc(backdrop)}"><meta property="og:url" content="{esc(url)}"><meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../../assets/style.css">
+<style>body{{font-family:Inter,system-ui,"Segoe UI",Roboto,Arial,sans-serif}}</style>
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>
+<body class="static"><header class="top"><a class="logo" href="../../?lang=en">NABZ <b>FILM</b></a><a class="btn sm" href="../../?lang=en#/t/{esc(item['k'])}">Open in app</a> <a class="btn sm ghost" href="{esc(fa_url)}">فارسی</a></header>
+<main class="sp"><div class="sp-cover" style="background-image:url('{esc(backdrop)}')"></div>
+<article class="sp-body"><img class="sp-poster" src="{esc(poster)}" alt="{esc(title)} poster" loading="lazy">
+<div><span class="eyebrow">{kind}</span><h1>{esc(title)}</h1>
+<div class="facts">{''.join(f'<span>{esc(f)}</span>' for f in facts)}</div><p class="genres">{esc(' • '.join(genres))}</p>
+<p class="overview">{esc(overview or 'No synopsis available yet.')}</p></div></article>
+<section class="sp-sec">{play}</section>
+{'<section class="sp-sec"><h2>Cast</h2><ul class="sp-cast">' + cast + '</ul></section>' if cast else ''}
+{'<section class="sp-sec"><h2>More like this</h2><div class="sp-recs">' + recs + '</div></section>' if recs else ''}
+<p class="sp-sec"><a class="btn" href="../../?lang=en#/t/{esc(item['k'])}">▶ Details and watch on NABZ FILM</a></p>
+</main><footer class="foot">© NABZ FILM · Data from TMDB (This product uses the TMDB API but is not endorsed or certified by TMDB).</footer></body></html>"""
+
+
 def write_all(items, out_dir):
     items = [x for x in items if x.get("fa")]
     # Free/playable first within ties; list sorted by weighted score.
@@ -898,7 +984,7 @@ def write_all(items, out_dir):
         by_key.setdefault(x["k"], x)
     items = list(by_key.values())
 
-    for sub in ("data/t", "t"):
+    for sub in ("data/t", "t", "en/t"):
         path = os.path.join(out_dir, sub)
         if os.path.isdir(path):
             shutil.rmtree(path)
@@ -915,6 +1001,8 @@ def write_all(items, out_dir):
             json.dump(detail, fh, ensure_ascii=False, separators=(",", ":"))
         with open(os.path.join(out_dir, "t", x["k"] + ".html"), "w", encoding="utf-8") as fh:
             fh.write(static_page(x, detail, by_key))
+        with open(os.path.join(out_dir, "en/t", x["k"] + ".html"), "w", encoding="utf-8") as fh:
+            fh.write(static_page_en(x, detail, by_key))
 
     meta = {"built": int(time.time()), "count": len(light),
             "movies": sum(1 for x in light if x["t"] == "m"),
@@ -924,7 +1012,9 @@ def write_all(items, out_dir):
         json.dump({"meta": meta, "items": light}, fh, ensure_ascii=False, separators=(",", ":"))
 
     urls = [f"<url><loc>{SITE}</loc><changefreq>daily</changefreq><priority>1.0</priority></url>"]
+    urls.append(f"<url><loc>{SITE}?lang=en</loc><changefreq>daily</changefreq><priority>0.9</priority></url>")
     urls += [f"<url><loc>{SITE}t/{esc(x['k'])}.html</loc><changefreq>weekly</changefreq></url>" for x in light]
+    urls += [f"<url><loc>{SITE}en/t/{esc(x['k'])}.html</loc><changefreq>weekly</changefreq></url>" for x in light]
     with open(os.path.join(out_dir, "sitemap.xml"), "w", encoding="utf-8") as fh:
         fh.write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
                  + "".join(urls) + "</urlset>")
