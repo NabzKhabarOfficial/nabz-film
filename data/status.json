@@ -1,0 +1,15 @@
+{
+ "built": 1790951195,
+ "count": 1171,
+ "free": 187,
+ "ai_key": "groq",
+ "subtitle_files": 5,
+ "en_subtitles": [
+  "open-cosmos-laundromat.en.vtt"
+ ],
+ "fa_subtitles": [],
+ "translated": [],
+ "translation_errors": [
+  "open-cosmos-laundromat.en.vtt: HTTPError: HTTP Error 404: Not Found {\"error\":{\"message\":\"The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}\n"
+ ]
+}
