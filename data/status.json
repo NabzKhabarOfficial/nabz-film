@@ -1,6 +1,6 @@
 {
- "built": 1790953471,
- "count": 1161,
+ "built": 1790955269,
+ "count": 1166,
  "free": 187,
  "ai_key": "groq",
  "subtitle_files": 6,
@@ -10,8 +10,6 @@
  "fa_subtitles": [
   "open-cosmos-laundromat.fa.vtt"
  ],
- "translated": [
-  "open-cosmos-laundromat.en.vtt"
- ],
+ "translated": [],
  "translation_errors": []
 }
