@@ -635,11 +635,16 @@ def _probe(item):
     if det.get("ia"):
         sources, subs, dur = archive_media(det["ia"])
         return (item, det["ia"], sources, subs, dur) if sources else (item, None, [], [], 0)
-    best = (item, None, [], [], 0)
-    for ident in det.get("ia_candidates", [])[:6]:  # open movies: pick the copy with the most qualities
+    best, best_key = (item, None, [], [], 0), None
+    # Open movies: most qualities first, then one that has a light (<=480p) file
+    # for slow connections in Iran, then the sharpest top quality.
+    for ident in det.get("ia_candidates", [])[:6]:
         sources, subs, dur = archive_media(ident)
-        if sources and (len(sources), sources[0]["h"], len(subs)) > (len(best[2]), best[2][0]["h"] if best[2] else 0, len(best[3])):
-            best = (item, ident, sources, subs, dur)
+        if not sources:
+            continue
+        key = (len(sources), any(s["h"] <= 480 for s in sources), sources[0]["h"], len(subs))
+        if best_key is None or key > best_key:
+            best, best_key = (item, ident, sources, subs, dur), key
     return best
 
 
