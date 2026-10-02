@@ -286,9 +286,9 @@ def archive_genres(subjects):
 
 def collect_archive():
     queries = [
-        ("collection:(feature_films) AND mediatype:(movies)", 350, None),
-        ("collection:(classic_cartoons) AND mediatype:(movies)", 120, "انیمیشن"),
-        ('mediatype:(movies) AND licenseurl:(*publicdomain*) AND -collection:(feature_films)', 80, None),
+        ("collection:(feature_films) AND mediatype:(movies)", 700, None),
+        ("collection:(classic_cartoons) AND mediatype:(movies)", 200, "انیمیشن"),
+        ('mediatype:(movies) AND licenseurl:(*publicdomain*) AND -collection:(feature_films)', 120, None),
     ]
     out, seen = [], set()
     for q, rows, forced in queries:
@@ -322,6 +322,7 @@ def collect_archive():
                 "r": 0, "v": 0, "pop": int(x.get("downloads") or 0), "w": 0,
                 "p": f"https://archive.org/services/img/{urllib.parse.quote(ident)}",
                 "b": "", "lang": "en", "tags": ["free", "classic"], "play": 1,
+                "_subj": " ".join(x.get("subject") if isinstance(x.get("subject"), list) else [str(x.get("subject") or "")]),
             }
             item["_detail"] = {
                 "overview": strip_html(desc)[:1200] or "فیلم کلاسیک با مالکیت عمومی از آرشیو اینترنت.",
@@ -333,6 +334,105 @@ def collect_archive():
             out.append(item)
     print(f"Internet Archive playable titles: {len(out)}")
     return out
+
+
+EXPLOITATION = re.compile(
+    r"(?:\bsex\b|sexual|nudity|nudist|burlesque|stag film|striptease|exploitation|erotic|"
+    r"\bvice\b|hygiene film|reefer|marihuana|marijuana|venereal|pin-?up|peep)", re.I)
+MIN_ARCHIVE_VOTES = 15
+MIN_ARCHIVE_RATING = 5.8
+
+
+def _clean_title(title):
+    t = re.sub(r"\((?:19|20)\d\d\)", " ", str(title or ""))
+    t = re.sub(r"\[.*?\]", " ", t)
+    t = re.split(r"\s[-–|:]\s", t)[0] if len(t) > 40 else t
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def _simple(t):
+    return re.sub(r"[^a-z0-9]+", "", str(t or "").lower())
+
+
+def enrich_archive(api, archive, tmdb_items):
+    """Match Archive films to TMDB: Persian title/overview, poster, rating.
+
+    Unmatched, low-rated or exploitation titles are dropped, so the free
+    section only shows real, watchable classics. If the film is already in
+    the TMDB catalog, the player is attached to that entry instead.
+    """
+    try:
+        gl = api.get("/genre/movie/list", {"language": "fa-IR"}).get("genres", [])
+        gmap = {g["id"]: genre_fa(g["name"]) for g in gl}
+    except Exception:
+        gmap = {}
+    by_key = {x["k"]: x for x in tmdb_items}
+    kept, merged, dropped = [], 0, 0
+    used = set()
+    for a in archive:
+        title = _clean_title(a["en"])
+        if EXPLOITATION.search(title + " " + a.get("_subj", "")):
+            dropped += 1
+            continue
+        params = {"query": title, "language": "fa-IR", "include_adult": "false"}
+        if a.get("y"):
+            params["year"] = a["y"]
+        try:
+            res = api.get("/search/movie", params).get("results", [])
+            if not res and a.get("y"):
+                params.pop("year")
+                res = api.get("/search/movie", params).get("results", [])
+        except Exception:
+            res = []
+        hit = None
+        want = _simple(title)
+        for r in res[:5]:
+            names = {_simple(r.get("original_title")), _simple(r.get("title"))}
+            ry = year_of(r.get("release_date"))
+            close_year = not a.get("y") or not ry or abs(ry - a["y"]) <= 1
+            if close_year and any(n and (n == want or (len(want) > 5 and (want in n or n in want))) for n in names):
+                hit = r
+                break
+        if not hit or hit.get("adult"):
+            dropped += 1
+            continue
+        votes, rating = int(hit.get("vote_count") or 0), float(hit.get("vote_average") or 0)
+        if votes < MIN_ARCHIVE_VOTES or rating < MIN_ARCHIVE_RATING:
+            dropped += 1
+            continue
+        key = f"m{hit['id']}"
+        if key in used:
+            dropped += 1
+            continue
+        used.add(key)
+        det = a["_detail"]
+        if key in by_key:  # already in the catalog: make that entry playable
+            t = by_key[key]
+            t["play"] = 1
+            t["tags"] = sorted(set(t.get("tags", [])) | {"free", "classic"})
+            t["_detail"].update({k: det[k] for k in ("embed", "source", "source_url")})
+            merged += 1
+            continue
+        overview = (hit.get("overview") or "").strip()
+        if not overview:
+            try:
+                overview = (api.get(f"/movie/{hit['id']}", {"language": "en-US"}).get("overview") or "").strip()
+            except Exception:
+                overview = ""
+        a.update({
+            "fa": hit.get("title") or a["fa"], "en": hit.get("original_title") or a["en"],
+            "y": year_of(hit.get("release_date")) or a.get("y"),
+            "g": [gmap[g] for g in hit.get("genre_ids", []) if g in gmap][:3] or a["g"],
+            "r": round(rating, 1), "v": votes, "w": weighted(rating, votes),
+            "p": hit.get("poster_path") or a["p"], "b": hit.get("backdrop_path") or "",
+        })
+        det["overview"] = overview or det["overview"]
+        det["tmdb"] = f"https://www.themoviedb.org/movie/{hit['id']}"
+        kept.append(a)
+    for a in kept:
+        a.pop("_subj", None)
+    print(f"Archive enrichment: kept {len(kept)}, merged into catalog {merged}, dropped {dropped}")
+    return kept
 
 
 def collect_open_movies():
@@ -490,6 +590,7 @@ def write_all(items, out_dir):
     light = []
     for x in items:
         detail = x.pop("_detail", {}) or {}
+        x.pop("_subj", None)
         detail["recs"] = [r for r in detail.get("recs", []) if r in by_key][:12]
         row = {k: v for k, v in x.items() if v not in (None, "", [], 0) or k in ("k", "t")}
         light.append(row)
@@ -532,7 +633,10 @@ def main():
         return 1
     tmdb_count = len(items)
     if not args.no_archive and not args.from_legacy:
-        items += collect_archive()
+        archive = collect_archive()
+        if token:
+            archive = enrich_archive(TMDB(token), archive, items)
+        items += archive
     items += collect_open_movies()
     if tmdb_count < 50 and not args.from_legacy:
         print("Too few TMDB titles; keeping the previous catalog.", file=sys.stderr)
