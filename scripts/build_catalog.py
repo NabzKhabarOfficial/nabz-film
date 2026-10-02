@@ -6,9 +6,13 @@ per title and a full sitemap.
 
 Sources:
 * TMDB (metadata, posters, cast, trailers, seasons, legal watch providers).
-* Internet Archive feature-film and cartoon collections (public-domain films,
-  played through Archive's own embed player; no file is copied).
-* Blender open movies (Creative Commons, official YouTube embeds).
+* Internet Archive feature-film and cartoon collections (public-domain films).
+  For every film the builder reads Archive's file list and stores the direct
+  MP4 files in every available quality plus any subtitle files, so the site's
+  own NABZ player plays them. Nothing depends on YouTube.
+* Blender open movies (Creative Commons), also played from their Archive copies.
+* Optional: English subtitles are machine-translated to Persian when an AI key
+  (GROQ_API_KEY or AI_API_KEY for Gemini) is set; a few films per run.
 
 Run in GitHub Actions with TMDB_TOKEN set. Without a token (or with
 --from-legacy catalog.json) it converts an existing catalog instead.
@@ -24,6 +28,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 SITE = "https://nabzkhabarofficial.github.io/nabz-film/"
 CHANNEL = "https://t.me/NabzKhabarOfficial"
@@ -56,19 +61,19 @@ ARCHIVE_GENRES = (
 )
 
 OPEN_MOVIES = [
-    ("open-big-buck-bunny", "Big Buck Bunny", "باک بانی بزرگ", 2008, ["انیمیشن", "کمدی"], "YE7VzlLtp-4",
+    ("open-big-buck-bunny", "Big Buck Bunny", "باک بانی بزرگ", 2008, ["انیمیشن", "کمدی"],
      "خرگوش غول‌پیکر و مهربانی که آرامشش را سه جونده‌ی مزاحم به هم می‌زنند، تصمیم می‌گیرد حسابشان را برسد."),
-    ("open-elephants-dream", "Elephants Dream", "رویای فیل‌ها", 2006, ["انیمیشن", "علمی‌تخیلی"], "TLkA0RELQ1g",
+    ("open-elephants-dream", "Elephants Dream", "رویای فیل‌ها", 2006, ["انیمیشن", "علمی‌تخیلی"],
      "دو شخصیت در دنیایی مکانیکی و سورئال سرگردان‌اند؛ نخستین فیلم آزاد پروژه Open Movie بلندر."),
-    ("open-sintel", "Sintel", "سینتل", 2010, ["انیمیشن", "فانتزی", "ماجراجویی"], "eRsGyueVLvQ",
+    ("open-sintel", "Sintel", "سینتل", 2010, ["انیمیشن", "فانتزی", "ماجراجویی"],
      "دختری تنها برای پیدا کردن بچه‌اژدهایی که نجاتش داده بود، به سفری خطرناک می‌رود."),
-    ("open-tears-of-steel", "Tears of Steel", "اشک‌های فولادی", 2012, ["علمی‌تخیلی", "اکشن"], "R6MlUcmOul8",
+    ("open-tears-of-steel", "Tears of Steel", "اشک‌های فولادی", 2012, ["علمی‌تخیلی", "اکشن"],
      "گروهی از دانشمندان در آمستردامِ آینده تلاش می‌کنند جهان را از ربات‌های ویرانگر نجات دهند."),
-    ("open-cosmos-laundromat", "Cosmos Laundromat", "رخت‌شوی‌خانه کیهان", 2015, ["انیمیشن", "کمدی", "فانتزی"], "Y-rmzh0PI3c",
+    ("open-cosmos-laundromat", "Cosmos Laundromat", "رخت‌شوی‌خانه کیهان", 2015, ["انیمیشن", "کمدی", "فانتزی"],
      "گوسفندی ناامید در جزیره‌ای دورافتاده با فروشنده‌ای عجیب آشنا می‌شود که زندگی‌های دیگری به او پیشنهاد می‌دهد."),
-    ("open-spring", "Spring", "بهار", 2019, ["انیمیشن", "فانتزی"], "WhWc3b3KhnY",
+    ("open-spring", "Spring", "بهار", 2019, ["انیمیشن", "فانتزی"],
      "دختری چوپان و سگش با ارواح باستانی روبه‌رو می‌شوند تا چرخه زندگی دوباره آغاز شود."),
-    ("open-agent-327", "Agent 327: Operation Barbershop", "مأمور ۳۲۷: عملیات آرایشگاه", 2017, ["انیمیشن", "اکشن", "کمدی"], "mN0zPOpADL4",
+    ("open-agent-327", "Agent 327: Operation Barbershop", "مأمور ۳۲۷: عملیات آرایشگاه", 2017, ["انیمیشن", "اکشن", "کمدی"],
      "مأمور مخفی هلندی برای کشف یک توطئه وارد آرایشگاهی مشکوک می‌شود."),
 ]
 
@@ -330,6 +335,7 @@ def collect_archive():
                 "source": "Internet Archive · مالکیت عمومی",
                 "source_url": f"https://archive.org/details/{urllib.parse.quote(ident)}",
                 "runtime": None, "cast": [], "recs": [], "watch": {}, "seasons": [],
+                "ia": ident, "silent": "silent" in item["_subj"].lower(),
             }
             out.append(item)
     print(f"Internet Archive playable titles: {len(out)}")
@@ -410,7 +416,7 @@ def enrich_archive(api, archive, tmdb_items):
             t = by_key[key]
             t["play"] = 1
             t["tags"] = sorted(set(t.get("tags", [])) | {"free", "classic"})
-            t["_detail"].update({k: det[k] for k in ("embed", "source", "source_url")})
+            t["_detail"].update({k: det[k] for k in ("embed", "source", "source_url", "ia", "silent")})
             merged += 1
             continue
         overview = (hit.get("overview") or "").strip()
@@ -435,20 +441,304 @@ def enrich_archive(api, archive, tmdb_items):
     return kept
 
 
-def collect_open_movies():
+def collect_open_movies(api=None):
+    """Blender open movies, played from their Internet Archive copies."""
     out = []
-    for key, en, fa, year, genres, yt, overview in OPEN_MOVIES:
+    for key, en, fa, year, genres, overview in OPEN_MOVIES:
+        q = f'title:("{en.split(":")[0]}") AND mediatype:(movies)'
+        params = [("q", q), ("rows", 6), ("output", "json"), ("sort[]", "downloads desc"), ("fl[]", "identifier")]
+        try:
+            idents = [d["identifier"] for d in _http_json(
+                "https://archive.org/advancedsearch.php?" + urllib.parse.urlencode(params)).get("response", {}).get("docs", [])]
+        except Exception as exc:
+            print(f"Open movie search failed ({en}): {exc}")
+            idents = []
+        poster, backdrop, rating, votes = "", "", 0, 0
+        if api:
+            try:
+                hit = (api.get("/search/movie", {"query": en, "year": year}).get("results") or [None])[0]
+                if hit:
+                    poster, backdrop = hit.get("poster_path") or "", hit.get("backdrop_path") or ""
+                    rating, votes = round(float(hit.get("vote_average") or 0), 1), int(hit.get("vote_count") or 0)
+            except Exception:
+                pass
         out.append({
-            "k": key, "t": "m", "fa": fa, "en": en, "y": year, "g": genres, "r": 0, "v": 0,
-            "pop": 10 ** 7, "w": 0, "p": f"https://i.ytimg.com/vi/{yt}/hqdefault.jpg",
-            "b": f"https://i.ytimg.com/vi/{yt}/maxresdefault.jpg", "lang": "en",
-            "tags": ["free", "open"], "play": 1,
-            "_detail": {"overview": overview, "embed": f"https://www.youtube-nocookie.com/embed/{yt}?rel=0",
+            "k": key, "t": "m", "fa": fa, "en": en, "y": year, "g": genres, "r": rating, "v": votes,
+            "pop": 10 ** 7, "w": 0, "p": poster or (f"https://archive.org/services/img/{idents[0]}" if idents else ""),
+            "b": backdrop, "lang": "en", "tags": ["free", "open"], "play": 1,
+            "_detail": {"overview": overview, "ia_candidates": idents,
                         "source": "Blender Foundation · Creative Commons",
-                        "source_url": f"https://www.youtube.com/watch?v={yt}",
+                        "source_url": "https://studio.blender.org/films/",
                         "cast": [], "recs": [], "watch": {}, "seasons": [], "runtime": None},
         })
     return out
+
+
+# --------------------------------------------------------------------------
+# Direct media files (qualities + subtitles) from Internet Archive
+# --------------------------------------------------------------------------
+
+VIDEO_FORMATS = ("h.264", "512kb mpeg4", "mpeg4", "h.264 ia", "hires mpeg4", "h.264 hd", "mp4")
+SUB_LANGS = (("fa", ("fa", "fas", "per", "persian", "farsi")), ("en", ("en", "eng", "english")),
+             ("ar", ("ar", "ara", "arabic")), ("tr", ("tr", "tur", "turkish")),
+             ("fr", ("fr", "fre", "fra", "french")), ("es", ("es", "spa", "spanish")),
+             ("de", ("de", "ger", "deu", "german")))
+LANG_FA = {"fa": "فارسی", "en": "انگلیسی", "ar": "عربی", "tr": "ترکی", "fr": "فرانسوی",
+           "es": "اسپانیایی", "de": "آلمانی", "xx": "زیرنویس"}
+ARCHIVE_DL = "https://archive.org/download/"
+
+
+def _length(v):
+    if v in (None, ""):
+        return 0.0
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        pass
+    parts = [p for p in str(v).split(":") if p.strip()]
+    try:
+        sec = 0.0
+        for p in parts:
+            sec = sec * 60 + float(p)
+        return sec
+    except ValueError:
+        return 0.0
+
+
+def quality_label(w, h, fmt):
+    w, h = int(float(w or 0)), int(float(h or 0))
+    eff = max(h, int(w * 9 / 16)) if w else h
+    if not eff:
+        eff = 240 if "512kb" in fmt else 480
+    for cut, lab in ((1000, 1080), (650, 720), (430, 480), (300, 360)):
+        if eff >= cut:
+            return f"{lab}p", lab
+    return "240p", 240
+
+
+def _sub_lang(name):
+    base = re.sub(r"\.(srt|vtt)$", "", name.lower())
+    toks = set(re.split(r"[^a-z]+", base))
+    for code, words in SUB_LANGS:
+        if toks & set(words):
+            return code
+    return "xx"
+
+
+def archive_media(ident):
+    """Return (sources, subtitle_files, duration_sec) for an Archive item."""
+    try:
+        files = _http_json(f"https://archive.org/metadata/{urllib.parse.quote(ident)}/files", timeout=25, tries=2).get("result", [])
+    except Exception:
+        return [], [], 0
+    vids = []
+    for f in files:
+        name, fmt = str(f.get("name") or ""), str(f.get("format") or "").lower()
+        if not name.lower().endswith(".mp4") or ".thumbs/" in name.lower():
+            continue
+        if fmt and not any(fmt == v or fmt.startswith(v) for v in VIDEO_FORMATS):
+            continue
+        vids.append({"name": name, "fmt": fmt, "len": _length(f.get("length")), "size": int(f.get("size") or 0),
+                     "w": f.get("width"), "h": f.get("height"), "root": f.get("original") or name})
+    if not vids:
+        return [], [], 0
+    longest = max(v["len"] for v in vids) or 0
+    if longest:
+        vids = [v for v in vids if v["len"] >= longest * 0.85 or not v["len"]]
+    # Multi-reel uploads (part 1, part 2...) cannot be shown as one film: keep the main one.
+    roots = {}
+    for v in vids:
+        roots.setdefault(v["root"], []).append(v)
+    best_root = sorted(roots, key=lambda r: ("surround" in r.lower(), -max(x["len"] for x in roots[r]),
+                                             -max(x["size"] for x in roots[r])))[0]
+    by_label = {}
+    for v in sorted(roots[best_root] + [x for r, xs in roots.items() if r != best_root for x in xs],
+                    key=lambda v: ("surround" in v["name"].lower(), v["root"] != best_root, -("h.264" in v["fmt"]))):
+        label, h = quality_label(v["w"], v["h"], v["fmt"])
+        if label in by_label:
+            continue
+        by_label[label] = {"src": ARCHIVE_DL + urllib.parse.quote(ident) + "/" + urllib.parse.quote(v["name"]),
+                           "label": label, "h": h, "size": v["size"]}
+    sources = sorted(by_label.values(), key=lambda s: -s["h"])
+    subs = []
+    for f in files:
+        name = str(f.get("name") or "")
+        if re.search(r"\.(srt|vtt)$", name, re.I) and int(f.get("size") or 0) < 2_000_000:
+            subs.append((name, _sub_lang(name)))
+    return sources, subs, longest
+
+
+def srt_to_vtt(text):
+    text = text.replace("\ufeff", "").replace("\r\n", "\n").replace("\r", "\n")
+    if text.lstrip().startswith("WEBVTT"):
+        return text
+    text = re.sub(r"(\d\d:\d\d:\d\d),(\d\d\d)", r"\1.\2", text)
+    text = re.sub(r"(?m)^\d+\s*\n(?=\d\d:\d\d)", "", text)
+    return "WEBVTT\n\n" + text.strip() + "\n"
+
+
+def _http_text(url, timeout=30):
+    req = urllib.request.Request(url, headers={"User-Agent": "nabz-film/2.0"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        raw = r.read()
+    for enc in ("utf-8-sig", "cp1256", "latin-1"):
+        try:
+            return raw.decode(enc)
+        except UnicodeDecodeError:
+            continue
+    return raw.decode("utf-8", "ignore")
+
+
+def _probe(item):
+    det = item["_detail"]
+    for ident in ([det["ia"]] if det.get("ia") else []) + det.get("ia_candidates", [])[:4]:
+        sources, subs, dur = archive_media(ident)
+        if sources:
+            return item, ident, sources, subs, dur
+    return item, None, [], [], 0
+
+
+def list_subs(key, sub_dir):
+    """Subtitle files on disk for a title (Persian machine translations are kept between runs)."""
+    out = []
+    for lang in ("fa", "en", "ar", "tr", "fr", "es", "de", "xx"):
+        path = os.path.join(sub_dir, f"{key}.{lang}.vtt")
+        if os.path.exists(path):
+            label = LANG_FA[lang]
+            if lang == "fa" and os.path.exists(path + ".ai"):
+                label = "فارسی (ترجمه ماشینی)"
+            out.append({"src": f"data/sub/{key}.{lang}.vtt", "lang": lang, "label": label})
+    return out
+
+
+def refresh_subs(items, out_dir):
+    sub_dir = os.path.join(out_dir, "data", "sub")
+    for x in items:
+        det = x.get("_detail") or {}
+        if det.get("sources"):
+            det["subs"] = list_subs(x["k"], sub_dir)
+
+
+def attach_media(items, out_dir):
+    """Give every playable title direct MP4 sources; drop titles with no playable file."""
+    targets = [x for x in items if x.get("_detail", {}).get("ia") or x.get("_detail", {}).get("ia_candidates")]
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        results = list(pool.map(_probe, targets))
+    sub_dir = os.path.join(out_dir, "data", "sub")
+    os.makedirs(sub_dir, exist_ok=True)
+    ok, dead, nsubs = 0, set(), 0
+    for item, ident, sources, subs, dur in results:
+        det = item["_detail"]
+        det.pop("ia_candidates", None)
+        if not sources:
+            if item["k"].startswith(("ia-", "open-")):
+                dead.add(item["k"])
+            else:  # TMDB title whose Archive copy has no file: back to info-only
+                item["play"] = 0
+                item["tags"] = [t for t in item.get("tags", []) if t not in ("free", "classic")]
+                for k in ("embed", "ia", "source", "source_url"):
+                    det.pop(k, None)
+            continue
+        ok += 1
+        det["ia"] = ident
+        det["sources"] = sources
+        det.pop("embed", None)
+        det["source_url"] = det.get("source_url") if item["k"].startswith("open-") else f"https://archive.org/details/{urllib.parse.quote(ident)}"
+        if dur and not det.get("runtime"):
+            det["runtime"] = int(round(dur / 60))
+        det["subs"] = []
+        seen = set()
+        for name, lang in subs[:6]:
+            if lang in seen:
+                continue
+            path = os.path.join(sub_dir, f"{item['k']}.{lang}.vtt")
+            try:
+                if not os.path.exists(path):
+                    vtt = srt_to_vtt(_http_text(ARCHIVE_DL + urllib.parse.quote(ident) + "/" + urllib.parse.quote(name)))
+                    if "-->" not in vtt:
+                        continue
+                    with open(path, "w", encoding="utf-8") as fh:
+                        fh.write(vtt)
+            except Exception:
+                continue
+            seen.add(lang)
+        det["subs"] = list_subs(item["k"], sub_dir)
+        nsubs += bool(det["subs"])
+    print(f"Direct media: {ok} playable, {len(dead)} dropped (no MP4), {nsubs} with subtitles")
+    return [x for x in items if x["k"] not in dead]
+
+
+# --------------------------------------------------------------------------
+# Optional Persian subtitle translation (Groq or Gemini)
+# --------------------------------------------------------------------------
+
+def _ai_translate(lines):
+    prompt = ("Translate these film subtitle lines into natural, fluent Persian (Farsi) for Iranian viewers. "
+              "Keep the numbering exactly, one line per number, no explanations.\n\n"
+              + "\n".join(f"{i + 1}. {t}" for i, t in enumerate(lines)))
+    groq, gem = os.environ.get("GROQ_API_KEY", "").strip(), os.environ.get("AI_API_KEY", "").strip()
+    if groq:
+        body = {"model": os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile"), "temperature": 0.2,
+                "messages": [{"role": "user", "content": prompt}]}
+        req = urllib.request.Request("https://api.groq.com/openai/v1/chat/completions", data=json.dumps(body).encode(),
+                                     headers={"Authorization": f"Bearer {groq}", "Content-Type": "application/json",
+                                              "User-Agent": "nabz-film/2.0"})
+        with urllib.request.urlopen(req, timeout=90) as r:
+            out = json.load(r)["choices"][0]["message"]["content"]
+    elif gem:
+        body = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.2}}
+        model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
+        req = urllib.request.Request(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={gem}",
+                                     data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=90) as r:
+            out = json.load(r)["candidates"][0]["content"]["parts"][0]["text"]
+    else:
+        return None
+    got = {}
+    for line in out.splitlines():
+        m = re.match(r"\s*(\d+)[.)\-:]\s*(.+)", line)
+        if m:
+            got[int(m.group(1)) - 1] = m.group(2).strip()
+    return [got.get(i, lines[i]) for i in range(len(lines))]
+
+
+def translate_subs(out_dir, budget_files=3, budget_sec=600):
+    if not (os.environ.get("GROQ_API_KEY") or os.environ.get("AI_API_KEY")):
+        print("Persian subtitle translation: no AI key, skipped")
+        return 0
+    sub_dir = os.path.join(out_dir, "data", "sub")
+    if not os.path.isdir(sub_dir):
+        return 0
+    started, done = time.time(), 0
+    for name in sorted(os.listdir(sub_dir)):
+        if not name.endswith(".en.vtt") or done >= budget_files or time.time() - started > budget_sec:
+            continue
+        fa_path = os.path.join(sub_dir, name.replace(".en.vtt", ".fa.vtt"))
+        if os.path.exists(fa_path):
+            continue
+        blocks = open(os.path.join(sub_dir, name), encoding="utf-8").read().split("\n\n")
+        cues = [(i, b.split("\n")) for i, b in enumerate(blocks) if "-->" in b]
+        texts = [" ".join(l for l in lines if "-->" not in l and l.strip()).strip() for _, lines in cues]
+        try:
+            fa_texts = []
+            for j in range(0, len(texts), 60):
+                part = _ai_translate(texts[j:j + 60])
+                if part is None:
+                    raise RuntimeError("no provider")
+                fa_texts += part
+                time.sleep(1.2)
+        except Exception as exc:
+            print(f"Subtitle translation failed for {name}: {exc}")
+            continue
+        for (i, lines), t in zip(cues, fa_texts):
+            stamp = next(l for l in lines if "-->" in l)
+            blocks[i] = stamp + "\n" + t
+        with open(fa_path, "w", encoding="utf-8") as fh:
+            fh.write("\n\n".join(b for b in blocks if b.strip()) + "\n")
+        open(fa_path + ".ai", "w").close()
+        done += 1
+        print(f"Persian subtitle created: {fa_path}")
+    return done
 
 
 def from_legacy(path):
@@ -520,13 +810,18 @@ def static_page(item, detail, by_key):
     overview = detail.get("overview") or ""
     desc = (overview[:155] + "…") if len(overview) > 160 else overview
     play = ""
-    if detail.get("embed"):
-        play = (f'<div class="player"><iframe src="{esc(detail["embed"])}" title="پخش {esc(title)}" '
-                'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>'
-                f'<p class="src">منبع پخش: {esc(detail.get("source", ""))}</p>')
+    if detail.get("sources"):
+        srcs = "".join(f'<source src="{esc(x["src"])}" type="video/mp4" label="{esc(x["label"])}">'
+                       for x in sorted(detail["sources"], key=lambda x: abs(x["h"] - 480)))
+        tracks = "".join(f'<track kind="subtitles" src="../{esc(x["src"])}" srclang="{esc(x["lang"])}" label="{esc(x["label"])}">'
+                         for x in detail.get("subs", []))
+        play = (f'<div class="player"><video controls playsinline preload="none" poster="{esc(backdrop)}">{srcs}{tracks}</video></div>'
+                f'<p class="src">پخش مستقیم بدون یوتیوب · {len(detail["sources"])} کیفیت · '
+                f'<a href="{SITE}#/watch/{esc(item["k"])}">پخش با پلیر نبض ‹</a></p>')
     elif detail.get("trailer"):
         play = (f'<div class="player"><iframe src="https://www.youtube-nocookie.com/embed/{esc(detail["trailer"])}?rel=0" '
-                f'title="تریلر {esc(title)}" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>')
+                f'title="تریلر {esc(title)}" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>'
+                '<p class="src">تریلر رسمی از یوتیوب (در ایران ممکن است باز نشود)</p>')
     facts = []
     if item.get("y"):
         facts.append(f"📅 {item['y']}")
@@ -637,7 +932,11 @@ def main():
         if token:
             archive = enrich_archive(TMDB(token), archive, items)
         items += archive
-    items += collect_open_movies()
+    items += collect_open_movies(TMDB(token) if token else None)
+    if not args.from_legacy:
+        items = attach_media(items, args.out)
+        if translate_subs(args.out):
+            refresh_subs(items, args.out)
     if tmdb_count < 50 and not args.from_legacy:
         print("Too few TMDB titles; keeping the previous catalog.", file=sys.stderr)
         return 1
