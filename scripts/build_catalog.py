@@ -473,18 +473,23 @@ def collect_open_movies(api=None):
     """Blender open movies, played from their Internet Archive copies."""
     out = []
     for key, en, fa, year, genres, overview in OPEN_MOVIES:
-        q = f'title:("{en.split(":")[0]}") AND mediatype:(movies)'
-        params = [("q", q), ("rows", 6), ("output", "json"), ("sort[]", "downloads desc"), ("fl[]", "identifier")]
+        q = f'title:("{en.split(":")[0]}") AND mediatype:(movies) AND -access-restricted-item:(true)'
+        params = [("q", q), ("rows", 10), ("output", "json"), ("sort[]", "downloads desc"),
+                  ("fl[]", "identifier"), ("fl[]", "access-restricted-item")]
         try:
             idents = [d["identifier"] for d in _http_json(
-                "https://archive.org/advancedsearch.php?" + urllib.parse.urlencode(params)).get("response", {}).get("docs", [])]
+                "https://archive.org/advancedsearch.php?" + urllib.parse.urlencode(params)).get("response", {}).get("docs", [])
+                if str(d.get("access-restricted-item", "")).lower() != "true"]
         except Exception as exc:
             print(f"Open movie search failed ({en}): {exc}")
             idents = []
         poster, backdrop, rating, votes = "", "", 0, 0
         if api:
             try:
-                hit = (api.get("/search/movie", {"query": en, "year": year}).get("results") or [None])[0]
+                res = api.get("/search/movie", {"query": en, "year": year}).get("results") or []
+                # Prefer the real entry: has a poster, then the most votes (avoids empty duplicates).
+                res.sort(key=lambda h: (bool(h.get("poster_path")), int(h.get("vote_count") or 0)), reverse=True)
+                hit = res[0] if res else None
                 if hit:
                     poster, backdrop = hit.get("poster_path") or "", hit.get("backdrop_path") or ""
                     rating, votes = round(float(hit.get("vote_average") or 0), 1), int(hit.get("vote_count") or 0)
@@ -492,7 +497,7 @@ def collect_open_movies(api=None):
                 pass
         out.append({
             "k": key, "t": "m", "fa": fa, "en": en, "y": year, "g": genres, "r": rating, "v": votes,
-            "pop": 10 ** 7, "w": 0, "p": poster or (f"https://archive.org/services/img/{idents[0]}" if idents else ""),
+            "pop": 10 ** 7, "w": 0, "p": poster or backdrop or (f"https://archive.org/services/img/{idents[0]}" if idents else ""),
             "b": backdrop, "lang": "en", "tags": ["free", "open"], "play": 1,
             "_detail": {"overview": overview, "overview_en": OPEN_EN.get(key, ""), "ia_candidates": idents,
                         "source": "Blender Foundation · Creative Commons",
@@ -562,6 +567,8 @@ def archive_media(ident):
     vids = []
     for f in files:
         name, fmt = str(f.get("name") or ""), str(f.get("format") or "").lower()
+        if str(f.get("private", "")).lower() == "true":  # restricted/lending copy: browsers get 403
+            continue
         if not name.lower().endswith(".mp4") or ".thumbs/" in name.lower():
             continue
         if fmt and not any(fmt == v or fmt.startswith(v) for v in VIDEO_FORMATS):
@@ -629,7 +636,7 @@ def _probe(item):
         sources, subs, dur = archive_media(det["ia"])
         return (item, det["ia"], sources, subs, dur) if sources else (item, None, [], [], 0)
     best = (item, None, [], [], 0)
-    for ident in det.get("ia_candidates", [])[:4]:  # open movies: pick the copy with the most qualities
+    for ident in det.get("ia_candidates", [])[:6]:  # open movies: pick the copy with the most qualities
         sources, subs, dur = archive_media(ident)
         if sources and (len(sources), sources[0]["h"], len(subs)) > (len(best[2]), best[2][0]["h"] if best[2] else 0, len(best[3])):
             best = (item, ident, sources, subs, dur)
@@ -717,8 +724,9 @@ def attach_media(items, out_dir):
 # Optional Persian subtitle translation (Groq or Gemini)
 # --------------------------------------------------------------------------
 
-def _ai_translate(lines):
-    prompt = ("Translate these film subtitle lines into natural, fluent Persian (Farsi) for Iranian viewers. "
+def _ai_translate(lines, what="film subtitle lines"):
+    prompt = (f"Translate these {what} into natural, fluent Persian (Farsi) for Iranian viewers. "
+              "Keep names of people and places readable in Persian script. "
               "Keep the numbering exactly, one line per number, no explanations.\n\n"
               + "\n".join(f"{i + 1}. {t}" for i, t in enumerate(lines)))
     groq, gem = os.environ.get("GROQ_API_KEY", "").strip(), os.environ.get("AI_API_KEY", "").strip()
@@ -757,7 +765,74 @@ def _ai_translate(lines):
     return [got.get(i, lines[i]) for i in range(len(lines))]
 
 
-STATUS = {"translated": [], "translation_errors": []}
+STATUS = {"translated": [], "translation_errors": [], "overviews_translated": 0, "overviews_missing_fa": 0}
+
+FA_RE = re.compile(r"[\u0600-\u06FF]")
+
+
+def _ai_retry(lines, what):
+    for attempt in range(4):  # free tiers rate-limit (HTTP 429): wait and retry
+        try:
+            return _ai_translate(lines, what)
+        except urllib.error.HTTPError as he:
+            if he.code != 429 or attempt == 3:
+                raise
+            time.sleep(20 * (attempt + 1))
+
+
+def translate_overviews(items, out_dir, budget_items=240, budget_sec=420):
+    """TMDB/Archive often has no Persian synopsis: translate the English one with AI (cached between runs)."""
+    path = os.path.join(out_dir, "data", "fa_ai.json")
+    try:
+        cache = json.load(open(path, encoding="utf-8"))
+    except Exception:
+        cache = {}
+    need = []
+    for x in items:
+        det = x.get("_detail") or {}
+        for field in ("overview", "tagline"):
+            txt = (det.get(field) or "").strip()
+            if not txt or FA_RE.search(txt) or not re.search(r"[A-Za-z]{3}", txt):
+                continue
+            src = re.sub(r"\s+", " ", txt)[:700]
+            hit = cache.get(src)
+            if hit:
+                det[field + "_en"] = det.get(field + "_en") or txt
+                det[field] = hit
+            else:
+                need.append((x, field, src, txt))
+    # Most visible titles first (hero/trending, free, popular).
+    need.sort(key=lambda n: (n[0].get("tr") is None, not n[0].get("play"), -(n[0].get("pop") or 0)))
+    STATUS["overviews_missing_fa"] = len(need)
+    if not need or not (os.environ.get("GROQ_API_KEY") or os.environ.get("AI_API_KEY")):
+        return 0
+    started, done = time.time(), 0
+    todo = need[:budget_items]
+    for j in range(0, len(todo), 8):
+        if time.time() - started > budget_sec:
+            break
+        chunk = todo[j:j + 8]
+        try:
+            out = _ai_retry([c[2] for c in chunk], "film/series synopses")
+        except Exception as exc:
+            STATUS["translation_errors"].append(f"overviews: {type(exc).__name__}: {exc}"[:300])
+            break
+        if out is None:
+            break
+        for (x, field, src, txt), fa in zip(chunk, out):
+            if fa and FA_RE.search(fa) and fa != src:
+                cache[src] = fa
+                det = x["_detail"]
+                det[field + "_en"] = det.get(field + "_en") or txt
+                det[field] = fa
+                done += 1
+        time.sleep(2)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(cache, fh, ensure_ascii=False, separators=(",", ":"))
+    STATUS["overviews_translated"] = done
+    print(f"Persian synopses: {done} translated now, {len(need) - done} still English")
+    return done
 
 
 def write_status(out_dir, meta):
@@ -793,14 +868,7 @@ def translate_subs(out_dir, budget_files=3, budget_sec=600):
         try:
             fa_texts = []
             for j in range(0, len(texts), 40):
-                for attempt in range(4):  # free tiers rate-limit (HTTP 429): wait and retry
-                    try:
-                        part = _ai_translate(texts[j:j + 40])
-                        break
-                    except urllib.error.HTTPError as he:
-                        if he.code != 429 or attempt == 3:
-                            raise
-                        time.sleep(20 * (attempt + 1))
+                part = _ai_retry(texts[j:j + 40], "film subtitle lines")
                 if part is None:
                     raise RuntimeError("no provider")
                 fa_texts += part
@@ -1095,6 +1163,7 @@ def main():
         items = attach_media(items, args.out)
         if translate_subs(args.out):
             refresh_subs(items, args.out)
+        translate_overviews(items, args.out)
     if tmdb_count < 50 and not args.from_legacy:
         print("Too few TMDB titles; keeping the previous catalog.", file=sys.stderr)
         return 1
