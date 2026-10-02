@@ -210,12 +210,17 @@ def tmdb_title(api, typ, tid, tags, trend_rank):
     tagline = (d.get("tagline") or "").strip()
     title_en, overview_en, tagline_en = "", "", ""
     try:  # English data for the English version of the site
-        e = api.get(path, {"language": "en-US"})
+        e = api.get(path, {"language": "en-US", "append_to_response": "credits"})
         title_en = e.get("title") or e.get("name") or ""
         overview_en = (e.get("overview") or "").strip()
         tagline_en = (e.get("tagline") or "").strip()
     except Exception:
-        pass
+        e = {}
+    ec = e.get("credits") or {}
+    en_names = {p["id"]: p["name"] for p in ec.get("cast", []) + ec.get("crew", []) if p.get("id") and p.get("name")}
+    for p in e.get("created_by", []) or []:
+        if p.get("id") and p.get("name"):
+            en_names[p["id"]] = p["name"]
     if not overview:
         overview = overview_en
     if not fa:
@@ -225,16 +230,20 @@ def tmdb_title(api, typ, tid, tags, trend_rank):
     if not d.get("poster_path"):
         return None
     credits = d.get("credits") or {}
-    cast = [{"name": p["name"], "role": p.get("character", ""),
-             "photo": p.get("profile_path") or ""}
-            for p in credits.get("cast", [])[:12] if p.get("name")]
-    crew = []
-    for p in credits.get("crew", []):
-        if p.get("job") in ("Director",) and p.get("name") not in crew:
-            crew.append(p["name"])
-    for p in d.get("created_by", []) or []:
+    cast = []
+    for p in credits.get("cast", [])[:12]:
+        if not p.get("name"):
+            continue
+        c = {"name": p["name"], "role": p.get("character", ""), "photo": p.get("profile_path") or ""}
+        if en_names.get(p.get("id")) and en_names[p["id"]] != p["name"]:
+            c["en"] = en_names[p["id"]]
+        cast.append(c)
+    crew, crew_en = [], []
+    people = [p for p in credits.get("crew", []) if p.get("job") == "Director"] + list(d.get("created_by", []) or [])
+    for p in people:
         if p.get("name") and p["name"] not in crew:
             crew.append(p["name"])
+            crew_en.append(en_names.get(p.get("id")) or p["name"])
     trailer = ""
     vids = (d.get("videos") or {}).get("results", [])
     for want in ("Trailer", "Teaser"):
@@ -290,6 +299,7 @@ def tmdb_title(api, typ, tid, tags, trend_rank):
         "runtime": d.get("runtime") or (d.get("episode_run_time") or [None])[0],
         "status": d.get("status") or "", "seasons": seasons,
         "episodes": d.get("number_of_episodes"), "crew": crew[:4],
+        "crew_en": crew_en[:4] if crew_en != crew else [],
         "countries": [c.get("iso_3166_1") for c in d.get("production_countries", []) or []][:3],
         "cast": cast, "trailer": trailer, "watch": watch, "recs": recs,
         "tmdb": f"https://www.themoviedb.org/{'movie' if typ == 'm' else 'tv'}/{tid}",
@@ -713,13 +723,23 @@ def _ai_translate(lines):
               + "\n".join(f"{i + 1}. {t}" for i, t in enumerate(lines)))
     groq, gem = os.environ.get("GROQ_API_KEY", "").strip(), os.environ.get("AI_API_KEY", "").strip()
     if groq:
-        body = {"model": os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile"), "temperature": 0.2,
-                "messages": [{"role": "user", "content": prompt}]}
-        req = urllib.request.Request("https://api.groq.com/openai/v1/chat/completions", data=json.dumps(body).encode(),
-                                     headers={"Authorization": f"Bearer {groq}", "Content-Type": "application/json",
-                                              "User-Agent": "nabz-film/2.0"})
-        with urllib.request.urlopen(req, timeout=90) as r:
-            out = json.load(r)["choices"][0]["message"]["content"]
+        out = None
+        models = [m for m in (os.environ.get("GROQ_MODEL", ""), "openai/gpt-oss-120b", "openai/gpt-oss-20b") if m]
+        for n, model in enumerate(models):  # Groq retires models often: fall through to the next one
+            body = {"model": model, "temperature": 0.2, "messages": [{"role": "user", "content": prompt}]}
+            if model.startswith("openai/gpt-oss"):
+                body["reasoning_effort"] = "low"
+            req = urllib.request.Request("https://api.groq.com/openai/v1/chat/completions", data=json.dumps(body).encode(),
+                                         headers={"Authorization": f"Bearer {groq}", "Content-Type": "application/json",
+                                                  "User-Agent": "nabz-film/2.0"})
+            try:
+                with urllib.request.urlopen(req, timeout=120) as r:
+                    out = json.load(r)["choices"][0]["message"]["content"]
+                break
+            except urllib.error.HTTPError as he:
+                if he.code in (400, 404) and n < len(models) - 1:
+                    continue
+                raise
     elif gem:
         body = {"contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"temperature": 0.2}}
         model = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
@@ -965,7 +985,7 @@ def static_page_en(item, detail, by_key):
         facts.append(f"★ {item['r']}")
     if detail.get("runtime"):
         facts.append(f"{detail['runtime']} min")
-    cast = "".join(f'<li>{esc(c["name"])}<small>{esc(c.get("role", ""))}</small></li>'
+    cast = "".join(f'<li>{esc(c.get("en") or c["name"])}<small>{esc(c.get("role", ""))}</small></li>'
                    for c in detail.get("cast", [])[:10])
     recs = "".join(f'<a href="{esc(r)}.html">{esc(by_key[r].get("ten") or by_key[r].get("en") or by_key[r]["fa"])}</a>'
                    for r in detail.get("recs", []) if r in by_key)[:4000]
