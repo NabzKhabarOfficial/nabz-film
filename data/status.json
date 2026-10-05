@@ -1,5 +1,5 @@
 {
- "built": 1791183202,
+ "built": 1791204402,
  "count": 1165,
  "free": 186,
  "ai_key": "groq",
@@ -12,6 +12,6 @@
  ],
  "translated": [],
  "translation_errors": [],
- "overviews_translated": 7,
- "overviews_missing_fa": 7
+ "overviews_translated": 5,
+ "overviews_missing_fa": 5
 }
