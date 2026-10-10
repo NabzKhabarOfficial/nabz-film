@@ -1,6 +1,6 @@
 {
- "built": 1791571372,
- "count": 1171,
+ "built": 1791593621,
+ "count": 1190,
  "free": 188,
  "ai_key": "groq",
  "subtitle_files": 7,
@@ -14,6 +14,6 @@
  "translation_errors": [
   "overviews: HTTPError: HTTP Error 429: Too Many Requests"
  ],
- "overviews_translated": 12,
- "overviews_missing_fa": 13
+ "overviews_translated": 18,
+ "overviews_missing_fa": 22
 }
