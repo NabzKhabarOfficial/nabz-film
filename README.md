@@ -1,6 +1,6 @@
 # نبض فیلم | NABZ FILM
 
-کاتالوگ دوزبانه (فارسی/انگلیسی) فیلم و سریال با خلاصه داستان، بازیگران، تریلر رسمی و جای تماشای قانونی، به‌علاوه فیلم‌های کامل رایگان (مالکیت عمومی یا Creative Commons) که با پلیر اختصاصی، مستقیم از Internet Archive و بدون وابستگی به یوتیوب پخش می‌شوند.
+کاتالوگ دوزبانه (فارسی/انگلیسی) فیلم و سریال با خلاصه داستان، بازیگران، تریلر رسمی و جای تماشای قانونی، به‌علاوه فیلم‌های کامل رایگان (مالکیت عمومی یا Creative Commons) که با پلیر اختصاصی، مستقیم از Internet Archive و بدون وابستگی به یوتیوب پخش می‌شوند. سایت هیچ لینک دانلودی ندارد.
 
 🌐 سایت: https://nabzkhabarofficial.github.io/nabz-film/
 
@@ -22,7 +22,7 @@
 - `t/` و `en/t/` صفحه‌های ایستای عناوین
 - `scripts/build_catalog.py` سازنده‌ی کاتالوگ
 - `sitemap.xml` ، `robots.txt` ، `manifest.webmanifest` ، `404.html`
-- `app.js` (ریشه) و `catalog.json` نسخه‌ی قدیمی v1 هستند و فقط برای سازگاری نگه داشته شده‌اند
+- `catalog.json` و `data.js` فقط پشتیبان هستند
 
 ## خودکارسازی
 
@@ -41,6 +41,6 @@ python scripts/build_catalog.py --out .
 
 - پخش کامل فقط برای آثار مالکیت عمومی یا دارای مجوز Creative Commons.
 - برای سایر عناوین فقط تریلر رسمی و لینک سرویس‌های قانونی (JustWatch از طریق TMDB).
-- هیچ فایل غیرمجازی در سایت قرار نمی‌گیرد.
+- هیچ فایل غیرمجازی در سایت قرار نمی‌گیرد و هیچ لینک دانلودی نیست.
 
 This product uses the TMDB API but is not endorsed or certified by TMDB. Streaming availability data is provided by JustWatch.
