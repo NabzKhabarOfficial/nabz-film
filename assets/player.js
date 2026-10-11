@@ -18,8 +18,7 @@ cc:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3" fil
 gear:'<svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L15 3.5h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2.1-1.6zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg>',
 pip:'<svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="12" y="11" width="7" height="6" rx="1.2"/></svg>',
 full:'<svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-exit:'<svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-dl:'<svg viewBox="0 0 24 24"><path d="M12 3v11m0 0l-4.5-4.5M12 14l4.5-4.5M4 17v3h16v-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
+exit:'<svg viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'};
 
 function pickDefault(src){
   const pref=LS.get("np:q",null);
@@ -102,7 +101,7 @@ function mount(el,o){
   V.addEventListener("ended",()=>{LS.set(key,0);R.classList.add("np-show")});
   V.addEventListener("error",()=>{if(!V.currentSrc&&!V.src)return;tried.add(cur.src);const next=src.find(s=>!tried.has(s.src)&&s.h<=cur.h)||src.find(s=>!tried.has(s.src));
     if(next){setSrc(next,true);flash("<span>Switched to "+esc(next.label)+"</span>");return}
-    R.classList.remove("np-load");const e=$(".np-err");e.hidden=false;e.innerHTML=`<b>Playback failed</b><p>archive.org may be slow or blocked on your connection. Try a lower quality or another network, or download the file directly.</p>${o.page?`<a href="${esc(o.page)}" target="_blank" rel="noopener">Film page ↗</a>`:""}<a href="${esc(src[src.length-1].src)}" target="_blank" rel="noopener" download>Direct download ↓</a>`});
+    R.classList.remove("np-load");const e=$(".np-err");e.hidden=false;e.innerHTML=`<b>Playback failed</b><p>archive.org may be slow or blocked on your connection. Try a lower quality or another network.</p>${o.page?`<a href="${esc(o.page)}" target="_blank" rel="noopener">Film page ↗</a>`:""}`});
 
   /* progress bar */
   const pos=e=>{const r=prog.getBoundingClientRect(),x=(e.touches?e.touches[0].clientX:e.clientX);return Math.min(1,Math.max(0,(x-r.left)/r.width))};
@@ -126,8 +125,7 @@ function mount(el,o){
     if(kind==="main"){menu.innerHTML=`<div class="np-mh">Settings</div>
       <button data-go="q"><span>Quality</span><em>${esc(cur.label)} ›</em></button>
       <button data-go="speed"><span>Playback speed</span><em>${rate(V.playbackRate)} ›</em></button>
-      ${subs.length?`<button data-go="subs"><span>Subtitles</span><em>${subOn===null?"Off":esc(subName(subs[subOn]))} ›</em></button><button data-go="size"><span>Subtitle size</span><em>${SZ[subSize]} ›</em></button>`:""}
-      <a href="${esc(cur.src)}" target="_blank" rel="noopener" download><span>${I.dl} Download this quality</span><em>${mb(cur.size)}</em></a>`}
+      ${subs.length?`<button data-go="subs"><span>Subtitles</span><em>${subOn===null?"Off":esc(subName(subs[subOn]))} ›</em></button><button data-go="size"><span>Subtitle size</span><em>${SZ[subSize]} ›</em></button>`:""}`}
     if(kind==="q")menu.innerHTML=`<div class="np-mh"><button data-go="main">‹</button> Quality</div>`+src.map((s,i)=>`<button data-q="${i}" class="${s===cur?"on":""}"><span>${esc(s.label)}${s.h>=720?' <b class="np-hd">HD</b>':""}</span><em>${mb(s.size)}</em></button>`).join("")+`<p class="np-hint">Slow connection? Pick a lower quality.</p>`;
     if(kind==="speed")menu.innerHTML=`<div class="np-mh"><button data-go="main">‹</button> Playback speed</div>`+[0.5,0.75,1,1.25,1.5,2].map(r=>`<button data-r="${r}" class="${V.playbackRate===r?"on":""}"><span>${rate(r)}</span></button>`).join("");
     if(kind==="subs")menu.innerHTML=`<div class="np-mh">${menu.dataset.from==="cc"?"":'<button data-go="main">‹</button> '}Subtitles</div><button data-s="-1" class="${subOn===null?"on":""}"><span>Off</span></button>`+subs.map((s,i)=>`<button data-s="${i}" class="${subOn===i?"on":""}"><span>${esc(subName(s))}</span></button>`).join("");
