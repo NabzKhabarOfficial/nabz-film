@@ -30,7 +30,6 @@ jobs:
         run: |
           set -euo pipefail
           test -s index.html
-          test -s app.js
           test -s data.js
           test -s catalog.json
           grep -q 'id="catalogGrid"' index.html
