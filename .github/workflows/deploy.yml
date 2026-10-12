@@ -32,7 +32,7 @@ jobs:
           test -s index.html
           test -s data.js
           test -s catalog.json
-          grep -q 'id="catalogGrid"' index.html
+          grep -q 'id="app"' index.html
           grep -q 'NABZ FILM' index.html
 
       - name: Setup Pages
