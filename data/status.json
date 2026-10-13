@@ -1,6 +1,6 @@
 {
- "built": 1791873991,
- "count": 1181,
+ "built": 1791896101,
+ "count": 1169,
  "free": 189,
  "ai_key": "groq",
  "subtitle_files": 7,
@@ -11,7 +11,9 @@
   "open-cosmos-laundromat.fa.vtt"
  ],
  "translated": [],
- "translation_errors": [],
- "overviews_translated": 0,
- "overviews_missing_fa": 0
+ "translation_errors": [
+  "overviews: HTTPError: HTTP Error 429: Too Many Requests"
+ ],
+ "overviews_translated": 12,
+ "overviews_missing_fa": 17
 }
