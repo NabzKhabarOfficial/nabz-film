@@ -69,7 +69,7 @@ OPEN_MOVIES = [
     ("open-sintel", "Sintel", "سینتل", 2010, ["انیمیشن", "فانتزی", "ماجراجویی"],
      "دختری تنها برای پیدا کردن بچه‌اژدهایی که نجاتش داده بود، به سفری خطرناک می‌رود."),
     ("open-tears-of-steel", "Tears of Steel", "اشک‌های فولادی", 2012, ["علمی‌تخیلی", "اکشن"],
-     "گروهی از دانشمندان در آمستردامِ آینده تلاش می‌کنند جهان را از ربات‌های ویرانگر نجات دهند."),
+     "گروهی از دانشمندان در آمستردامِ آینده تلاش می‌کنند جهان را از ربات‌های ویران‌گر نجات دهند."),
     ("open-cosmos-laundromat", "Cosmos Laundromat", "رخت‌شوی‌خانه کیهان", 2015, ["انیمیشن", "کمدی", "فانتزی"],
      "گوسفندی ناامید در جزیره‌ای دورافتاده با فروشنده‌ای عجیب آشنا می‌شود که زندگی‌های دیگری به او پیشنهاد می‌دهد."),
     ("open-spring", "Spring", "بهار", 2019, ["انیمیشن", "فانتزی"],
@@ -365,7 +365,7 @@ def collect_archive():
                 "ia": ident, "silent": "silent" in item["_subj"].lower(),
             }
             out.append(item)
-    print(f"Internet Archive playable titles: {len(out)}")
+    print(f"Internet Archive titles: {len(out)}")
     return out
 
 
@@ -396,7 +396,7 @@ def enrich_archive(api, archive, tmdb_items):
     """
     try:
         gl = api.get("/genre/movie/list", {"language": "fa-IR"}).get("genres", [])
-        gmap = {g["id"]: genre_fa(g["name"]) for g in gl}
+        gmap = {g["id"]: genre_fa(g["name"]) for g in gl if genre_fa(g.get("name"))}
     except Exception:
         gmap = {}
     by_key = {x["k"]: x for x in tmdb_items}
@@ -452,10 +452,15 @@ def enrich_archive(api, archive, tmdb_items):
                 overview = (api.get(f"/movie/{hit['id']}", {"language": "en-US"}).get("overview") or "").strip()
             except Exception:
                 overview = ""
+        mapped_g = [gmap[g] for g in hit.get("genre_ids", []) if gmap.get(g)]
+        dedup_g = []
+        for g in mapped_g:
+            if g and g not in dedup_g:
+                dedup_g.append(g)
         a.update({
             "fa": hit.get("title") or a["fa"], "en": hit.get("original_title") or a["en"],
             "y": year_of(hit.get("release_date")) or a.get("y"),
-            "g": [gmap[g] for g in hit.get("genre_ids", []) if g in gmap][:3] or a["g"],
+            "g": dedup_g[:3] or [g for g in (a.get("g") or []) if g] or ["کلاسیک"],
             "r": round(rating, 1), "v": votes, "w": weighted(rating, votes),
             "p": hit.get("poster_path") or a["p"], "b": hit.get("backdrop_path") or "",
         })
@@ -839,6 +844,7 @@ def translate_overviews(items, out_dir, budget_items=300, budget_sec=900):
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(cache, fh, ensure_ascii=False, separators=(",", ":"))
     STATUS["overviews_translated"] = done
+    STATUS["overviews_missing_fa"] = max(0, len(need) - done)
     print(f"Persian synopses: {done} translated now, {len(need) - done} still English")
     return done
 
@@ -919,7 +925,7 @@ def from_legacy(path):
             backdrop = backdrop.replace(IMG + size, "")
         item = {
             "k": key, "t": typ, "fa": x.get("fa") or x.get("title") or "", "en": x.get("title") or "",
-            "y": x.get("year"), "g": [genre_fa(g) for g in (x.get("genres") or x.get("genre") or [])],
+            "y": x.get("year"), "g": [g for g in (genre_fa(g) for g in (x.get("genres") or x.get("genre") or [])) if g],
             "r": x.get("rating") or 0, "v": 0, "pop": 0, "p": poster, "b": backdrop, "lang": "",
             "tags": ["free"] if playable else [], "w": float(x.get("rating") or 0) * 0.9,
         }
@@ -997,11 +1003,12 @@ def static_page(item, detail, by_key):
                    for c in detail.get("cast", [])[:10])
     recs = "".join(f'<a href="{esc(r)}.html">{esc(by_key[r]["fa"])}</a>'
                    for r in detail.get("recs", []) if r in by_key)[:4000]
+    clean_g = [g for g in (item.get("g") or []) if g and str(g).strip()]
     ld = {"@context": "https://schema.org", "@type": "Movie" if item["t"] == "m" else "TVSeries",
           "name": title, "alternateName": item.get("en") or None, "image": poster or None,
           "description": overview[:500] or None, "url": url,
           "datePublished": str(item["y"]) if item.get("y") else None,
-          "genre": item.get("g") or None}
+          "genre": clean_g or None}
     if item.get("r") and item.get("v"):
         ld["aggregateRating"] = {"@type": "AggregateRating", "ratingValue": item["r"],
                                  "ratingCount": item["v"], "bestRating": 10}
@@ -1019,7 +1026,7 @@ def static_page(item, detail, by_key):
 <main class="sp"><div class="sp-cover" style="background-image:url('{esc(backdrop)}')"></div>
 <article class="sp-body"><img class="sp-poster" src="{esc(poster)}" alt="پوستر {esc(title)}" loading="lazy">
 <div><span class="eyebrow">{kind}</span><h1>{esc(title)}</h1><p class="en">{esc(item.get('en') if item.get('en') != title else '')}</p>
-<div class="facts">{''.join(f'<span>{esc(f)}</span>' for f in facts)}</div><p class="genres">{esc(' • '.join(item.get('g') or []))}</p>
+<div class="facts">{''.join(f'<span>{esc(f)}</span>' for f in facts)}</div><p class="genres">{esc(' • '.join(clean_g))}</p>
 <p class="overview">{esc(overview or 'خلاصه‌ای برای این عنوان ثبت نشده است.')}</p></div></article>
 <section class="sp-sec">{play}</section>
 {'<section class="sp-sec"><h2>بازیگران</h2><ul class="sp-cast">' + cast + '</ul></section>' if cast else ''}
@@ -1045,7 +1052,7 @@ def static_page_en(item, detail, by_key):
     backdrop = img(item.get("b"), "w1280") or poster
     overview = detail.get("overview_en") or (detail.get("overview") if not re.search(r"[\u0600-\u06FF]", detail.get("overview") or "") else "")
     desc = (overview[:155] + "…") if len(overview) > 160 else overview
-    genres = [GENRE_EN.get(g, g) for g in item.get("g") or []]
+    genres = [GENRE_EN.get(g, g) for g in (item.get("g") or []) if g and str(g).strip()]
     play = ""
     if detail.get("sources"):
         srcs = "".join(f'<source src="{esc(x["src"])}" type="video/mp4">'
@@ -1116,6 +1123,8 @@ def write_all(items, out_dir):
     for x in items:
         detail = x.pop("_detail", {}) or {}
         x.pop("_subj", None)
+        clean_g = [g for g in (x.get("g") or []) if g and str(g).strip()]
+        x["g"] = clean_g or (["کلاسیک"] if x.get("play") else [])
         detail["recs"] = [r for r in detail.get("recs", []) if r in by_key][:12]
         row = {k: v for k, v in x.items() if v not in (None, "", [], 0) or k in ("k", "t")}
         light.append(row)
@@ -1133,10 +1142,11 @@ def write_all(items, out_dir):
     with open(os.path.join(out_dir, "data/list.json"), "w", encoding="utf-8") as fh:
         json.dump({"meta": meta, "items": light}, fh, ensure_ascii=False, separators=(",", ":"))
 
-    urls = [f"<url><loc>{SITE}</loc><changefreq>daily</changefreq><priority>1.0</priority></url>"]
-    urls.append(f"<url><loc>{SITE}?lang=en</loc><changefreq>daily</changefreq><priority>0.9</priority></url>")
-    urls += [f"<url><loc>{SITE}t/{esc(x['k'])}.html</loc><changefreq>weekly</changefreq></url>" for x in light]
-    urls += [f"<url><loc>{SITE}en/t/{esc(x['k'])}.html</loc><changefreq>weekly</changefreq></url>" for x in light]
+    today = time.strftime("%Y-%m-%d", time.gmtime())
+    urls = [f"<url><loc>{SITE}</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>"]
+    urls.append(f"<url><loc>{SITE}?lang=en</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>")
+    urls += [f"<url><loc>{SITE}t/{esc(x['k'])}.html</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq></url>" for x in light]
+    urls += [f"<url><loc>{SITE}en/t/{esc(x['k'])}.html</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq></url>" for x in light]
     with open(os.path.join(out_dir, "sitemap.xml"), "w", encoding="utf-8") as fh:
         fh.write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
                  + "".join(urls) + "</urlset>")
