@@ -1,6 +1,6 @@
 {
- "built": 1794866741,
- "count": 1172,
+ "built": 1794902457,
+ "count": 1175,
  "free": 188,
  "ai_key": "groq",
  "subtitle_files": 7,
@@ -12,6 +12,6 @@
  ],
  "translated": [],
  "translation_errors": [],
- "overviews_translated": 16,
+ "overviews_translated": 3,
  "overviews_missing_fa": 0
 }
